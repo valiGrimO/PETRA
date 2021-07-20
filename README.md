@@ -6,4 +6,4 @@ Les modèles tridimensionnels sont aujourd'hui très utilisés pour documenter l
 
 Le parti-pris que nous adoptons est celui d'extraire les informations une à une sous la forme d'un corpus d'images superposables afin d'établir une description géométrale de l'objet d'étude. Il est en effet bien plus facile de travailler en 2D plutôt qu'en 3D — de même que le traitement de texte (1D) est bien plus accessible que les outils de graphisme (2D). La réduction du modèle 3D en image 2D est menée selon les règles de représentation qui associent les vues en plan aux élévations, règles établies à Renaissance et qui permettent de comparer efficacement les objets d'études entre eux.
 
-👉 Voir la documentation complète ici: <https://valigrimo.github.io/PETrA>.
+*Voir la documentation complète ici*: <https://valigrimo.github.io/PETrA>.
