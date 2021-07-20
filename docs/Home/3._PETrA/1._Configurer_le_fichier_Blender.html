@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<!-- based on a Pen by Devilish Alchemist @ http://codepen.io/devilishalchemist/pen/LERvpM -->
+<head>
+  <meta charset="UTF-8">
+  <title>3.1. Configurer le fichier Blender</title>
+
+  <link rel="stylesheet" href="../../_resources/css/normalize.min.css">
+  <link rel="stylesheet" href="../../_resources/css/whhg.css">
+  <link rel="stylesheet" href="../../_resources/css/fonts.css">
+  <link rel="stylesheet" href="../../_resources/css/style.css">
+
+</head>
+
+<body>
+  <div class="page">
+
+    <span id="view-toc" class="tooltip">&laquo; view index</span>
+    <span id="view-content" class="tooltip">return to content &raquo;</span>
+    <span id="view-next" class="tooltip">next page &raquo;</span>
+    <span id="view-prev" class="tooltip">&laquo; previous page</span>
+
+    <span class="menu_toggle">
+      <i class="menu_open icon icon-th-list"></i>
+      <i class="menu_close icon icon-import"></i>
+    </span>
+
+    <div id="navigation">
+      <ul>
+<li><a href="../../Home.html" title="Home" class="page">Home</a>
+<ul>
+<li><a href="../1._Acquisition.html" title="1. Acquisition" class="page">1. Acquisition</a></li>
+<li><a href="../2._Créer_les_modèles_3D.html" title="2. Créer les modèles 3D" class="page">2. Créer les modèles 3D</a></li>
+<li><a href="../3._PETrA.html" title="3. PETrA" class="page">3. PETrA</a>
+<ul>
+<li><b>1. Configurer le fichier Blender</b></li>
+<li><a href="./2._Produire_les_différentes_couches_d_information.html" title="2. Produire les différentes couches d information" class="page">2. Produire les différentes couches d information</a></li>
+<li><a href="./3._Cas_particuliers.html" title="3. Cas particuliers" class="page">3. Cas particuliers</a></li>
+</ul>
+</li>
+<li><a href="../4._ICEO.html" title="4. ICEO" class="page">4. ICEO</a></li>
+<li><a href="../5._Mettre_en_page_la_description_géométrale.html" title="5. Mettre en page la description géométrale" class="page">5. Mettre en page la description géométrale</a></li>
+<li><a href="../6._Logiciels.html" title="6. Logiciels" class="page">6. Logiciels</a></li>
+<li><a href="../7._Gestion_de_la_documentation.html" title="7. Gestion de la documentation" class="page">7. Gestion de la documentation</a></li>
+</ul></li>
+</ul>
+
+      <span class="zimversion">
+        <small>built with</small><br><strong>Zim 0.72.0</strong>
+        <br>
+        --
+        <br>
+        <a href="https://github.com/scar45/ResponsivePivot">template<br> on Github<br><i class="icon icon-github"></i></a>
+      </span>
+    </div>
+
+    <main class="content">
+      <div class="content_inner">
+        <article>
+          <header>
+            <a id="navPrev" href='../3._PETrA.html'><span><i class="icon icon-chevron-left"></i></span></a>
+
+            <a id="navHome" href='../../Home.html'><span><i class="icon icon-homealt"></i></span></a>
+
+            <a id="navNext" href='./2._Produire_les_différentes_couches_d_information.html'><span><i class="icon icon-chevron-right"></i></span></a>
+          </header>
+
+          <section>
+            <div class="page-title">
+              <h1><i class="icon icon-bookmarkalt"></i> 3.1. Configurer le fichier Blender <a name='Home:3. PETrA:1. Configurer le fichier Blender'></a></h1>
+            </div>
+            <div class="fade fade-top"></div>
+            <div class="page-body">
+              <p>
+Toute la préparation de la scène se réalise dans l'onglet <b>1.SceneConfigurator</b>
+</p>
+
+<h2>Importer le maillage</h2>
+
+<p>
+<b>Importer un fichier *.OBJ</b><br>
+Dans la fenêtre d'import, ne pas oublier d'indiquer que "y is forward". Sinon, il faudra mettre à 0 toutes les valeurs de rotation de l'objet importé.<br>
+<a href="./importOBJ-HD.gif"><img src="./importOBJ.gif"></a>
+</p>
+
+<p>
+<b>Importer un fichier *.PLY</b><br>
+Rien de spécial
+</p>
+
+<p>
+<b>Note :</b> <i>Il est bien plus simple de travailler avec un fichier au format *.ply avec des vertex color.</i>
+</p>
+
+<h2>Configurer la boite englobante</h2>
+
+<p>
+<ol type="1" start="1">
+<li>Positionner le curseur 3D sur le maillage importé (Shift + clic droit)</li>
+<li>Dans l'outliner, sélectionner la boîte englobante</li>
+<li>Avec `F3`, chercher la fonction `Selection To Cursor`. La boîte englobante est maintenant proche de l'objet à documenter.</li>
+</ol>
+<a href="./SelectionTo3DCursor-HD.gif"><img src="./SelectionTo3DCursor.gif"></a><br>
+<ol type="1" start="4">
+<li>Affiner le positionnement, l'orientation et les dimensions de la boîte englobante autour de l'objet à documenter. Cette opération peut être réalisée en plusieurs temps :
+<ol type="a" start="1">
+<li>avec les vues prédéfinies, positionner, orienter et dimensionner grossièrement la boite englobante</li>
+<li>avec le panneau latéral droit, onglet `Render`, basculer entre les différentes caméras pour ajuster les dimensions</li>
+</ol>
+</li>
+<li>Arrondir les différentes valeurs à deux décimales maximum (pour plus de commodité dans la copie des différentes valeurs).</li>
+<li>Sélectionner la sphère témoin et :
+<ol type="a" start="1">
+<li>la redimensionner pour qu'elle redevienne parfaitement sphérique</li>
+<li>la positionner pour qu'elle soit vue depuis toutes les caméras, sans occulter quelque partie de l'objet documenté.</li>
+</ol></li>
+</ol>
+<a href="./SphereConfig-HD.gif"><img src="./SphereConfig.gif"></a><br>
+<ol type="1" start="7">
+<li>Noter enfin les différentes valeurs correspondant à la position, l'orientation et les dimensions de la boîte englobante dans <b>le tableur</b> (dossier `5_descriptionGeometrale\6_[blocPierre]\*.ods`)</li>
+</ol>
+</p>
+
+<h2>Définir les caractéristiques de l'image</h2>
+
+<p>
+Les caractéristiques des images à produire sont obtenues avec le fichier présent dans le dossier `5_descriptionGeometrale/6_[BlocPierre]/calculDimImage_###.ods`.
+</p>
+
+<p>
+Il convient de renseigner les paramètres de la boîte englobante (<b>cadres rouges</b>) :<br>
+<ul>
+<li>la position, </li>
+<li>l'orientation, </li>
+<li>les dimensions.</li>
+</ul>
+</p>
+
+<p>
+Ensuite, les paramètres de la documentation sont définis (<b>cadre vert</b>) :<br>
+<ul>
+<li>l'échelle de l'image (ex: `1/5`, `1/10`, `1/20` en général pour les surfaces ornées) influe la taille de l'image image imprimée. Une aide au dimensionnement est placée juste en dessous dans le tableur, pour que l'image produite tienne dans une mise en page de 17 x 21 cm.</li>
+<li>la résolution spatiale de l'image (ex: `1 pixel = 0,8 mm`). Cela assure la qualité de la documentation de l'objet. Pour assurer une bonne qualité d'impression, il faut au moins 300 ppi.</li>
+</ul>
+</p>
+
+<p>
+<a href="./renseignementCalc-HD.png"><img src="./renseignementCalc.png"></a>
+</p>
+
+<h2>Appliquer ces caractéristiques aux caméras</h2>
+
+<p>
+<ol type="1" start="1">
+<li>Sélectionner la caméra</li>
+<li>Renseigner les dimensions en pixels de l'image produite par cette caméra.</li>
+<li>Enregistrer les dimensions en pixels de l'image.</li>
+<li>Renseigner l'<i>orthographic scale</i>. Il faut choisir la plus grande des deux valeurs présentes dans le tableur.</li>
+<li>Si le Clipping Start et le Clipping End ont été modifiés, renseigner les nouvelles valeurs dans le tableur.</li>
+</ol>
+</p>
+
+<p>
+<a href="./ParamCamera-HD.png"><img src="./ParamCamera.png"></a>
+</p>
+
+<p>
+Répéter l'opération pour l'ensemble des caméras de la scène.
+</p>
+
+<p>
+<b>NOTE :</b><i> Avec le développement du plugin envisagé, ces deux dernières étapes de renseignement et de configuration seront grandement simplifiées.</i>
+</p>
+
+            </div>
+            <div class="fade fade-bottom"></div>
+          </section>
+
+          <footer>
+              <a href="#" class="scrollToTop" title="Back to top"><i class="icon icon-uploadalt"></i></a>
+          </footer>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../_resources/js/jquery.v2.1.3.min.js"></script>
+  <script src="../../_resources/js/index.js"></script>
+
+</body>
+</html>
