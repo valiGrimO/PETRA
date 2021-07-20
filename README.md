@@ -1,4 +1,4 @@
-![PETrA Logo](https://raw.githubusercontent.com/valiGrimO/PETrA/blob/main/docs/Home/logo.png)
+![PETrA Logo](https://raw.githubusercontent.com/valiGrimO/PETrA/main/docs/Home/logo.png)
 
 # Situation initiale
 
