@@ -32,19 +32,6 @@ class BuildPetraSetup(bpy.types.Operator):
         return {"FINISHED"}
 
 
-class BuildPetraSetup(bpy.types.Operator):
-
-    bl_label = "Build PETRA Setup"
-    bl_idname = "petra.build_petra_setup"
-    bl_description = "Build the initial PETRA Setup."
-    bl_context = "objectmode"
-    bl_options = {"REGISTER", "INTERNAL"}
-
-    def execute(self, context):
-        initial_setup()
-        return {"FINISHED"}
-
-
 # --------------------------------------------------
 # Panels
 # --------------------------------------------------
