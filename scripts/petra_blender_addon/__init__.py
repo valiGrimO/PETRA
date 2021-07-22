@@ -12,18 +12,20 @@ bl_info = {
 }
 
 # --------------------------------------------------
-# Blender Naming conventions
+# Blender UI Scripting Overview
 # --------------------------------------------------
+#
+# Start here: https://blender.stackexchange.com/a/57332
 #
 # Type abbreviations:
 #
-#    HT – Header
-#    MT – Menu
-#    OT – Operator
-#    PT – Panel
-#    UL – UI list
+#    HT – Header Type
+#    MT – Menu Type
+#    OT – Operator Type
+#    PT – Panel Type
+#    UL – UI List
 #
-# Class names:
+# Class naming convention:
 #
 #   {CATEGORY}_{Type abbreviation}_{name}
 #
@@ -38,6 +40,7 @@ if "setup" not in locals():
     from . import setup
 else:
     importlib.reload(setup)
+
 
 # --------------------------------------------------
 # Operators
@@ -58,6 +61,7 @@ class PETRA_OT_BuildInitialSetup(Operator):
 
 
 class PETRA_OT_ProduceDocumentation(Operator):
+
     bl_idname = "petra.produce_documentation"
     bl_label = "PRODUCE DOCUMENTATION"
     bl_description = "Produce the PETRA Documentation."
@@ -68,6 +72,7 @@ class PETRA_OT_ProduceDocumentation(Operator):
 
 
 class PETRA_OT_ExportSceneParadata(Operator):
+
     bl_idname = "petra.export_scene_paradata"
     bl_label = "Export Scene Paradata"
     bl_description = "Export the scene paradata YAML file."
@@ -78,6 +83,7 @@ class PETRA_OT_ExportSceneParadata(Operator):
 
 
 class PETRA_OT_ExportLayoutInformation(Operator):
+
     bl_idname = "petra.export_layout_information"
     bl_label = "Export Layout Information"
     bl_description = "Export the layout information file."
@@ -87,8 +93,8 @@ class PETRA_OT_ExportLayoutInformation(Operator):
         return {"FINISHED"}
 
 
-# ACTIV & PREVIEW CHOSEN CAMERA ##################################################################################
 class PETRA_OT_ActivateAndPreviewSceneCamera(Operator):
+
     bl_idname = "petra.activate_and_preview_scene_camera"
     bl_label = "Preview Camera"
     bl_description = "Activate and preview camera."
@@ -176,27 +182,26 @@ class PETRA_PT_CameraSetupSettings(Panel):
         self.layout.label(text="Dimensions")
 
         row = self.layout.row(align=True)
-        row.prop(context.scene.render, "resolution_x", text="H")
-        row.prop(context.scene.render, "resolution_y", text="V")
-        self.layout.prop(context.scene.render, "resolution_percentage", text="")
+        render_settings = context.scene.render
+        row.prop(render_settings, "resolution_x", text="H")
+        row.prop(render_settings, "resolution_y", text="V")
+        self.layout.prop(render_settings, "resolution_percentage", text="")
         self.layout.prop(
-            context.scene.render,
-            "use_border",
-            text="Render Region",
-            icon="SHADING_BBOX",
+            render_settings, "use_border", text="Render Region", icon="SHADING_BBOX"
         )
 
         selected_object = bpy.context.object.data
         if not isinstance(selected_object, bpy.types.Camera):
             return
+        selected_camera = selected_object
 
         row = self.layout.row(align=True)
-        row.prop(selected_object, "shift_x", text="Shift H")
-        row.prop(selected_object, "shift_y", text="Shift V")
+        row.prop(selected_camera, "shift_x", text="Shift H")
+        row.prop(selected_camera, "shift_y", text="Shift V")
 
         row = self.layout.row(align=True)
-        row.prop(selected_object, "clip_start", text="Clip Start")
-        row.prop(selected_object, "clip_end", text="Clip End")
+        row.prop(selected_camera, "clip_start", text="Clip Start")
+        row.prop(selected_camera, "clip_end", text="Clip End")
 
 
 class PETRA_PT_MaterialSetup(Panel):
@@ -213,6 +218,7 @@ class PETRA_PT_MaterialSetup(Panel):
 
 
 class PETRA_PT_MaterialSetup_GeneralSettings(Panel):
+
     bl_label = "General Settings"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -225,6 +231,7 @@ class PETRA_PT_MaterialSetup_GeneralSettings(Panel):
 
 
 class PETRA_PT_MaterialSetup_ContourLinesSettings(Panel):
+
     bl_label = "Contour Lines Settings"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -237,6 +244,7 @@ class PETRA_PT_MaterialSetup_ContourLinesSettings(Panel):
 
 
 class PETRA_PT_MaterialSetup_DeviationMapSettings(Panel):
+
     bl_label = "Deviation Map Settings"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
