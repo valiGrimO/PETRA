@@ -46,17 +46,9 @@ node2_nodetree.inputs.new("NodeSocketColor", "R4: Pointiness")
 node2_nodetree.inputs.new("NodeSocketColor", "R5: Aspect")
 node2_nodetree.inputs.new("NodeSocketColor", "R6: Slope")
 
-# hide input values -- Not working
-# bpy.data.node_groups["Hub"].inputs[0].hide_value
-# bpy.data.node_groups["Hub"].inputs[1].hide_value
-# bpy.data.node_groups["Hub"].inputs[2].hide_value
-# bpy.data.node_groups["Hub"].inputs[3].hide_value
-# bpy.data.node_groups["Hub"].inputs[4].hide_value
-# bpy.data.node_groups["Hub"].inputs[5].hide_value
-# bpy.data.node_groups["Hub"].inputs[6].hide_value
-# bpy.data.node_groups["Hub"].inputs[7].hide_value
-# bpy.data.node_groups["Hub"].inputs[8].hide_value
-# bpy.data.node_groups["Hub"].inputs[9].hide_value
+# hide input values
+for node2_input in node2_nodetree.inputs:
+    node2_input.hide_value = True
 
 # create outputs
 node2_out = node2_nodetree.nodes.new("NodeGroupOutput")
@@ -68,13 +60,10 @@ node2_nodetree.outputs.new("NodeSocketColor", "R3")
 node2_nodetree.outputs.new("NodeSocketColor", "R4")
 node2_nodetree.outputs.new("NodeSocketColor", "R5")
 
-# hide output values -- Not working
-# bpy.data.node_groups["Hub"].outputs[0].hide_value
-# bpy.data.node_groups["Hub"].outputs[1].hide_value
-# bpy.data.node_groups["Hub"].outputs[2].hide_value
-# bpy.data.node_groups["Hub"].outputs[3].hide_value
-# bpy.data.node_groups["Hub"].outputs[4].hide_value
-# bpy.data.node_groups["Hub"].outputs[5].hide_value
+# hide output values
+for node2_output in node2_nodetree.outputs:
+    node2_output.hide_value = True
+
 
     # --------------------------------------------------------------
     # H: Covering - NODE H
@@ -179,7 +168,7 @@ nodeHz.base_path = "//tmp"
 nodeHz.format.file_format = "JPEG"
 nodeHz.format.color_mode = "BW"
 nodeHz.format.quality = 100
-# nodeHz.subpath = "Cam-##_H1_Masks" -> how to change the File Subpath?
+nodeHz.file_slots[0].path = "Cam-##_H1_Masks"
 
 #connections
 ## H1
@@ -235,7 +224,7 @@ nodeL1b.base_path = "//tmp"
 nodeL1b.format.file_format = "JPEG"
 nodeL1b.format.color_mode = "BW"
 nodeL1b.format.quality = 100
-# nodeL1b.subpath = "Cam-##_L1_AO" -> how to change the File Subpath?
+nodeL1b.file_slots[0].path = "Cam-##_L1_AO"
 
 
 # connections
