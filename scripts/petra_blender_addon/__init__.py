@@ -1,7 +1,7 @@
 bl_info = {
     "name": "PETRA",
     "author": "Valentin Grimaud",
-    "version": (0, 2, 0),
+    "version": (0, 2, 1),
     "blender": (2, 80, 0),
     "location": "View3D > Sidebar > New Tab",
     "description": "Protocole d'Exploitation des représentations TRidimensionnelles en Archéologie.",
@@ -29,6 +29,11 @@ bl_info = {
 #
 #   {CATEGORY}_{Type abbreviation}_{name}
 #
+# To learn from official examples, see:
+#
+#   https://github.com/blender/blender/tree/master/release/scripts/startup
+#   https://docs.blender.org/api/current
+#
 
 import importlib
 
@@ -47,10 +52,10 @@ else:
 # --------------------------------------------------
 
 
-class PETRA_OT_BuildInitialSetup(Operator):
+class PETRA_OT_build_initial_setup(Operator):
 
-    bl_label = "Build PETRA Setup"
     bl_idname = "petra.build_petra_setup"
+    bl_label = "Build PETRA Setup"
     bl_description = "Build the initial PETRA Setup."
     bl_context = "objectmode"
     bl_options = {"REGISTER", "INTERNAL"}
@@ -60,7 +65,7 @@ class PETRA_OT_BuildInitialSetup(Operator):
         return {"FINISHED"}
 
 
-class PETRA_OT_ProduceDocumentation(Operator):
+class PETRA_OT_produce_documentation(Operator):
 
     bl_idname = "petra.produce_documentation"
     bl_label = "PRODUCE DOCUMENTATION"
@@ -71,7 +76,7 @@ class PETRA_OT_ProduceDocumentation(Operator):
         return {"FINISHED"}
 
 
-class PETRA_OT_ExportSceneParadata(Operator):
+class PETRA_OT_export_scene_paradata(Operator):
 
     bl_idname = "petra.export_scene_paradata"
     bl_label = "Export Scene Paradata"
@@ -82,7 +87,7 @@ class PETRA_OT_ExportSceneParadata(Operator):
         return {"FINISHED"}
 
 
-class PETRA_OT_ExportLayoutInformation(Operator):
+class PETRA_OT_export_layout_information(Operator):
 
     bl_idname = "petra.export_layout_information"
     bl_label = "Export Layout Information"
@@ -93,7 +98,7 @@ class PETRA_OT_ExportLayoutInformation(Operator):
         return {"FINISHED"}
 
 
-class PETRA_OT_ActivateAndPreviewSceneCamera(Operator):
+class PETRA_OT_activate_and_preview_scene_camera(Operator):
 
     bl_idname = "petra.activate_and_preview_scene_camera"
     bl_label = "Preview Camera"
@@ -117,15 +122,19 @@ class PETRA_OT_ActivateAndPreviewSceneCamera(Operator):
 # --------------------------------------------------
 
 
-class PETRA_PT_InitialSetup(Panel):
+class PetraPanelMixin:
 
-    bl_label = "Initial setup"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "PETRA"
 
+
+class PETRA_PT_initial_setup(PetraPanelMixin, Panel):
+
+    bl_label = "Initial setup"
+
     def draw(self, context):
-        self.layout.operator(PETRA_OT_BuildInitialSetup.bl_idname)
+        self.layout.operator(PETRA_OT_build_initial_setup.bl_idname)
         # self.layout.label(text="'Framing Box' location:")
         # self.layout.label(text="Not implemented yet.", icon="INFO")
         # self.layout.label(text="'Framing Box' rotation:")
@@ -134,13 +143,9 @@ class PETRA_PT_InitialSetup(Panel):
         # self.layout.label(text="Not implemented yet.", icon="INFO")
 
 
-class PETRA_PT_CameraSetup(Panel):
+class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
 
-    bl_idname = "PETRA_PT_CameraSetup"
     bl_label = "Camera setup"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "PETRA"
     bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
@@ -170,15 +175,15 @@ class PETRA_PT_CameraSetup(Panel):
             row.prop(camera, "name", text="", emboss=False)
 
 
-class PETRA_PT_CameraSetupSettings(Panel):
+class PETRA_PT_camera_setup_settings(PetraPanelMixin, Panel):
 
     bl_label = "Settings"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "PETRA"
-    bl_parent_id = "PETRA_PT_CameraSetup"
+    bl_parent_id = "PETRA_PT_camera_setup"
 
     def draw(self, context):
+        if "PETRA" not in bpy.data.collections:
+            return
+
         self.layout.label(text="Dimensions")
 
         row = self.layout.row(align=True)
@@ -204,88 +209,72 @@ class PETRA_PT_CameraSetupSettings(Panel):
         row.prop(selected_camera, "clip_end", text="Clip End")
 
 
-class PETRA_PT_MaterialSetup(Panel):
+class PETRA_PT_material_setup(PetraPanelMixin, Panel):
 
-    bl_idname = "PETRA_PT_MaterialSetup"
     bl_label = "Material setup"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "PETRA"
     bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
         self.layout.label(text="Not implemented yet.", icon="INFO")
 
 
-class PETRA_PT_MaterialSetup_GeneralSettings(Panel):
+class PETRA_PT_material_setup_general_settings(PetraPanelMixin, Panel):
 
     bl_label = "General Settings"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "PETRA"
-    bl_parent_id = "PETRA_PT_MaterialSetup"
+    bl_parent_id = "PETRA_PT_material_setup"
     bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
         self.layout.label(text="Not implemented yet.", icon="INFO")
 
 
-class PETRA_PT_MaterialSetup_ContourLinesSettings(Panel):
+class PETRA_PT_material_setup_contour_lines_settings(PetraPanelMixin, Panel):
 
     bl_label = "Contour Lines Settings"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "PETRA"
-    bl_parent_id = "PETRA_PT_MaterialSetup"
+    bl_parent_id = "PETRA_PT_material_setup"
     bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
         self.layout.label(text="Not implemented yet.", icon="INFO")
 
 
-class PETRA_PT_MaterialSetup_DeviationMapSettings(Panel):
+class PETRA_PT_material_setup_deviation_map_settings(PetraPanelMixin, Panel):
 
     bl_label = "Deviation Map Settings"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "PETRA"
-    bl_parent_id = "PETRA_PT_MaterialSetup"
+    bl_parent_id = "PETRA_PT_material_setup"
     bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
         self.layout.label(text="Not implemented yet.", icon="INFO")
 
 
-class PETRA_PT_Rendering(Panel):
+class PETRA_PT_rendering(PetraPanelMixin, Panel):
 
     bl_label = "Rendering"
-    bl_space_type = "VIEW_3D"
-    bl_region_type = "UI"
-    bl_category = "PETRA"
     bl_options = {"DEFAULT_CLOSED"}
 
     def draw(self, context):
         row = self.layout.row(align=True)
         row.scale_y = 2.5
-        row.operator(PETRA_OT_ProduceDocumentation.bl_idname)
-        self.layout.operator(PETRA_OT_ExportSceneParadata.bl_idname)
-        self.layout.operator(PETRA_OT_ExportLayoutInformation.bl_idname)
+        row.operator(PETRA_OT_produce_documentation.bl_idname)
+        self.layout.operator(PETRA_OT_export_scene_paradata.bl_idname)
+        self.layout.operator(PETRA_OT_export_layout_information.bl_idname)
 
 
 classes = (
-    PETRA_OT_ActivateAndPreviewSceneCamera,
-    PETRA_OT_BuildInitialSetup,
-    PETRA_OT_ExportLayoutInformation,
-    PETRA_OT_ExportSceneParadata,
-    PETRA_OT_ProduceDocumentation,
-    PETRA_PT_InitialSetup,
-    PETRA_PT_CameraSetup,
-    PETRA_PT_CameraSetupSettings,
-    PETRA_PT_MaterialSetup,
-    PETRA_PT_MaterialSetup_GeneralSettings,
-    PETRA_PT_MaterialSetup_ContourLinesSettings,
-    PETRA_PT_MaterialSetup_DeviationMapSettings,
-    PETRA_PT_Rendering,
+    PETRA_OT_activate_and_preview_scene_camera,
+    PETRA_OT_build_initial_setup,
+    PETRA_OT_export_layout_information,
+    PETRA_OT_export_scene_paradata,
+    PETRA_OT_produce_documentation,
+    PETRA_PT_initial_setup,
+    PETRA_PT_camera_setup,
+    PETRA_PT_camera_setup_settings,
+    PETRA_PT_material_setup,
+    PETRA_PT_material_setup_general_settings,
+    PETRA_PT_material_setup_contour_lines_settings,
+    PETRA_PT_material_setup_deviation_map_settings,
+    PETRA_PT_rendering,
 )
 
 
