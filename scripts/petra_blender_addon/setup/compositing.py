@@ -303,6 +303,23 @@ nodeC1.location = (400, 280)
 nodeC1.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="C1: Color")
 nodeC1_nodetree = nodeC1.node_tree  # shortcut; akin to `nodetree`
 
+# inside the group
+nodeC1a = nodeC1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeC1a.location = (180, 160)
+
+nodeC1b = nodeC1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeC1b.location = (180, 0)
+
+## File Output
+nodeC1z = nodeC1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeC1z.location = (360, 60)
+nodeC1z.base_path = "//tmp"
+nodeC1z.format.file_format = "PNG"
+nodeC1z.format.color_mode = "RGBA"
+nodeC1z.format.compression = 0
+# nodeR4z.subpath = "Cam-##_C1_PRT" -> how to change the File Subpath?
+# nodeH4z.subpath = "Cam-##_C1_PRV"
+
 # create input
 nodeC1_in = nodeC1_nodetree.nodes.new("NodeGroupInput")
 nodeC1_in.location = (0, 0)
@@ -311,6 +328,10 @@ nodeC1_nodetree.inputs.new("NodeSocketColor", "Cam-##_C1_PRVertex")
 
 # connections
 nodetree.links.new(node2.outputs[0], nodeC1.inputs[1])
+nodeC1_nodetree.links.new(nodeC1_in.outputs[0], nodeC1a.inputs[0])
+nodeC1_nodetree.links.new(nodeC1_in.outputs[1], nodeC1b.inputs[0])
+nodeC1_nodetree.links.new(nodeC1a.outputs[0], nodeC1z.inputs[0])
+# nodeC1_nodetree.links.new(nodeC1b.outputs[0], nodeC1z.inputs[1])
 
 # ------------------------------------------------------------------
 # R1: SHADING
@@ -351,8 +372,59 @@ nodeR2_nodetree.inputs.new("NodeSocketColor", "Cam-##_R2_CDN1")
 nodeR2_nodetree.inputs.new("NodeSocketColor", "Cam-##_R2_CDN2")
 nodeR2_nodetree.inputs.new("NodeSocketColor", "Cam-##_R2_CDN3")
 
+# inside the group
+nodeR2Aa = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeR2Aa.location = (180, 260)
+
+nodeR2Ba = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeR2Ba.location = (180, 40)
+
+nodeR2Ca = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeR2Ca.location = (180, -180)
+
+nodeR2Ab = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR2Ab.location = (360, 420)
+# interpolation: Constant
+# cursor1 (loc = 0.0 ; colorHex = 000000)
+# cursor2 (loc = 0.5 ; colorHex = FFFFFF)
+
+nodeR2Bb = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR2Bb.location = (360, 200)
+# interpolation: Constant
+# cursor1 (loc = 0.0 ; colorHex = 000000)
+# cursor2 (loc = 0.5 ; colorHex = FFFFFF)
+
+nodeR2Cb = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR2Cb.location = (360, -20)
+# interpolation: Constant
+# cursor1 (loc = 0.0 ; colorHex = 000000)
+# cursor2 (loc = 0.5 ; colorHex = FFFFFF)
+
+## File Output
+nodeR2z = nodeR2_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR2z.location = (640, 280)
+nodeR2z.base_path = "//tmp"
+nodeR2z.format.file_format = "JPEG"
+nodeR2z.format.color_mode = "BW"
+nodeR2z.format.quality = 100
+# nodeR2z.subpath = "Cam-##_R4_POI-100pc" -> how to change the File Subpath?
+# nodeR2z.subpath = "Cam-##_R4_POI-25pc"
+# nodeR2z.subpath = "Cam-##_R4_POI-10pc"
+
 # connections
-nodetree.links.new(node2.outputs[2], nodeR2.inputs[0])
+nodetree.links.new(node2.outputs[2], nodeR2.inputs[0]) # to change during the rendering
+
+nodeR2_nodetree.links.new(nodeR2_in.outputs[0], nodeR2Aa.inputs[0])
+nodeR2_nodetree.links.new(nodeR2_in.outputs[1], nodeR2Ba.inputs[0])
+nodeR2_nodetree.links.new(nodeR2_in.outputs[2], nodeR2Ca.inputs[0])
+
+nodeR2_nodetree.links.new(nodeR2Aa.outputs[0], nodeR2Ab.inputs[0])
+nodeR2_nodetree.links.new(nodeR2Ba.outputs[0], nodeR2Bb.inputs[0])
+nodeR2_nodetree.links.new(nodeR2Ca.outputs[0], nodeR2Cb.inputs[0])
+
+nodeR2_nodetree.links.new(nodeR2Ab.outputs[0], nodeR2z.inputs[0])
+# nodeR2_nodetree.links.new(nodeR2Bb.outputs[0], nodeR2z.inputs[1])
+# nodeR2_nodetree.links.new(nodeR2Cb.outputs[0], nodeR2z.inputs[2])
 
 
 # ------------------------------------------------------------------
@@ -366,14 +438,181 @@ nodeR3.location = (400, -100)
 nodeR3.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R3: Distance Map")
 nodeR3_nodetree = nodeR3.node_tree  # shortcut; akin to `nodetree`
 
-# create input
+# create inputs
 nodeR3_in = nodeR3_nodetree.nodes.new("NodeGroupInput")
 nodeR3_in.location = (0, 0)
 nodeR3_nodetree.inputs.new("NodeSocketColor", "Cam-##_R3_DM1")
 nodeR3_nodetree.inputs.new("NodeSocketColor", "Cam-##_R3_DM2")
 
+#-----
+## DM1
+#-----
+nodeR3dm1A = nodeR3_nodetree.nodes.new("CompositorNodeRGBToBW")
+nodeR3dm1A.location = (200, 720)   # DM2 y: -620)
+
+nodeR3dm1B = nodeR3_nodetree.nodes.new("CompositorNodeGamma")
+nodeR3dm1B.location = (340, 720)   # DM2 y: -620)
+
+nodeR3dm1C = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeR3dm1C.location = (520, 720)   # DM2 y: -620)
+
+### DM1-grey
+nodeR3dm1_grey = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeR3dm1_grey.location = (800, 1360)   # DM2 y: 0)
+
+nodeR3dm1_grey_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm1_grey_out.location = (1080, 1360)   # DM2 y: 0)
+nodeR3dm1_grey_out.base_path = "//tmp"
+nodeR3dm1_grey_out.format.file_format = "PNG"
+nodeR3dm1_grey_out.format.color_mode = "RGBA"
+nodeR3dm1_grey_out.format.compression = 0
+# nodeR3dm1_output.subpath = "Cam-##_R3_DM1" -> how to change the File Subpath?
+
+### DM1-BBR
+nodeR3dm1_BBR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm1_BBR.location = (800, 1200)   # DM2 y: -180)
+# interpolation: B-Spline
+# cursor1 (loc = 0.0 ; colorHex = 0000FA)
+# cursor2 (loc = 0.425 ; colorHex = 4FF0F0)
+# cursor3 (loc = 0.5 ; colorHex = FFFFFF)
+# cursor4 (loc = 0.575 ; colorHex = F0F000)
+# cursor5 (loc = 1.0 ; colorHex = FF0500)
+
+nodeR3dm1_BBR_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm1_BBR_out.location = (1080, 1200)   # DM2 y: -180)
+nodeR3dm1_BBR_out.base_path = "//tmp"
+nodeR3dm1_BBR_out.format.file_format = "JPEG"
+nodeR3dm1_BBR_out.format.color_mode = "RGB"
+nodeR3dm1_BBR_out.format.quality = 100
+# nodeR3dm1_output.subpath = "Cam-##_R3_DM1-BBR"
+
+### DM1-BVJR
+nodeR3dm1_BVJR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm1_BVJR.location = (800, 960)   # DM2 y: -400)
+# interpolation: B-Spline
+# cursor1 (loc = 0.0 ; colorHex = 0000FF)
+# cursor2 (loc = 0.4 ; colorHex = 00CC00)
+# cursor3 (loc = 0.6 ; colorHex = FFFF00)
+# cursor4 (loc = 1.0 ; colorHex = FF0000)
+
+nodeR3dm1_BVJR_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm1_BVJR_out.location = (1080, 960)   # DM2 y: -400)
+nodeR3dm1_BVJR_out.base_path = "//tmp"
+nodeR3dm1_BVJR_out.format.file_format = "JPEG"
+nodeR3dm1_BVJR_out.format.color_mode = "RGB"
+nodeR3dm1_BVJR_out.format.quality = 100
+# nodeR3dm1_output.subpath = "Cam-##_R3_DM1-BVJR"
+
+### DM1-Magma
+nodeR3dm1_MAGMA = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm1_MAGMA.location = (800, 720)   # DM2 y: -620)
+# interpolation: B-Spline
+# cursor1 (loc = 0.0 ; colorHex = 000000)
+# cursor2 (loc = 0.25 ; colorHex = 50127B)
+# cursor3 (loc = 0.5 ; colorHex = B63679)
+# cursor4 (loc = 0.75 ; colorHex = FC8761)
+# cursor5 (loc = 1.0 ; colorHex = FCFDBF)
+
+nodeR3dm1_MAGMA_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm1_MAGMA_out.location = (1080, 720)   # DM2 y: -620)
+nodeR3dm1_MAGMA_out.base_path = "//tmp"
+nodeR3dm1_MAGMA_out.format.file_format = "JPEG"
+nodeR3dm1_MAGMA_out.format.color_mode = "RGB"
+nodeR3dm1_MAGMA_out.format.quality = 100
+# nodeR3dm1_output.subpath = "Cam-##_R3_DM1-MAGMA"
+
+### DM1-Spectral
+nodeR3dm1_SPECTRAL = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm1_SPECTRAL.location = (800, 480)   # DM2 y: -840)
+# interpolation: B-Spline
+# cursor1 (loc = 0.0 ; colorHex = 000000)
+# cursor2 (loc = 0.25 ; colorHex = 50127B)
+# cursor3 (loc = 0.5 ; colorHex = B63679)
+# cursor4 (loc = 0.75 ; colorHex = FC8761)
+# cursor5 (loc = 1.0 ; colorHex = FCFDBF)
+
+nodeR3dm1_SPECTRAL_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm1_SPECTRAL_out.location = (1080, 480)   # DM2 y: -840)
+nodeR3dm1_SPECTRAL_out.base_path = "//tmp"
+nodeR3dm1_SPECTRAL_out.format.file_format = "JPEG"
+nodeR3dm1_SPECTRAL_out.format.color_mode = "RGB"
+nodeR3dm1_SPECTRAL_out.format.quality = 100
+# nodeR3dm1_output.subpath = "Cam-##_R3_DM1-SPECTRAL"
+
+
+### DM1-Viridis
+nodeR3dm1_VIRIDIS = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm1_VIRIDIS.location = (800, 240)   # DM2 y: -1060)
+# interpolation: B-Spline
+# cursor1 (loc = 0.0 ; colorHex = 000000)
+# cursor2 (loc = 0.25 ; colorHex = 50127B)
+# cursor3 (loc = 0.5 ; colorHex = B63679)
+# cursor4 (loc = 0.75 ; colorHex = FC8761)
+# cursor5 (loc = 1.0 ; colorHex = FCFDBF)
+
+nodeR3dm1_VIRIDIS_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm1_VIRIDIS_out.location = (1080, 240)   # DM2 y: -1060)
+nodeR3dm1_VIRIDIS_out.base_path = "//tmp"
+nodeR3dm1_VIRIDIS_out.format.file_format = "JPEG"
+nodeR3dm1_VIRIDIS_out.format.color_mode = "RGB"
+nodeR3dm1_VIRIDIS_out.format.quality = 100
+# nodeR3dm1_output.subpath = "Cam-##_R3_DM1-VIRIDIS"
+
+
+#-----
+## DM2
+#-----
+# The same, just change "R3dm1" to R3dm2", and y positions
+
+
 # connections
 nodetree.links.new(node2.outputs[3], nodeR3.inputs[0])
+
+## DM1
+nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dm1A.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm1A.outputs[0], nodeR3dm1B.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm1B.outputs[0], nodeR3dm1C.inputs[0])
+### DM1-grey
+nodeR3_nodetree.links.new(nodeR3dm1A.outputs[0], nodeR3dm1_grey.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm1_grey.outputs[0], nodeR3dm1_grey_out.inputs[0])
+### DM1-BBR
+nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_BBR.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm1_BBR.outputs[0], nodeR3dm1_BBR_out.inputs[0])
+### DM1-BVJR
+nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_BVJR.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm1_BVJR.outputs[0], nodeR3dm1_BVJR_out.inputs[0])
+### DM1-Magma
+nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_MAGMA.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm1_MAGMA.outputs[0], nodeR3dm1_MAGMA_out.inputs[0])
+### DM1-Spectral
+nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_SPECTRAL.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm1_SPECTRAL.outputs[0], nodeR3dm1_SPECTRAL_out.inputs[0])
+### DM1-Viridis
+nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_VIRIDIS.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm1_VIRIDIS.outputs[0], nodeR3dm1_VIRIDIS_out.inputs[0])
+
+## DM2
+#nodeR3_nodetree.links.new(nodeR3_in.outputs[1], nodeR3dm2A.inputs[0])
+#nodeR3_nodetree.links.new(nodeR3dm2A.outputs[0], nodeR3dm2B.inputs[0])
+#nodeR3_nodetree.links.new(nodeR3dm2B.outputs[0], nodeR3dm2C.inputs[0])
+### DM2-grey
+#nodeR3_nodetree.links.new(nodeR3dm2A.outputs[0], nodeR3dm2_grey.inputs[0])
+#nodeR3_nodetree.links.new(nodeR3dm2_grey.outputs[0], nodeR3dm2_grey_out.inputs[0])
+### DM2-BBR
+#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_BBR.inputs[0])
+#nodeR3_nodetree.links.new(nodeR3dm2_BBR.outputs[0], nodeR3dm2_BBR_out.inputs[0])
+### DM2-BVJR
+#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_BVJR.inputs[0])
+#nodeR3_nodetree.links.new(nodeR3dm2_BVJR.outputs[0], nodeR3dm2_BVJR_out.inputs[0])
+### DM2-Magma
+#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_MAGMA.inputs[0])
+#nodeR3_nodetree.links.new(nodeR3dm2_MAGMA.outputs[0], nodeR3dm2_MAGMA_out.inputs[0])
+### DM2-Spectral
+#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_SPECTRAL.inputs[0])
+#nodeR3_nodetree.links.new(nodeR3dm2_SPECTRAL.outputs[0], nodeR3dm2_SPECTRAL_out.inputs[0])
+### DM2-Viridis
+#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_VIRIDIS.inputs[0])
+#nodeR3_nodetree.links.new(nodeR3dm2_VIRIDIS.outputs[0], nodeR3dm2_VIRIDIS_out.inputs[0])
 
 
 # ------------------------------------------------------------------
@@ -459,5 +698,3 @@ nodeR5z.format.quality = 100
 nodetree.links.new(node2.outputs[5], nodeR5.inputs[0])
 nodeR5_nodetree.links.new(nodeR5_in.outputs[0], nodeR5a.inputs[0])
 nodeR5_nodetree.links.new(nodeR5a.outputs[0], nodeR5z.inputs[0])
-
-
