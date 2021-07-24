@@ -1,7 +1,7 @@
 bl_info = {
     "name": "PETRA",
     "author": "Valentin Grimaud",
-    "version": (0, 2, 1),
+    "version": (0, 2, 2),
     "blender": (2, 80, 0),
     "location": "View3D > Sidebar > New Tab",
     "description": "Protocole d'Exploitation des représentations TRidimensionnelles en Archéologie.",
@@ -36,15 +36,31 @@ bl_info = {
 #
 
 import importlib
+from pathlib import Path
 
 import bpy
 from bpy.types import Operator, Panel
 
 
 if "setup" not in locals():
-    from . import setup
+    from . import layout_information, paradata, setup
 else:
+    # hffssafsaffasfaasfassaf
+    importlib.reload(layout_information)
+    importlib.reload(paradata)
     importlib.reload(setup)
+
+
+# --------------------------------------------------
+# Properties
+# --------------------------------------------------
+class PetraPropertyGroup(bpy.types.PropertyGroup):
+    documentation_scale: bpy.props.FloatProperty(
+        name="Documentation scale", unit="NONE", default=0.05
+    )
+    spatial_resolution: bpy.props.FloatProperty(
+        name="Spatial resolution", unit="LENGTH", default=0.0005
+    )
 
 
 # --------------------------------------------------
@@ -83,7 +99,22 @@ class PETRA_OT_export_scene_paradata(Operator):
     bl_description = "Export the scene paradata YAML file."
 
     def execute(self, context):
-        popup("Not implemented yet.")
+        if not bpy.data.filepath:
+            popup(text=f"Save Blender file first.")
+            return {"FINISHED"}
+
+        blend_filepath = Path(bpy.data.filepath)
+        yaml_filename = f"{blend_filepath.stem}_paradata.yaml"
+        yaml_filepath = blend_filepath.parent / yaml_filename
+
+        print(blend_filepath, yaml_filename, yaml_filepath)
+        paradata.generate_yaml(context, yaml_filepath)
+
+        popup(
+            title="Export successful.",
+            text=f"Paradata saved to\n{yaml_filepath}",
+        )
+
         return {"FINISHED"}
 
 
@@ -94,7 +125,17 @@ class PETRA_OT_export_layout_information(Operator):
     bl_description = "Export the layout information file."
 
     def execute(self, context):
-        popup("Not implemented yet.")
+        blend_filepath = Path(bpy.data.filepath)
+        svg_filename = f"{blend_filepath.stem}_layout_information.svg"
+        svg_filepath = blend_filepath.parent / svg_filename
+
+        layout_information.generate_svg(context, svg_filepath)
+
+        popup(
+            title="Export successful.",
+            text=f"Layout information saved to\n{svg_filepath}",
+        )
+
         return {"FINISHED"}
 
 
@@ -153,17 +194,21 @@ class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
             self.layout.label(text="no PETRA collection found...", icon="INFO")
             return
 
-        self.layout.label(text="Under development...", icon="INFO")
-        self.layout.label(text="Camera manager:")
-
-        cameras = [
-            o for o in bpy.data.collections["PETRA"].objects if o.type == "CAMERA"
-        ]
+        objects = bpy.data.collections["PETRA"].objects
+        cameras = [o for o in objects if o.type == "CAMERA"]
         cameras.sort(key=lambda o: o.name)
         chosen_camera = bpy.context.space_data.camera
 
+        layout = self.layout
+
+        layout.label(text="Under development...", icon="INFO")
+        layout.label(text="Documentation parameter:")
+        layout.prop(context.scene.petra, "documentation_scale")
+        layout.prop(context.scene.petra, "spatial_resolution")
+
+        layout.label(text="Camera manager:")
         for camera in cameras:
-            row = self.layout.row(align=True)
+            row = layout.row(align=True)
             row.context_pointer_set("active_object", camera)
             is_chosen_camera = camera == chosen_camera
             row.operator(
@@ -172,7 +217,7 @@ class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
                 icon=f"RESTRICT_VIEW_{'OFF' if is_chosen_camera else 'ON'}",
                 emboss=is_chosen_camera,
             )
-            row.prop(camera, "name", text="", emboss=False)
+            row.prop(camera, "name", text="", emboss=True)
 
 
 class PETRA_PT_camera_setup_settings(PetraPanelMixin, Panel):
@@ -262,6 +307,7 @@ class PETRA_PT_rendering(PetraPanelMixin, Panel):
 
 
 classes = (
+    PetraPropertyGroup,
     PETRA_OT_activate_and_preview_scene_camera,
     PETRA_OT_build_initial_setup,
     PETRA_OT_export_layout_information,
@@ -282,10 +328,14 @@ def register():
     for cls in classes:
         bpy.utils.register_class(cls)
 
+    # Set default length unit to mm.
+    bpy.types.Scene.petra = bpy.props.PointerProperty(type=PetraPropertyGroup)
+
 
 def unregister():
     for cls in reversed(classes):
         bpy.utils.unregister_class(cls)
+    del bpy.types.Scene.petra
 
 
 # --------------------------------------------------
@@ -295,7 +345,9 @@ def unregister():
 
 def popup(text="", title="Information", icon="INFO"):
     def draw(self, context):
-        self.layout.label(text=text)
+        lines = text.split("\n")
+        for line in lines:
+            self.layout.label(text=line)
 
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
 

@@ -1,0 +1,88 @@
+nomObjetDocumenté: NOM
+definitionBoiteEnglobante:
+  locationX: 0 m
+  locationY: 0 m
+  locationZ: 0 m
+  rotationX: 0.0
+  rotationY: 0°
+  rotationZ: 0°
+  dimensionX: 1 m
+  dimensionY: 1 m
+  dimensionZ: 1 m
+caracteristiquesImage:
+  echelleDocumentation: 1/10
+  resolutionImage: 254 ppi
+  resolutionsurface: 1 pixel = 1 mm
+cameras:
+- nomDeLaVue: Cam-01
+  commentaire: null
+  parametresImage:
+    orthographicScale: 1 x 1 m
+    dimensionsCm: 10 x 10 cm
+    dimensionsPixel: 1000 x 1000 px
+  parametresCamera:
+    clippingStart: 0,001m
+    clippingEnd: 1000m
+    rotationX: 0°
+    rotationY: 0°
+    rotationZ: 0°
+- nomDeLaVue: Cam-02
+  commentaire: null
+  parametresImage:
+    orthographicScale: 1 x 1 m
+    dimensionsCm: 10 x 10 cm
+    dimensionsPixel: 1000 x 1000 px
+  parametresCamera:
+    clippingStart: 0,001m
+    clippingEnd: 1000m
+    rotationX: 0°
+    rotationY: 0°
+    rotationZ: 90°
+- nomDeLaVue: Cam-03
+  commentaire: null
+  parametresImage:
+    orthographicScale: 1 x 1 m
+    dimensionsCm: 10 x 10 cm
+    dimensionsPixel: 1000 x 1000 px
+  parametresCamera:
+    clippingStart: 0,001m
+    clippingEnd: 1000m
+    rotationX: 0°
+    rotationY: 0°
+    rotationZ: 180°
+- nomDeLaVue: Cam-04
+  commentaire: null
+  parametresImage:
+    orthographicScale: 1 x 1 m
+    dimensionsCm: 10 x 10 cm
+    dimensionsPixel: 1000 x 1000 px
+  parametresCamera:
+    clippingStart: 0,001m
+    clippingEnd: 1000m
+    rotationX: 0°
+    rotationY: 0°
+    rotationZ: 270°
+- nomDeLaVue: Cam-05
+  commentaire: null
+  parametresImage:
+    orthographicScale: 1 x 1 m
+    dimensionsCm: 10 x 10 cm
+    dimensionsPixel: 1000 x 1000 px
+  parametresCamera:
+    clippingStart: 0,001m
+    clippingEnd: 1000m
+    rotationX: -90°
+    rotationY: 0°
+    rotationZ: 0°
+- nomDeLaVue: Cam-06
+  commentaire: null
+  parametresImage:
+    orthographicScale: 1 x 1 m
+    dimensionsCm: 10 x 10 cm
+    dimensionsPixel: 1000 x 1000 px
+  parametresCamera:
+    clippingStart: 0,001m
+    clippingEnd: 1000m
+    rotationX: 90°
+    rotationY: 0°
+    rotationZ: 0°
