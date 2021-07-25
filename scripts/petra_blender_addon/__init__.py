@@ -1,7 +1,7 @@
 bl_info = {
     "name": "PETRA",
     "author": "Valentin Grimaud",
-    "version": (0, 2, 2),
+    "version": (0, 2, 3),
     "blender": (2, 80, 0),
     "location": "View3D > Sidebar > New Tab",
     "description": "Protocole d'Exploitation des représentations TRidimensionnelles en Archéologie.",
@@ -45,7 +45,6 @@ from bpy.types import Operator, Panel
 if "setup" not in locals():
     from . import layout_information, paradata, setup
 else:
-    # hffssafsaffasfaasfassaf
     importlib.reload(layout_information)
     importlib.reload(paradata)
     importlib.reload(setup)
@@ -55,11 +54,21 @@ else:
 # Properties
 # --------------------------------------------------
 class PetraPropertyGroup(bpy.types.PropertyGroup):
+
     documentation_scale: bpy.props.FloatProperty(
-        name="Documentation scale", unit="NONE", default=0.05
+        name="Documentation scale",
+        description="The scale of the printed image",
+        unit="NONE",
+        default=0.05,
     )
+
     spatial_resolution: bpy.props.FloatProperty(
-        name="Spatial resolution", unit="LENGTH", default=0.0005
+        name="Spatial resolution",
+        description="Size of 1 pixel in mm. Equivalent to 25.4 / PPI.",
+        # This sets the unit to 'mm'. See: https://git.io/J4cZe
+        unit="CAMERA",
+        subtype="DISTANCE_CAMERA",
+        default=0.5,
     )
 
 
@@ -107,7 +116,6 @@ class PETRA_OT_export_scene_paradata(Operator):
         yaml_filename = f"{blend_filepath.stem}_paradata.yaml"
         yaml_filepath = blend_filepath.parent / yaml_filename
 
-        print(blend_filepath, yaml_filename, yaml_filepath)
         paradata.generate_yaml(context, yaml_filepath)
 
         popup(
@@ -146,8 +154,7 @@ class PETRA_OT_activate_and_preview_scene_camera(Operator):
     bl_description = "Activate and preview camera."
 
     def invoke(self, context, event):
-
-        # Adjust timeline markers
+        # Adjust current timeline marker
         for marker in context.scene.timeline_markers:
             if marker.camera == context.active_object:
                 context.scene.frame_current = marker.frame
@@ -175,13 +182,33 @@ class PETRA_PT_initial_setup(PetraPanelMixin, Panel):
     bl_label = "Initial setup"
 
     def draw(self, context):
-        self.layout.operator(PETRA_OT_build_initial_setup.bl_idname)
-        # self.layout.label(text="'Framing Box' location:")
-        # self.layout.label(text="Not implemented yet.", icon="INFO")
-        # self.layout.label(text="'Framing Box' rotation:")
-        # self.layout.label(text="Not implemented yet.", icon="INFO")
-        # self.layout.label(text="'Framing Box' dimension:")
-        # self.layout.label(text="Not implemented yet.", icon="INFO")
+        """Draw UI elements into the panel UI layout."""
+        layout = self.layout
+
+        layout.operator(PETRA_OT_build_initial_setup.bl_idname)
+
+        if "PETRA" not in bpy.data.collections:
+            return
+
+        framing_box = bpy.data.collections["PETRA"].objects["Framing Box"]
+        lock_kwds = dict(text="", emboss=False, icon="DECORATE_UNLOCKED")
+
+        # location
+        col = layout.column(align=True)
+        col.label(text="'Framing Box' location:")
+        split = col.split(factor=0.8)
+        split.prop(framing_box, "location", text="")
+        split.prop(framing_box, "lock_location", **lock_kwds)
+
+        # rotation
+        col = layout.column(align=True)
+        col.label(text="'Framing Box' rotation:")
+        split = col.split(factor=0.8)
+        split.prop(framing_box, "rotation_euler", text="")
+        split.prop(framing_box, "lock_rotation", **lock_kwds)
+
+        # dimensions
+        layout.column().prop(framing_box, "dimensions", text="'Framing Box' dimensions")
 
 
 class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
@@ -189,11 +216,12 @@ class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
     bl_label = "Camera setup"
     bl_options = {"DEFAULT_CLOSED"}
 
-    def draw(self, context):
-        if "PETRA" not in bpy.data.collections:
-            self.layout.label(text="no PETRA collection found...", icon="INFO")
-            return
+    @classmethod
+    def poll(cls, context):
+        """If this method returns a non-null output, then the panel can be drawn."""
+        return bpy.data.collections.get("PETRA")
 
+    def draw(self, context):
         objects = bpy.data.collections["PETRA"].objects
         cameras = [o for o in objects if o.type == "CAMERA"]
         cameras.sort(key=lambda o: o.name)
@@ -201,10 +229,10 @@ class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
 
         layout = self.layout
 
-        layout.label(text="Under development...", icon="INFO")
-        layout.label(text="Documentation parameter:")
-        layout.prop(context.scene.petra, "documentation_scale")
-        layout.prop(context.scene.petra, "spatial_resolution")
+        col = layout.column(align=True)
+        col.label(text="Printed documentation:")
+        col.prop(context.scene.petra, "documentation_scale", text="Scale")
+        col.prop(context.scene.petra, "spatial_resolution", text="Resolution")
 
         layout.label(text="Camera manager:")
         for camera in cameras:
@@ -229,7 +257,7 @@ class PETRA_PT_camera_setup_settings(PetraPanelMixin, Panel):
         if "PETRA" not in bpy.data.collections:
             return
 
-        self.layout.label(text="Dimensions")
+        self.layout.label(text="Dimensions:")
 
         row = self.layout.row(align=True)
         render_settings = context.scene.render
@@ -258,6 +286,11 @@ class PETRA_PT_material_setup(PetraPanelMixin, Panel):
 
     bl_label = "Material setup"
     bl_options = {"DEFAULT_CLOSED"}
+
+    @classmethod
+    def poll(cls, context):
+        """If this method returns a non-null output, then the panel can be drawn."""
+        return bpy.data.collections.get("PETRA")
 
     def draw(self, context):
         self.layout.label(text="Not implemented yet.", icon="INFO")
@@ -298,6 +331,11 @@ class PETRA_PT_rendering(PetraPanelMixin, Panel):
     bl_label = "Rendering"
     bl_options = {"DEFAULT_CLOSED"}
 
+    @classmethod
+    def poll(cls, context):
+        """If this method returns a non-null output, then the panel can be drawn."""
+        return bpy.data.collections.get("PETRA")
+
     def draw(self, context):
         row = self.layout.row(align=True)
         row.scale_y = 2.5
@@ -328,7 +366,6 @@ def register():
     for cls in classes:
         bpy.utils.register_class(cls)
 
-    # Set default length unit to mm.
     bpy.types.Scene.petra = bpy.props.PointerProperty(type=PetraPropertyGroup)
 
 

@@ -67,12 +67,13 @@ def generate_svg(context, filepath):
     svg_template = read(SVG_TEMPLATE_FILEPATH)
 
     blenderdata = BlenderData(context)
+    # size of the original framing cube (in meters)
     U1, V1, W1 = blenderdata.framing_box.dimensions
     DS = blenderdata.documentation_scale
 
     # Compute
     # --------------------------------------------------
-    # size of the printed images (in mm)
+    # size of the scaled down framing cube (in millimeters)
     U2 = round(U1 * DS * 1000, 2)
     V2 = round(V1 * DS * 1000, 2)
     W2 = round(W1 * DS * 1000, 2)
