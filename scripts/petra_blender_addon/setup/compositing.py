@@ -384,152 +384,693 @@ nodeR1zA.format.compression = 0
 nodeR1zA.file_slots[0].path = "Cam-##_R1_NMC"
 
 # connections
+nodetree.links.new(node2.outputs[1], nodeR1.inputs[0])
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeR1a.inputs[0])
 nodeR1_nodetree.links.new(nodeR1a.outputs[0], nodeR1zA.inputs[0])
-
 
 ## ---------------------
 ## B1
 ## ---------------------
-
-
-
-
-# adding nodegroup, node R6
-nodeB1 = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
-nodeB1.location = (1000, 1180)
+# adding nodegroup
+nodeB1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeB1g.location = (1000, 1180)
 
 # subtree description
-nodeB1.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="B1")
-nodeB1_nodetree = nodeB1.node_tree  # shortcut; akin to `nodetree`
+nodeB1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="B1")
+nodeB1g_nodetree = nodeB1g.node_tree  # shortcut; akin to `nodetree`
 
 # create group's inputs
-nodeB1_in = nodeB1_nodetree.nodes.new("NodeGroupInput")
-nodeB1_in.location = (0, 0)
-nodeB1_nodetree.inputs.new("NodeSocketColor", "input")
+nodeB1g_in = nodeB1g_nodetree.nodes.new("NodeGroupInput")
+nodeB1g_in.location = (0, 0)
+nodeB1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeB1a = nodeR6_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeB1a.location = (200, 0)
+nodeB1a = nodeB1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeB1a.location = (180, 0)
 
 # create group's output
-nodeB1_out = nodeB1_nodetree.nodes.new("NodeGroupOutput")
-nodeB1_out.location = (1000, 0)
-nodeB1_nodetree.outputs.new("NodeSocketColor", "output")
-
-
+nodeB1g_out = nodeB1g_nodetree.nodes.new("NodeGroupOutput")
+nodeB1g_out.location = (1000, 0)
+nodeB1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 ## File Output
-nodeB1z = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeB1z.location = (1400, 1180)
-nodeB1z.base_path = "//tmp"
-nodeB1z.format.file_format = "JPEG"
-nodeB1z.format.color_mode = "BW"
-nodeB1z.format.quality = 100
-nodeB1z.file_slots[0].path = "Cam-##_R1_NMC_B1"
+nodeBout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeBout.location = (1400, 1180)
+nodeBout.base_path = "//tmp"
+nodeBout.format.file_format = "JPEG"
+nodeBout.format.color_mode = "BW"
+nodeBout.format.quality = 100
+nodeBout.file_slots[0].path = "Cam-##_R1_NMC_B1"
+nodeBout.file_slots.new("Cam-##_R1_NMC_B2")
 
 # connections
-nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeB1.inputs[0])
-#nodeB1_nodetree.links.new(nodeB1_out.outputs[0], nodeB1z.inputs[0])
-#nodeB1_nodetree.links.new(nodeB1a.outputs[0], nodeB1b.inputs[0])
-
-
-
-
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeB1g.inputs[0])
+nodeR1_nodetree.links.new(nodeB1g.outputs[0], nodeBout.inputs[0])
 
 
 ## ---------------------
 ## B2
 ## ---------------------
+# adding nodegroup
+nodeB2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeB2g.location = (1000, 1060)
 
+# subtree description
+nodeB2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="B2")
+nodeB2g_nodetree = nodeB2g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeB2g_in = nodeB2g_nodetree.nodes.new("NodeGroupInput")
+nodeB2g_in.location = (0, 0)
+nodeB2g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeB1a = nodeB2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeB1a.location = (180, 0)
+
+# create group's output
+nodeB2g_out = nodeB2g_nodetree.nodes.new("NodeGroupOutput")
+nodeB2g_out.location = (1000, 0)
+nodeB2g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeB2g.inputs[0])
+nodeR1_nodetree.links.new(nodeB2g.outputs[0], nodeBout.inputs[1])
 
 ## ---------------------
 ## Cb1
 ## ---------------------
+# adding nodegroup
+nodeCb1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeCb1g.location = (1000, 940)
 
+# subtree description
+nodeCb1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="Cb1")
+nodeCb1g_nodetree = nodeCb1g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeCb1g_in = nodeCb1g_nodetree.nodes.new("NodeGroupInput")
+nodeCb1g_in.location = (0, 0)
+nodeCb1g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeCb1a = nodeCb1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCb1a.location = (180, 0)
+
+# create group's output
+nodeCb1g_out = nodeCb1g_nodetree.nodes.new("NodeGroupOutput")
+nodeCb1g_out.location = (1000, 0)
+nodeCb1g_nodetree.outputs.new("NodeSocketColor", "output")
+
+## File Output
+nodeCbout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeCbout.location = (1400, 940)
+nodeCbout.base_path = "//tmp"
+nodeCbout.format.file_format = "JPEG"
+nodeCbout.format.color_mode = "BW"
+nodeCbout.format.quality = 100
+nodeCbout.file_slots[0].path = "Cam-##_R1_NMC_Cb1"
+nodeCbout.file_slots.new("Cam-##_R1_NMC_Cb2")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCb1g.inputs[0])
+nodeR1_nodetree.links.new(nodeCb1g.outputs[0], nodeCbout.inputs[0])
 
 ## ---------------------
 ## Cb2
 ## ---------------------
+# adding nodegroup
+nodeCb2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeCb2g.location = (1000, 820)
 
+# subtree description
+nodeCb2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="Cb2")
+nodeCb2g_nodetree = nodeCb2g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeCb2g_in = nodeCb2g_nodetree.nodes.new("NodeGroupInput")
+nodeCb2g_in.location = (0, 0)
+nodeCb2g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeCb2a = nodeCb2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCb2a.location = (180, 0)
+
+# create group's output
+nodeCb2g_out = nodeCb2g_nodetree.nodes.new("NodeGroupOutput")
+nodeCb2g_out.location = (1000, 0)
+nodeCb2g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCb2g.inputs[0])
+nodeR1_nodetree.links.new(nodeCb2g.outputs[0], nodeCbout.inputs[1])
 
 ## ---------------------
 ## Cr1
 ## ---------------------
+# adding nodegroup
+nodeCr1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeCr1g.location = (1000, 700)
 
+# subtree description
+nodeCr1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="Cr1")
+nodeCr1g_nodetree = nodeCr1g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeCr1g_in = nodeCr1g_nodetree.nodes.new("NodeGroupInput")
+nodeCr1g_in.location = (0, 0)
+nodeCr1g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeCr1a = nodeCr1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCr1a.location = (180, 0)
+
+# create group's output
+nodeCr1g_out = nodeCr1g_nodetree.nodes.new("NodeGroupOutput")
+nodeCr1g_out.location = (1000, 0)
+nodeCr1g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeCr1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCr1Flat.location = (1180, 700)    # how to mute this node?
+    # Bright = 23.0
+    # Contrast = 68.0
+
+## File Output
+nodeCrout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeCrout.location = (1400, 700)
+nodeCrout.base_path = "//tmp"
+nodeCrout.format.file_format = "JPEG"
+nodeCrout.format.color_mode = "BW"
+nodeCrout.format.quality = 100
+nodeCrout.file_slots[0].path = "Cam-##_R1_NMC_Cr1"
+nodeCrout.file_slots.new("Cam-##_R1_NMC_Cr2")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCr1g.inputs[0])
+nodeR1_nodetree.links.new(nodeCr1g.outputs[0], nodeCr1Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeCr1Flat.outputs[0], nodeCrout.inputs[0])
 
 ## ---------------------
 ## Cr2
 ## ---------------------
+# adding nodegroup
+nodeCr2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeCr2g.location = (1000, 540)
 
+# subtree description
+nodeCr2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="Cr2")
+nodeCr2g_nodetree = nodeCr2g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeCr2g_in = nodeCr2g_nodetree.nodes.new("NodeGroupInput")
+nodeCr2g_in.location = (0, 0)
+nodeCr2g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeCr2a = nodeCr2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCr2a.location = (180, 0)
+
+# create group's output
+nodeCr2g_out = nodeCr2g_nodetree.nodes.new("NodeGroupOutput")
+nodeCr2g_out.location = (1000, 0)
+nodeCr2g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeCr2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCr2Flat.location = (1180, 540)    # how to mute this node?
+    # Bright = 0.0
+    # Contrast = 68.0
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCr2g.inputs[0])
+nodeR1_nodetree.links.new(nodeCr2g.outputs[0], nodeCr2Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeCr2Flat.outputs[0], nodeCrout.inputs[1])
 
 ## ---------------------
 ## G1
 ## ---------------------
+# adding nodegroup
+nodeG1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeG1g.location = (1000, 380)
 
+# subtree description
+nodeG1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="G1")
+nodeG1g_nodetree = nodeG1g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeG1g_in = nodeG1g_nodetree.nodes.new("NodeGroupInput")
+nodeG1g_in.location = (0, 0)
+nodeG1g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeG1a = nodeG1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeG1a.location = (180, 0)
+
+# create group's output
+nodeG1g_out = nodeG1g_nodetree.nodes.new("NodeGroupOutput")
+nodeG1g_out.location = (1000, 0)
+nodeG1g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeG1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeG1Flat.location = (1180, 380)    # how to mute this node?
+    # Bright = 0.0
+    # Contrast = 30.0
+
+## File Output
+nodeGout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeGout.location = (1400, 380)
+nodeGout.base_path = "//tmp"
+nodeGout.format.file_format = "JPEG"
+nodeGout.format.color_mode = "BW"
+nodeGout.format.quality = 100
+nodeGout.file_slots[0].path = "Cam-##_R1_NMC_G1"
+nodeGout.file_slots.new("Cam-##_R1_NMC_G2")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeG1g.inputs[0])
+nodeR1_nodetree.links.new(nodeG1g.outputs[0], nodeG1Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeG1Flat.outputs[0], nodeGout.inputs[0])
 
 ## ---------------------
 ## G2
 ## ---------------------
+# adding nodegroup
+nodeG2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeG2g.location = (1000, 220)
 
+# subtree description
+nodeG2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="G2")
+nodeG2g_nodetree = nodeG2g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeG2g_in = nodeG2g_nodetree.nodes.new("NodeGroupInput")
+nodeG2g_in.location = (0, 0)
+nodeG2g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeG2a = nodeG2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeG2a.location = (180, 0)
+
+# create group's output
+nodeG2g_out = nodeG2g_nodetree.nodes.new("NodeGroupOutput")
+nodeG2g_out.location = (1000, 0)
+nodeG2g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeG2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeG2Flat.location = (1180, 220)    # how to mute this node?
+    # Bright = 0.0
+    # Contrast = 40.0
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeG2g.inputs[0])
+nodeR1_nodetree.links.new(nodeG2g.outputs[0], nodeG2Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeG2Flat.outputs[0], nodeGout.inputs[1])
 
 ## ---------------------
-## R1
+## Red1
 ## ---------------------
+# adding nodegroup
+nodeRed1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeRed1g.location = (1000, 60)
 
+# subtree desRediption
+nodeRed1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R1")
+nodeRed1g_nodetree = nodeRed1g.node_tree  # shortcut; akin to `nodetree`
+
+# Recreate group's inputs
+nodeRed1g_in = nodeRed1g_nodetree.nodes.new("NodeGroupInput")
+nodeRed1g_in.location = (0, 0)
+nodeRed1g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeRed1a = nodeRed1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeRed1a.location = (180, 0)
+
+# Recreate group's output
+nodeRed1g_out = nodeRed1g_nodetree.nodes.new("NodeGroupOutput")
+nodeRed1g_out.location = (1000, 0)
+nodeRed1g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeRed1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeRed1Flat.location = (1180, 60)    # how to mute this node?
+    # Bright = 0.0
+    # Contrast = 30.0
+
+## File Output
+nodeRedout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeRedout.location = (1400, 60)
+nodeRedout.base_path = "//tmp"
+nodeRedout.format.file_format = "JPEG"
+nodeRedout.format.color_mode = "BW"
+nodeRedout.format.quality = 100
+nodeRedout.file_slots[0].path = "Cam-##_R1_NMC_Red1"
+nodeRedout.file_slots.new("Cam-##_R1_NMC_Red2")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeRed1g.inputs[0])
+nodeR1_nodetree.links.new(nodeRed1g.outputs[0], nodeRed1Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeRed1Flat.outputs[0], nodeRedout.inputs[0])
 
 ## ---------------------
-## R2
+## Red2
 ## ---------------------
+# adding nodegroup
+nodeRed2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeRed2g.location = (1000, -100)
 
+# subtree desRediption
+nodeRed2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R2")
+nodeRed2g_nodetree = nodeRed2g.node_tree  # shortcut; akin to `nodetree`
+
+# Recreate group's inputs
+nodeRed2g_in = nodeRed2g_nodetree.nodes.new("NodeGroupInput")
+nodeRed2g_in.location = (0, 0)
+nodeRed2g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeRed2a = nodeRed2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeRed2a.location = (180, 0)
+
+# Recreate group's output
+nodeRed2g_out = nodeRed2g_nodetree.nodes.new("NodeGroupOutput")
+nodeRed2g_out.location = (1000, 0)
+nodeRed2g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeRed2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeRed2Flat.location = (1180, -100)    # how to mute this node?
+    # Bright = 0.0
+    # Contrast = 40.0
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeRed2g.inputs[0])
+nodeR1_nodetree.links.new(nodeRed2g.outputs[0], nodeRed2Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeRed2Flat.outputs[0], nodeRedout.inputs[1])
 
 ## ---------------------
 ## S1
 ## ---------------------
+# adding nodegroup
+nodeS1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeS1g.location = (1000, -260)
 
+# subtree description
+nodeS1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="S1")
+nodeS1g_nodetree = nodeS1g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeS1g_in = nodeS1g_nodetree.nodes.new("NodeGroupInput")
+nodeS1g_in.location = (0, 0)
+nodeS1g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeS1a = nodeS1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeS1a.location = (180, 0)
+
+# create group's output
+nodeS1g_out = nodeS1g_nodetree.nodes.new("NodeGroupOutput")
+nodeS1g_out.location = (1000, 0)
+nodeS1g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeS1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeS1Flat.location = (1180, -260)    # how to mute this node?
+    # Bright = 0.0
+    # Contrast = 50.0
+
+## File Output
+nodeSout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeSout.location = (1400, -260)
+nodeSout.base_path = "//tmp"
+nodeSout.format.file_format = "JPEG"
+nodeSout.format.color_mode = "BW"
+nodeSout.format.quality = 100
+nodeSout.file_slots[0].path = "Cam-##_R1_NMC_S1"
+nodeSout.file_slots.new("Cam-##_R1_NMC_S2")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeS1g.inputs[0])
+nodeR1_nodetree.links.new(nodeS1g.outputs[0], nodeS1Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeS1Flat.outputs[0], nodeSout.inputs[0])
 
 ## ---------------------
 ## S2
 ## ---------------------
+# adding nodegroup
+nodeS2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeS2g.location = (1000, -420)
 
+# subtree description
+nodeS2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="S2")
+nodeS2g_nodetree = nodeS2g.node_tree  # shortcut; akin to `nodetree`
+
+# Create group's inputs
+nodeS2g_in = nodeS2g_nodetree.nodes.new("NodeGroupInput")
+nodeS2g_in.location = (0, 0)
+nodeS2g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeS2a = nodeS2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeS2a.location = (180, 0)
+
+# Create group's output
+nodeS2g_out = nodeS2g_nodetree.nodes.new("NodeGroupOutput")
+nodeS2g_out.location = (1000, 0)
+nodeS2g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeS2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeS2Flat.location = (1180, -420)    # how to mute this node?
+    # Bright = -12.0
+    # Contrast = 77.0
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeS2g.inputs[0])
+nodeR1_nodetree.links.new(nodeS2g.outputs[0], nodeS2Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeS2Flat.outputs[0], nodeSout.inputs[1])
 
 ## ---------------------
 ## U1
 ## ---------------------
+# adding nodegroup
+nodeU1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeU1g.location = (1000, -580)
 
+# subtree description
+nodeU1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="U1")
+nodeU1g_nodetree = nodeU1g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeU1g_in = nodeU1g_nodetree.nodes.new("NodeGroupInput")
+nodeU1g_in.location = (0, 0)
+nodeU1g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeU1a = nodeU1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeU1a.location = (180, 0)
+
+# create group's output
+nodeU1g_out = nodeU1g_nodetree.nodes.new("NodeGroupOutput")
+nodeU1g_out.location = (1000, 0)
+nodeU1g_nodetree.outputs.new("NodeSocketColor", "output")
+
+## File Output
+nodeUout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeUout.location = (1400, -580)
+nodeUout.base_path = "//tmp"
+nodeUout.format.file_format = "JPEG"
+nodeUout.format.color_mode = "BW"
+nodeUout.format.quality = 100
+nodeUout.file_slots[0].path = "Cam-##_R1_NMC_U1"
+nodeUout.file_slots.new("Cam-##_R1_NMC_U2")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeU1g.inputs[0])
+nodeR1_nodetree.links.new(nodeU1g.outputs[0], nodeUout.inputs[0])
 
 ## ---------------------
 ## U2
 ## ---------------------
+# adding nodegroup
+nodeU2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeU2g.location = (1000, -700)
 
+# subtree description
+nodeU2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="U2")
+nodeU2g_nodetree = nodeU2g.node_tree  # shortcut; akin to `nodetree`
+
+# Create group's inputs
+nodeU2g_in = nodeU2g_nodetree.nodes.new("NodeGroupInput")
+nodeU2g_in.location = (0, 0)
+nodeU2g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeU2a = nodeU2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeU2a.location = (180, 0)
+
+# Create group's output
+nodeU2g_out = nodeU2g_nodetree.nodes.new("NodeGroupOutput")
+nodeU2g_out.location = (1000, 0)
+nodeU2g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeU2g.inputs[0])
+nodeR1_nodetree.links.new(nodeU2g.outputs[0], nodeUout.inputs[1])
 
 ## ---------------------
 ## V1
 ## ---------------------
+# adding nodegroup
+# adding nodegroup
+nodeV1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeV1g.location = (1000, -820)
 
+# subtree description
+nodeV1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="V1")
+nodeV1g_nodetree = nodeV1g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeV1g_in = nodeV1g_nodetree.nodes.new("NodeGroupInput")
+nodeV1g_in.location = (0, 0)
+nodeV1g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeV1a = nodeV1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeV1a.location = (180, 0)
+
+# create group's output
+nodeV1g_out = nodeV1g_nodetree.nodes.new("NodeGroupOutput")
+nodeV1g_out.location = (1000, 0)
+nodeV1g_nodetree.outputs.new("NodeSocketColor", "output")
+
+## File Output
+nodeVout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeVout.location = (1400, -820)
+nodeVout.base_path = "//tmp"
+nodeVout.format.file_format = "JPEG"
+nodeVout.format.color_mode = "BW"
+nodeVout.format.quality = 100
+nodeVout.file_slots[0].path = "Cam-##_R1_NMC_V1"
+nodeVout.file_slots.new("Cam-##_R1_NMC_V2")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeV1g.inputs[0])
+nodeR1_nodetree.links.new(nodeV1g.outputs[0], nodeVout.inputs[0])
 
 ## ---------------------
 ## V2
 ## ---------------------
+# adding nodegroup
+nodeV2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeV2g.location = (1000, -940)
 
+# subtree description
+nodeV2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="V2")
+nodeV2g_nodetree = nodeV2g.node_tree  # shortcut; akin to `nodetree`
+
+# Create group's inputs
+nodeV2g_in = nodeV2g_nodetree.nodes.new("NodeGroupInput")
+nodeV2g_in.location = (0, 0)
+nodeV2g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeV2a = nodeV2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeV2a.location = (180, 0)
+
+# Create group's output
+nodeV2g_out = nodeV2g_nodetree.nodes.new("NodeGroupOutput")
+nodeV2g_out.location = (1000, 0)
+nodeV2g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeV2g.inputs[0])
+nodeR1_nodetree.links.new(nodeV2g.outputs[0], nodeVout.inputs[1])
 
 ## ---------------------
 ## Y1
 ## ---------------------
+# adding nodegroup
+nodeY1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeY1g.location = (1000, -1060)
 
+# subtree description
+nodeY1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="Y1")
+nodeY1g_nodetree = nodeY1g.node_tree  # shortcut; akin to `nodetree`
+
+# create group's inputs
+nodeY1g_in = nodeY1g_nodetree.nodes.new("NodeGroupInput")
+nodeY1g_in.location = (0, 0)
+nodeY1g_nodetree.inputs.new("NodeSocketColor", "input")
+
+# inside the group
+nodeY1a = nodeY1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeY1a.location = (180, 0)
+
+# create group's output
+nodeY1g_out = nodeY1g_nodetree.nodes.new("NodeGroupOutput")
+nodeY1g_out.location = (1000, 0)
+nodeY1g_nodetree.outputs.new("NodeSocketColor", "output")
+
+# flat surface option
+nodeY1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeY1Flat.location = (1180, -1060)    # how to mute this node?
+    # Bright = 34.0
+    # Contrast = 88.0
+
+## File Output
+nodeYout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeYout.location = (1400, -1060)
+nodeYout.base_path = "//tmp"
+nodeYout.format.file_format = "JPEG"
+nodeYout.format.color_mode = "BW"
+nodeYout.format.quality = 100
+nodeYout.file_slots[0].path = "Cam-##_R1_NMC_Y1"
+nodeYout.file_slots.new("Cam-##_R1_NMC_Y2")
+
+# connections
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeY1g.inputs[0])
+nodeR1_nodetree.links.new(nodeY1g.outputs[0], nodeY1Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeY1Flat.outputs[0], nodeYout.inputs[0])
 
 ## ---------------------
 ## Y2
 ## ---------------------
+# adding nodegroup
+nodeY2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
+nodeY2g.location = (1000, -1220)
 
+# subtree description
+nodeY2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="Y2")
+nodeY2g_nodetree = nodeY2g.node_tree  # shortcut; akin to `nodetree`
 
+# Create group's inputs
+nodeY2g_in = nodeY2g_nodetree.nodes.new("NodeGroupInput")
+nodeY2g_in.location = (0, 0)
+nodeY2g_nodetree.inputs.new("NodeSocketColor", "input")
 
+# inside the group
+nodeY2a = nodeY2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeY2a.location = (180, 0)
 
+# Create group's output
+nodeY2g_out = nodeY2g_nodetree.nodes.new("NodeGroupOutput")
+nodeY2g_out.location = (1000, 0)
+nodeY2g_nodetree.outputs.new("NodeSocketColor", "output")
 
-
+# flat surface option
+nodeY2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeY2Flat.location = (1180, -1220)    # how to mute this node?
+    # Bright = 1.0
+    # Contrast = 80.0
 
 # connections
-nodetree.links.new(node2.outputs[1], nodeR1.inputs[0])
+nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeY2g.inputs[0])
+nodeR1_nodetree.links.new(nodeY2g.outputs[0], nodeY2Flat.inputs[0])
+nodeR1_nodetree.links.new(nodeY2Flat.outputs[0], nodeYout.inputs[1])
 
 
 # ------------------------------------------------------------------
