@@ -3,6 +3,7 @@ import bpy
 # https://docs.blender.org/api/current/bpy.types.CompositorNode.html
 
 
+
 # ------------------------------------------------------------------
 # INITIAL SETUP
 # ------------------------------------------------------------------
@@ -15,9 +16,16 @@ nodetree = bpy.context.scene.node_tree
 for node in nodetree.nodes:
     nodetree.nodes.remove(node)
 
+
+
+# ------------------------------------------------------------------
+# Render Layers - NODE 1
+# ------------------------------------------------------------------
+
 # adding Render Layers, node 1
 node1 = nodetree.nodes.new("CompositorNodeRLayers")
 node1.location = (-300, -200)
+
 
 
 # ------------------------------------------------------------------
@@ -46,17 +54,9 @@ node2_nodetree.inputs.new("NodeSocketColor", "R4: Pointiness")
 node2_nodetree.inputs.new("NodeSocketColor", "R5: Aspect")
 node2_nodetree.inputs.new("NodeSocketColor", "R6: Slope")
 
-# hide input values -- Not working
-# bpy.data.node_groups["Hub"].inputs[0].hide_value
-# bpy.data.node_groups["Hub"].inputs[1].hide_value
-# bpy.data.node_groups["Hub"].inputs[2].hide_value
-# bpy.data.node_groups["Hub"].inputs[3].hide_value
-# bpy.data.node_groups["Hub"].inputs[4].hide_value
-# bpy.data.node_groups["Hub"].inputs[5].hide_value
-# bpy.data.node_groups["Hub"].inputs[6].hide_value
-# bpy.data.node_groups["Hub"].inputs[7].hide_value
-# bpy.data.node_groups["Hub"].inputs[8].hide_value
-# bpy.data.node_groups["Hub"].inputs[9].hide_value
+# hide input values
+for node2_input in node2_nodetree.inputs:
+    node2_input.hide_value = True
 
 # create outputs
 node2_out = node2_nodetree.nodes.new("NodeGroupOutput")
@@ -68,13 +68,11 @@ node2_nodetree.outputs.new("NodeSocketColor", "R3")
 node2_nodetree.outputs.new("NodeSocketColor", "R4")
 node2_nodetree.outputs.new("NodeSocketColor", "R5")
 
-# hide output values -- Not working
-# bpy.data.node_groups["Hub"].outputs[0].hide_value
-# bpy.data.node_groups["Hub"].outputs[1].hide_value
-# bpy.data.node_groups["Hub"].outputs[2].hide_value
-# bpy.data.node_groups["Hub"].outputs[3].hide_value
-# bpy.data.node_groups["Hub"].outputs[4].hide_value
-# bpy.data.node_groups["Hub"].outputs[5].hide_value
+# hide output values
+for node2_output in node2_nodetree.inputs:
+    node2_output.hide_value = True
+
+
 
     # --------------------------------------------------------------
     # H: Covering - NODE H
@@ -95,7 +93,7 @@ nodeH_nodetree.inputs.new("NodeSocketColor", "Cam-##_H1_Masks")
 nodeH_nodetree.inputs.new("NodeSocketColor", "Cam-##_H2_Outline By Normal")
 nodeH_nodetree.inputs.new("NodeSocketColor", "Cam-##_H3_Details")
 
-## H1
+## H1 - Masks
 nodeH1a = nodeH_nodetree.nodes.new("CompositorNodeSepRGBA")
 nodeH1a.location = (180, 260)
 
@@ -136,7 +134,7 @@ nodeH1h.location = (1460, 500)
 nodeH1i = nodeH_nodetree.nodes.new("CompositorNodeSetAlpha")
 nodeH1i.location = (1640, 500)
 
-## H2
+## H2 - Outline by Normals
 nodeH2a = nodeH_nodetree.nodes.new("CompositorNodeFilter")
 nodeH2a.location = (180, 0)
 # filter_type = sobel
@@ -154,7 +152,7 @@ nodeH2d.location = (1000, 0)
 # gamma value = 10.0
 
 
-## H3
+## H3 - Details
 nodeH3a = nodeH_nodetree.nodes.new("CompositorNodeFilter")
 nodeH3a.location = (180, -240)
 # filter_type = prewitt
@@ -172,14 +170,25 @@ nodeH3d.location = (1000, -240)
 nodeH3e = nodeH_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeH3e.location = (1180, -240)
 
-## File Output
-nodeHz = nodeH_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeHz.location = (1820, 0)
-nodeHz.base_path = "//tmp"
-nodeHz.format.file_format = "JPEG"
-nodeHz.format.color_mode = "BW"
-nodeHz.format.quality = 100
-# nodeHz.subpath = "Cam-##_H1_Masks" -> how to change the File Subpath?
+## H1 - File Output
+nodeH1z = nodeH_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeH1z.location = (1820, 500)
+nodeH1z.base_path = "//tmp"
+nodeH1z.format.file_format = "PNG"
+nodeH1z.format.color_mode = "RGBA"
+nodeH1z.format.compression = 100
+nodeH1z.file_slots[0].path = "Cam-##_H1_Masks"
+
+## H2 - File Output
+nodeH2z = nodeH_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeH2z.location = (1420, -180)
+nodeH2z.base_path = "//tmp"
+nodeH2z.format.file_format = "JPEG"
+nodeH2z.format.color_mode = "BW"
+nodeH2z.format.quality = 100
+nodeH2z.file_slots[0].path = "Cam-##_H2_OBN"
+# HOW TO ADD SOCKETS?
+# nodeH2z.output_file_add_socket(file_path = "Cam-##_H3_Details")
 
 #connections
 ## H1
@@ -194,20 +203,20 @@ nodeH_nodetree.links.new(nodeH1f.outputs[0], nodeH1g.inputs[0])
 nodeH_nodetree.links.new(nodeH1g.outputs[0], nodeH1h.inputs[1])
 nodeH_nodetree.links.new(nodeH1h.outputs[0], nodeH1i.inputs[0])
 nodeH_nodetree.links.new(nodeH1a.outputs[3], nodeH1i.inputs[1])
-nodeH_nodetree.links.new(nodeH1i.outputs[0], nodeHz.inputs[0])
+nodeH_nodetree.links.new(nodeH1i.outputs[0], nodeH1z.inputs[0])
 ## H2
 nodeH_nodetree.links.new(nodeH_in.outputs[1], nodeH2a.inputs[0])
 nodeH_nodetree.links.new(nodeH2a.outputs[0], nodeH2b.inputs[0])
 nodeH_nodetree.links.new(nodeH2b.outputs[0], nodeH2c.inputs[0])
 nodeH_nodetree.links.new(nodeH2c.outputs[0], nodeH2d.inputs[0])
-# nodeH_nodetree.links.new(nodeH2d.outputs[0], nodeHz.inputs[1])
+nodeH_nodetree.links.new(nodeH2d.outputs[0], nodeH2z.inputs[0])
 ## H3
 nodeH_nodetree.links.new(nodeH_in.outputs[2], nodeH3a.inputs[0])
 nodeH_nodetree.links.new(nodeH3a.outputs[0], nodeH3b.inputs[0])
 nodeH_nodetree.links.new(nodeH3b.outputs[0], nodeH3c.inputs[0])
 nodeH_nodetree.links.new(nodeH3c.outputs[0], nodeH3d.inputs[0])
 nodeH_nodetree.links.new(nodeH3d.outputs[0], nodeH3e.inputs[1])
-# nodeH_nodetree.links.new(nodeH3e.outputs[0], nodeHz.inputs[2])
+# nodeH_nodetree.links.new(nodeH3e.outputs[0], nodeH2z.inputs[1])
 
     # --------------------------------------------------------------
     # L1: Ambient Occlusion - NODE L1
@@ -229,14 +238,14 @@ nodeL1_nodetree.inputs.new("NodeSocketColor", "Cam-##_L1_AO")
 nodeL1a = nodeL1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeL1a.location = (200, 0)
 
+## File Output
 nodeL1b = nodeL1_nodetree.nodes.new("CompositorNodeOutputFile")
 nodeL1b.location = (400, 0)
 nodeL1b.base_path = "//tmp"
 nodeL1b.format.file_format = "JPEG"
 nodeL1b.format.color_mode = "BW"
 nodeL1b.format.quality = 100
-# nodeL1b.subpath = "Cam-##_L1_AO" -> how to change the File Subpath?
-
+nodeL1b.file_slots[0].path = "Cam-##_L1_AO"
 
 # connections
 nodeL1_nodetree.links.new(nodeL1_in.outputs["Cam-##_L1_AO"], nodeL1a.inputs["Image"])
@@ -263,13 +272,14 @@ nodeR6_nodetree.inputs.new("NodeSocketColor", "Cam-##_R6_Slope")
 nodeR6a = nodeR6_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeR6a.location = (200, 0)
 
+## File Output
 nodeR6b = nodeR6_nodetree.nodes.new("CompositorNodeOutputFile")
 nodeR6b.location = (400, 0)
 nodeR6b.base_path = "//tmp"
 nodeR6b.format.file_format = "JPEG"
 nodeR6b.format.color_mode = "BW"
 nodeR6b.format.quality = 100
-# nodeR6b.subpath = "Cam-##_R6_Slope" -> how to change the File Subpath?
+nodeR6b.file_slots[0].path = "Cam-##_R6_Slope"
 
 # connections
 nodeR6_nodetree.links.new(nodeR6_in.outputs[0], nodeR6a.inputs[0])
