@@ -700,7 +700,7 @@ nodeRed1g.location = (1000, 60)
 nodeRed1g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R1")
 nodeRed1g_nodetree = nodeRed1g.node_tree  # shortcut; akin to `nodetree`
 
-# Recreate group's inputs
+# create group's inputs
 nodeRed1g_in = nodeRed1g_nodetree.nodes.new("NodeGroupInput")
 nodeRed1g_in.location = (0, 0)
 nodeRed1g_nodetree.inputs.new("NodeSocketColor", "input")
@@ -709,7 +709,7 @@ nodeRed1g_nodetree.inputs.new("NodeSocketColor", "input")
 nodeRed1a = nodeRed1g_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeRed1a.location = (180, 0)
 
-# Recreate group's output
+# create group's output
 nodeRed1g_out = nodeRed1g_nodetree.nodes.new("NodeGroupOutput")
 nodeRed1g_out.location = (1000, 0)
 nodeRed1g_nodetree.outputs.new("NodeSocketColor", "output")
@@ -746,7 +746,7 @@ nodeRed2g.location = (1000, -100)
 nodeRed2g.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R2")
 nodeRed2g_nodetree = nodeRed2g.node_tree  # shortcut; akin to `nodetree`
 
-# Recreate group's inputs
+# create group's inputs
 nodeRed2g_in = nodeRed2g_nodetree.nodes.new("NodeGroupInput")
 nodeRed2g_in.location = (0, 0)
 nodeRed2g_nodetree.inputs.new("NodeSocketColor", "input")
@@ -755,7 +755,7 @@ nodeRed2g_nodetree.inputs.new("NodeSocketColor", "input")
 nodeRed2a = nodeRed2g_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeRed2a.location = (180, 0)
 
-# Recreate group's output
+# create group's output
 nodeRed2g_out = nodeRed2g_nodetree.nodes.new("NodeGroupOutput")
 nodeRed2g_out.location = (1000, 0)
 nodeRed2g_nodetree.outputs.new("NodeSocketColor", "output")
@@ -1146,8 +1146,8 @@ nodeR2_nodetree.links.new(nodeR2Ba.outputs[0], nodeR2Bb.inputs[0])
 nodeR2_nodetree.links.new(nodeR2Ca.outputs[0], nodeR2Cb.inputs[0])
 
 nodeR2_nodetree.links.new(nodeR2Ab.outputs[0], nodeR2z.inputs[0])
-# nodeR2_nodetree.links.new(nodeR2Bb.outputs[0], nodeR2z.inputs[1])
-# nodeR2_nodetree.links.new(nodeR2Cb.outputs[0], nodeR2z.inputs[2])
+nodeR2_nodetree.links.new(nodeR2Bb.outputs[0], nodeR2z.inputs[1])
+nodeR2_nodetree.links.new(nodeR2Cb.outputs[0], nodeR2z.inputs[2])
 
 
 # ------------------------------------------------------------------
@@ -1171,33 +1171,32 @@ nodeR3_nodetree.inputs.new("NodeSocketColor", "Cam-##_R3_DM2")
 for nodeR3_input in nodeR3_nodetree.inputs:
     nodeR3_input.hide_value = True
 
-#-----
-## DM1
-#-----
+
 nodeR3dm1A = nodeR3_nodetree.nodes.new("CompositorNodeRGBToBW")
-nodeR3dm1A.location = (200, 720)   # DM2 y: -620)
+nodeR3dm1A.location = (200, 0)   # DM2 y: -620)
 
 nodeR3dm1B = nodeR3_nodetree.nodes.new("CompositorNodeGamma")
-nodeR3dm1B.location = (340, 720)   # DM2 y: -620)
+nodeR3dm1B.location = (340, 0)
 
 nodeR3dm1C = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR3dm1C.location = (520, 720)   # DM2 y: -620)
+nodeR3dm1C.location = (520, 0)
 
-### DM1-grey
+### DM-grey
 nodeR3dm1_grey = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR3dm1_grey.location = (800, 1360)   # DM2 y: 0)
+nodeR3dm1_grey.location = (800, 640)
 
 nodeR3dm1_grey_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_grey_out.location = (1080, 1360)   # DM2 y: 0)
+nodeR3dm1_grey_out.location = (1080, 640)
 nodeR3dm1_grey_out.base_path = "//tmp"
 nodeR3dm1_grey_out.format.file_format = "PNG"
 nodeR3dm1_grey_out.format.color_mode = "RGBA"
 nodeR3dm1_grey_out.format.compression = 0
 nodeR3dm1_grey_out.file_slots[0].path = "Cam-##_R3_DM1"
+nodeR3dm1_grey_out.file_slots.new("Cam-##_R3_DM2")
 
-### DM1-BBR
+### DM-BBR
 nodeR3dm1_BBR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_BBR.location = (800, 1200)   # DM2 y: -180)
+nodeR3dm1_BBR.location = (800, 480)
 # interpolation: B-Spline
 # cursor1 (loc = 0.0 ; colorHex = 0000FA)
 # cursor2 (loc = 0.425 ; colorHex = 4FF0F0)
@@ -1206,16 +1205,17 @@ nodeR3dm1_BBR.location = (800, 1200)   # DM2 y: -180)
 # cursor5 (loc = 1.0 ; colorHex = FF0500)
 
 nodeR3dm1_BBR_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_BBR_out.location = (1080, 1200)   # DM2 y: -180)
+nodeR3dm1_BBR_out.location = (1080, 480)
 nodeR3dm1_BBR_out.base_path = "//tmp"
 nodeR3dm1_BBR_out.format.file_format = "JPEG"
 nodeR3dm1_BBR_out.format.color_mode = "RGB"
 nodeR3dm1_BBR_out.format.quality = 100
 nodeR3dm1_BBR_out.file_slots[0].path = "Cam-##_R3_DM1-BBR"
+nodeR3dm1_BBR_out.file_slots.new("Cam-##_R3_DM2-BBR")
 
-### DM1-BVJR
+### DM-BVJR
 nodeR3dm1_BVJR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_BVJR.location = (800, 960)   # DM2 y: -400)
+nodeR3dm1_BVJR.location = (800, 240)
 # interpolation: B-Spline
 # cursor1 (loc = 0.0 ; colorHex = 0000FF)
 # cursor2 (loc = 0.4 ; colorHex = 00CC00)
@@ -1223,16 +1223,17 @@ nodeR3dm1_BVJR.location = (800, 960)   # DM2 y: -400)
 # cursor4 (loc = 1.0 ; colorHex = FF0000)
 
 nodeR3dm1_BVJR_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_BVJR_out.location = (1080, 960)   # DM2 y: -400)
+nodeR3dm1_BVJR_out.location = (1080, 240)
 nodeR3dm1_BVJR_out.base_path = "//tmp"
 nodeR3dm1_BVJR_out.format.file_format = "JPEG"
 nodeR3dm1_BVJR_out.format.color_mode = "RGB"
 nodeR3dm1_BVJR_out.format.quality = 100
 nodeR3dm1_BVJR_out.file_slots[0].path = "Cam-##_R3_DM1-BVJR"
+nodeR3dm1_BVJR_out.file_slots.new("Cam-##_R3_DM2-BVJR")
 
-### DM1-Magma
+### DM-Magma
 nodeR3dm1_MAGMA = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_MAGMA.location = (800, 720)   # DM2 y: -620)
+nodeR3dm1_MAGMA.location = (800, 0)
 # interpolation: B-Spline
 # cursor1 (loc = 0.0 ; colorHex = 000000)
 # cursor2 (loc = 0.25 ; colorHex = 50127B)
@@ -1241,16 +1242,17 @@ nodeR3dm1_MAGMA.location = (800, 720)   # DM2 y: -620)
 # cursor5 (loc = 1.0 ; colorHex = FCFDBF)
 
 nodeR3dm1_MAGMA_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_MAGMA_out.location = (1080, 720)   # DM2 y: -620)
+nodeR3dm1_MAGMA_out.location = (1080, 0)
 nodeR3dm1_MAGMA_out.base_path = "//tmp"
 nodeR3dm1_MAGMA_out.format.file_format = "JPEG"
 nodeR3dm1_MAGMA_out.format.color_mode = "RGB"
 nodeR3dm1_MAGMA_out.format.quality = 100
 nodeR3dm1_MAGMA_out.file_slots[0].path = "Cam-##_R3_DM1-MAGMA"
+nodeR3dm1_MAGMA_out.file_slots.new("Cam-##_R3_DM2-MAGMA")
 
-### DM1-Spectral
+### DM-Spectral
 nodeR3dm1_SPECTRAL = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_SPECTRAL.location = (800, 480)   # DM2 y: -840)
+nodeR3dm1_SPECTRAL.location = (800, -240)
 # interpolation: B-Spline
 # cursor1 (loc = 0.0 ; colorHex = 000000)
 # cursor2 (loc = 0.25 ; colorHex = 50127B)
@@ -1259,17 +1261,18 @@ nodeR3dm1_SPECTRAL.location = (800, 480)   # DM2 y: -840)
 # cursor5 (loc = 1.0 ; colorHex = FCFDBF)
 
 nodeR3dm1_SPECTRAL_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_SPECTRAL_out.location = (1080, 480)   # DM2 y: -840)
+nodeR3dm1_SPECTRAL_out.location = (1080, -240)
 nodeR3dm1_SPECTRAL_out.base_path = "//tmp"
 nodeR3dm1_SPECTRAL_out.format.file_format = "JPEG"
 nodeR3dm1_SPECTRAL_out.format.color_mode = "RGB"
 nodeR3dm1_SPECTRAL_out.format.quality = 100
 nodeR3dm1_SPECTRAL_out.file_slots[0].path = "Cam-##_R3_DM1-SPECTRAL"
+nodeR3dm1_SPECTRAL_out.file_slots.new("Cam-##_R3_DM2-SPECTRAL")
 
 
-### DM1-Viridis
+### DM-Viridis
 nodeR3dm1_VIRIDIS = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_VIRIDIS.location = (800, 240)   # DM2 y: -1060)
+nodeR3dm1_VIRIDIS.location = (800, -480)
 # interpolation: B-Spline
 # cursor1 (loc = 0.0 ; colorHex = 000000)
 # cursor2 (loc = 0.25 ; colorHex = 50127B)
@@ -1278,18 +1281,13 @@ nodeR3dm1_VIRIDIS.location = (800, 240)   # DM2 y: -1060)
 # cursor5 (loc = 1.0 ; colorHex = FCFDBF)
 
 nodeR3dm1_VIRIDIS_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_VIRIDIS_out.location = (1080, 240)   # DM2 y: -1060)
+nodeR3dm1_VIRIDIS_out.location = (1080, -480)
 nodeR3dm1_VIRIDIS_out.base_path = "//tmp"
 nodeR3dm1_VIRIDIS_out.format.file_format = "JPEG"
 nodeR3dm1_VIRIDIS_out.format.color_mode = "RGB"
 nodeR3dm1_VIRIDIS_out.format.quality = 100
 nodeR3dm1_VIRIDIS_out.file_slots[0].path = "Cam-##_R3_DM1-VIRIDIS"
-
-
-#-----
-## DM2
-#-----
-# The same, just change "R3dm1" to R3dm2", and y positions
+nodeR3dm1_VIRIDIS_out.file_slots.new("Cam-##_R3_DM2-VIRIDIS")
 
 
 # connections
