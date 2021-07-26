@@ -183,3 +183,6 @@ for obj in selection:
 
 ## Deselect all objects
 bpy.ops.object.select_all(action="DESELECT")
+
+## Select Framing Box (to ease resizing)
+D.objects["Framing Box"].select_set(True)

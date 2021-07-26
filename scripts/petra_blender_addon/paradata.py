@@ -44,11 +44,15 @@ class BlenderData:
         self.cam_01 = objects["Cam-01"]
 
         self.documentation_scale = params.documentation_scale  # float
+        # Experimental. Works well for 1/10 and 1/20.
+        # Does not work well for 1/30,
         self.documentation_scale_fraction = str(
             round(Fraction(params.documentation_scale), 7)
         )
 
+        # Note: this is in millimetres.
         self.spatial_resolution = params.spatial_resolution
+
         self.resolution_of_image = round(
             self.documentation_scale / (self.spatial_resolution / 25.4)
         )
