@@ -99,13 +99,15 @@ nodeH1a.location = (180, 260)
 
 nodeH1b = nodeH_nodetree.nodes.new("CompositorNodeBlur")
 nodeH1b.location = (360, 500)
-# size_x = 20
-# size_y = 20
+nodeH1b.size_x = 20
+nodeH1b.size_y = 20
 
 nodeH1c = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeH1c.location = (540, 500)
-# colorRamp.interpolation = Constant
-# cursor1 (loc = 0.0 ; colorHex = FFFFFF)
+    # how to set colorRamp.interpolation = Constant ?
+    # how to set element1_Pos = 0.0 
+    # how to define color of element1? (colorHex = FFFFFF)
+    # how to add a new element?
 # cursor2 (loc = 0.1 ; colorHex = 000000)
 
 nodeH1d = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
@@ -115,11 +117,11 @@ nodeH1d.location = (540, 260)
 
 nodeH1e = nodeH_nodetree.nodes.new("CompositorNodeMixRGB")
 nodeH1e.location = (820, 500)
-# blend_type = Multiply
+nodeH1e.blend_type = 'MULTIPLY'
 
 nodeH1f = nodeH_nodetree.nodes.new("CompositorNodeMixRGB")
 nodeH1f.location = (1000, 500)
-# blend_type = Difference
+nodeH1f.blend_type = 'DIFFERENCE'
 
 nodeH1g = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeH1g.location = (1180, 500)
@@ -137,7 +139,7 @@ nodeH1i.location = (1640, 500)
 ## H2 - Outline by Normals
 nodeH2a = nodeH_nodetree.nodes.new("CompositorNodeFilter")
 nodeH2a.location = (180, 0)
-# filter_type = sobel
+nodeH2a.filter_type = 'SOBEL'
 
 nodeH2b = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeH2b.location = (540, 0)
@@ -149,13 +151,13 @@ nodeH2c.location = (820, 0)
 
 nodeH2d = nodeH_nodetree.nodes.new("CompositorNodeGamma")
 nodeH2d.location = (1000, 0)
-# gamma value = 10.0
+nodeH2d.inputs[1].default_value = 10
 
 
 ## H3 - Details
 nodeH3a = nodeH_nodetree.nodes.new("CompositorNodeFilter")
 nodeH3a.location = (180, -240)
-# filter_type = prewitt
+nodeH3a.filter_type = 'PREWITT'
 
 nodeH3b = nodeH_nodetree.nodes.new("CompositorNodeRGBToBW")
 nodeH3b.location = (540, -240)
@@ -165,10 +167,20 @@ nodeH3c.location = (820, -240)
 
 nodeH3d = nodeH_nodetree.nodes.new("CompositorNodeGamma")
 nodeH3d.location = (1000, -240)
-# gamma value = 1.5
+nodeH3d.inputs[1].default_value = 1.5
 
 nodeH3e = nodeH_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeH3e.location = (1180, -240)
+    # controlPoint1_x = 0
+    # controlPoint1_y = 0
+    # controlPoint2_x = 0.25
+    # controlPoint2_y = 0.15
+    # controlPoint3_x = 0.666   is it possible to write`2/3`?
+    # controlPoint3_y = 0.333   is it possible to write`1/3`?
+    # controlPoint4_x = 0.85
+    # controlPoint4_y = 0.75
+    # controlPoint5_x = 1
+    # controlPoint5_y = 1
 
 ## H1 - File Output
 nodeH1z = nodeH_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -410,7 +422,7 @@ nodeB1a.location = (180, 0)
 
 nodeB1b = nodeB1g_nodetree.nodes.new("CompositorNodeGamma")
 nodeB1b.location = (360, 0)
-    # gamma = 2.4
+nodeB1b.inputs[1].default_value = 2.4
 
 # create group's output
 nodeB1g_out = nodeB1g_nodetree.nodes.new("NodeGroupOutput")
@@ -458,7 +470,7 @@ nodeB2a.location = (180, 0)
 
 nodeB2b = nodeB2g_nodetree.nodes.new("CompositorNodeGamma")
 nodeB2b.location = (360, 0)
-    # gamma = 2.4
+nodeB2b.inputs[1].default_value = 2.4
 
 nodeB2c = nodeB2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeB2c.location = (540, 0)
@@ -502,11 +514,11 @@ nodeCb1g_nodetree.inputs.new("NodeSocketColor", "input")
 # inside the group
 nodeCb1a = nodeCb1g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeCb1a.location = (180, 0)
-    # mode = ITU 709
+nodeCb1a.mode = 'ITUBT601'
 
 nodeCb1b = nodeCb1g_nodetree.nodes.new("CompositorNodeGamma")
 nodeCb1b.location = (360, 0)
-    # gamma = 3.6
+nodeCb1b.inputs[1].default_value = 3.6
 
 # create group's output
 nodeCb1g_out = nodeCb1g_nodetree.nodes.new("NodeGroupOutput")
@@ -550,11 +562,11 @@ nodeCb2g_nodetree.inputs.new("NodeSocketColor", "input")
 # inside the group
 nodeCb2a = nodeCb2g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeCb2a.location = (180, 0)
-    # mode = ITU 601
+nodeCb2a.mode = 'ITUBT601'
 
 nodeCb2b = nodeCb2g_nodetree.nodes.new("CompositorNodeGamma")
 nodeCb2b.location = (360, 0)
-    # gamma = 2.4
+nodeCb2b.inputs[1].default_value = 3.6
 
 nodeCb2c = nodeCb2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeCb2c.location = (540, 0)
@@ -598,11 +610,11 @@ nodeCr1g_nodetree.inputs.new("NodeSocketColor", "input")
 # inside the group
 nodeCr1a = nodeCr1g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeCr1a.location = (180, 0)
-    # mode = ITU 601
+nodeCr1a.mode = 'ITUBT601'
 
 nodeCr1b = nodeCr1g_nodetree.nodes.new("CompositorNodeGamma")
 nodeCr1b.location = (360, 0)
-    # gamma = 2.4
+nodeCr1b.inputs[1].default_value = 2.4
 
 # create group's output
 nodeCr1g_out = nodeCr1g_nodetree.nodes.new("NodeGroupOutput")
@@ -612,9 +624,9 @@ nodeCr1g_nodetree.outputs.new("NodeSocketColor", "output")
 # flat surface option
 nodeCr1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeCr1Flat.location = (1180, 700)
+nodeCr1Flat.inputs[1].default_value = 23
+nodeCr1Flat.inputs[2].default_value = 68
 nodeCr1Flat.mute = True
-    # Bright = 23.0
-    # Contrast = 68.0
 
 ## File Output
 nodeCrout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -654,11 +666,11 @@ nodeCr2g_nodetree.inputs.new("NodeSocketColor", "input")
 # inside the group
 nodeCr2a = nodeCr2g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeCr2a.location = (180, 0)
-    # mode = ITU 601
+nodeCr2a.mode = 'ITUBT601'
 
 nodeCr2b = nodeCr2g_nodetree.nodes.new("CompositorNodeGamma")
 nodeCr2b.location = (360, 0)
-    # gamma = 2.4
+nodeCr2b.inputs[1].default_value = 2.4
 
 nodeCr2c = nodeCr2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeCr2c.location = (540, 0)
@@ -677,9 +689,8 @@ nodeCr2g_nodetree.outputs.new("NodeSocketColor", "output")
 # flat surface option
 nodeCr2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeCr2Flat.location = (1180, 540)
+nodeCr2Flat.inputs[2].default_value = 68
 nodeCr2Flat.mute = True
-    # Bright = 0.0
-    # Contrast = 68.0
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCr2g.inputs[0])
@@ -719,9 +730,8 @@ nodeG1g_nodetree.outputs.new("NodeSocketColor", "output")
 # flat surface option
 nodeG1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeG1Flat.location = (1180, 380)
+nodeG1Flat.inputs[2].default_value = 30
 nodeG1Flat.mute = True
-    # Bright = 0.0
-    # Contrast = 30.0
 
 ## File Output
 nodeGout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -778,9 +788,8 @@ nodeG2g_nodetree.outputs.new("NodeSocketColor", "output")
 # flat surface option
 nodeG2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeG2Flat.location = (1180, 220)
+nodeG2Flat.inputs[2].default_value = 40
 nodeG2Flat.mute = True
-    # Bright = 0.0
-    # Contrast = 40.0
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeG2g.inputs[0])
@@ -819,9 +828,8 @@ nodeRed1g_nodetree.outputs.new("NodeSocketColor", "output")
 # flat surface option
 nodeRed1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeRed1Flat.location = (1180, 60)
+nodeRed1Flat.inputs[2].default_value = 30
 nodeRed1Flat.mute = True
-    # Bright = 0.0
-    # Contrast = 30.0
 
 ## File Output
 nodeRedout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -878,9 +886,8 @@ nodeRed2g_nodetree.outputs.new("NodeSocketColor", "output")
 # flat surface option
 nodeRed2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeRed2Flat.location = (1180, -100)
+nodeRed2Flat.inputs[2].default_value = 40
 nodeRed2Flat.mute = True
-    # Bright = 0.0
-    # Contrast = 40.0
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeRed2g.inputs[0])
@@ -913,7 +920,7 @@ nodeS1a.location = (180, 0)
 
 nodeS1b = nodeS1g_nodetree.nodes.new("CompositorNodeGamma")
 nodeS1b.location = (360, 0)
-    # factor = 4.7
+nodeS1b.inputs[1].default_value = 4.7
 
 # create group's output
 nodeS1g_out = nodeS1g_nodetree.nodes.new("NodeGroupOutput")
@@ -923,9 +930,8 @@ nodeS1g_nodetree.outputs.new("NodeSocketColor", "output")
 # flat surface option
 nodeS1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeS1Flat.location = (1180, -260)
+nodeS1Flat.inputs[2].default_value = 50
 nodeS1Flat.mute = True
-    # Bright = 0.0
-    # Contrast = 50.0
 
 ## File Output
 nodeSout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -968,7 +974,7 @@ nodeS2a.location = (180, 0)
 
 nodeS2b = nodeS2g_nodetree.nodes.new("CompositorNodeGamma")
 nodeS2b.location = (360, 0)
-    # factor = 4.7
+nodeS2b.inputs[1].default_value = 4.7
 
 nodeS2c = nodeS2g_nodetree.nodes.new("CompositorNodeInvert")
 nodeS2c.location = (540, 0)
@@ -981,9 +987,9 @@ nodeS2g_nodetree.outputs.new("NodeSocketColor", "output")
 # flat surface option
 nodeS2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeS2Flat.location = (1180, -420)
+nodeS2Flat.inputs[1].default_value = -12
+nodeS2Flat.inputs[2].default_value = 77
 nodeS2Flat.mute = True
-    # Bright = -12.0
-    # Contrast = 77.0
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeS2g.inputs[0])
@@ -1017,12 +1023,12 @@ nodeU1a.location = (180, 0)
 
 nodeU1b = nodeU1g_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeU1b.location = (360, 0)
-    # bright = 39.1
-    # contrast = 46.1
+nodeU1b.inputs[1].default_value = 39.1
+nodeU1b.inputs[2].default_value = 46.1
 
 nodeU1c = nodeU1g_nodetree.nodes.new("CompositorNodeGamma")
 nodeU1c.location = (540, 0)
-    # factor = 3.2
+nodeU1c.inputs[1].default_value = 3.2
 
 # create group's output
 nodeU1g_out = nodeU1g_nodetree.nodes.new("NodeGroupOutput")
@@ -1070,8 +1076,8 @@ nodeU2a.location = (180, 0)
 
 nodeU2b = nodeU2g_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeU2b.location = (360, 0)
-    # bright = 39.1
-    # contrast = 46.1
+nodeU2b.inputs[1].default_value = 39.1
+nodeU2b.inputs[2].default_value = 46.1
 
 nodeU2c = nodeU2g_nodetree.nodes.new("CompositorNodeInvert")
 nodeU2c.location = (540, 0)
@@ -1113,7 +1119,7 @@ nodeV1a.location = (180, 0)
 
 nodeV1b = nodeV1g_nodetree.nodes.new("CompositorNodeGamma")
 nodeV1b.location = (360, 0)
-    # Factor = 3.2
+nodeV1b.inputs[1].default_value = 3.2
 
 # create group's output
 nodeV1g_out = nodeV1g_nodetree.nodes.new("NodeGroupOutput")
@@ -1160,7 +1166,7 @@ nodeV2a.location = (180, 0)
 
 nodeV2b = nodeV2g_nodetree.nodes.new("CompositorNodeGamma")
 nodeV2b.location = (360, 0)
-    # Factor = 3.0
+nodeV2b.inputs[1].default_value = 3
 
 nodeV2c = nodeV2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeV2c.location = (540, 0)
@@ -1204,11 +1210,11 @@ nodeY1g_nodetree.inputs.new("NodeSocketColor", "input")
 # inside the group
 nodeY1a = nodeY1g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeY1a.location = (180, 0)
-    # mode = ITU 601
+nodeY1a.mode = 'ITUBT601'
 
 nodeY1b = nodeY1g_nodetree.nodes.new("CompositorNodeGamma")
 nodeY1b.location = (360, 0)
-    # Factor = 1.9
+nodeY1b.inputs[1].default_value = 1.9
 
 # create group's output
 nodeY1g_out = nodeY1g_nodetree.nodes.new("NodeGroupOutput")
@@ -1219,8 +1225,8 @@ nodeY1g_nodetree.outputs.new("NodeSocketColor", "output")
 nodeY1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeY1Flat.location = (1180, -1060)
 nodeY1Flat.mute = True
-    # Bright = 34.0
-    # Contrast = 88.0
+nodeY1Flat.inputs[1].default_value = 34
+nodeY1Flat.inputs[2].default_value = 88
 
 ## File Output
 nodeYout = nodeR1_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -1260,11 +1266,11 @@ nodeY2g_nodetree.inputs.new("NodeSocketColor", "input")
 # inside the group
 nodeY2a = nodeY2g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeY2a.location = (180, 0)
-    # mode = ITU 601
+nodeY2a.mode = 'ITUBT601'
 
 nodeY2b = nodeY2g_nodetree.nodes.new("CompositorNodeGamma")
 nodeY2b.location = (360, 0)
-    # Factor = 1.9
+nodeY2b.inputs[1].default_value = 1.9
 
 nodeY2c = nodeY2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeY2c.location = (540, 0)
@@ -1277,8 +1283,7 @@ nodeY2c.location = (540, 0)
 
 nodeY2d = nodeY2g_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeY2d.location = (780, 0)
-    # bright = 0.0
-    # contrast = 30.0
+nodeY2d.inputs[2].default_value = 30
 
 # Create group's output
 nodeY2g_out = nodeY2g_nodetree.nodes.new("NodeGroupOutput")
@@ -1289,6 +1294,10 @@ nodeY2g_nodetree.outputs.new("NodeSocketColor", "output")
 nodeY2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeY2Flat.location = (1180, -1220)
 nodeY2Flat.mute = True
+nodeY2Flat.inputs[1].default_value = 1
+nodeY2Flat.inputs[2].default_value = 80
+
+
     # Bright = 1.0
     # Contrast = 80.0
 
@@ -1330,12 +1339,16 @@ for nodeR2_input in nodeR2_nodetree.inputs:
 # inside the group
 nodeR2Aa = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeR2Aa.location = (180, 260)
+nodeR2Aa.inputs[2].default_value = 100
+
 
 nodeR2Ba = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeR2Ba.location = (180, 40)
+nodeR2Ba.inputs[2].default_value = 100
 
 nodeR2Ca = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeR2Ca.location = (180, -180)
+nodeR2Ca.inputs[2].default_value = 100
 
 nodeR2Ab = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR2Ab.location = (360, 420)
@@ -1409,9 +1422,12 @@ nodeR3dm1A.location = (200, 0)   # DM2 y: -620)
 
 nodeR3dm1B = nodeR3_nodetree.nodes.new("CompositorNodeGamma")
 nodeR3dm1B.location = (340, 0)
+nodeR3dm1B.inputs[1].default_value = 0.5
 
 nodeR3dm1C = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeR3dm1C.location = (520, 0)
+nodeR3dm1C.inputs[2].default_value = 40
+
 
 ### DM-grey
 nodeR3dm1_grey = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
