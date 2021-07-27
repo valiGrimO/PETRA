@@ -104,16 +104,16 @@ nodeH1b.size_y = 20
 
 nodeH1c = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeH1c.location = (540, 500)
-    # how to set colorRamp.interpolation = Constant ?
-    # how to set element1_Pos = 0.0 
-    # how to define color of element1? (colorHex = FFFFFF)
-    # how to add a new element?
-# cursor2 (loc = 0.1 ; colorHex = 000000)
+nodeH1c.color_ramp.interpolation = "CONSTANT"
+nodeH1c.color_ramp.elements[1].position = 0.1
+nodeH1c.color_ramp.elements[0].color = (1, 1, 1, 1)
+nodeH1c.color_ramp.elements[1].color = (0, 0, 0, 1)
 
 nodeH1d = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeH1d.location = (540, 260)
-# colorRamp.interpolation = Constant
-# cursor1 (loc = 0.0 ; colorHex = 898989)
+nodeH1d.color_ramp.interpolation = "CONSTANT"
+nodeH1d.color_ramp.elements[0].color = (0.25, 0.25, 0.25, 1)
+nodeH1d.color_ramp.elements[1].color = (0.25, 0.25, 0.25, 1)
 
 nodeH1e = nodeH_nodetree.nodes.new("CompositorNodeMixRGB")
 nodeH1e.location = (820, 500)
@@ -125,10 +125,12 @@ nodeH1f.blend_type = 'DIFFERENCE'
 
 nodeH1g = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeH1g.location = (1180, 500)
-# colorRamp.interpolation = Constant
-# cursor1 (loc = 0.0 ; colorHex = FFFFFF)
-# cursor1 (loc = 0.0 ; colorHex = 898989)
-# cursor1 (loc = 0.0 ; colorHex = 000000)
+nodeH1g.color_ramp.interpolation = "CONSTANT"
+nodeH1g.color_ramp.elements[1].position = 0.3
+nodeH1g.color_ramp.elements.new(0.8)
+nodeH1g.color_ramp.elements[0].color = (1, 1, 1, 1)
+nodeH1g.color_ramp.elements[1].color = (0.25, 0.25, 0.25, 1)
+nodeH1g.color_ramp.elements[2].color = (0, 0, 0, 1)
 
 nodeH1h = nodeH_nodetree.nodes.new("CompositorNodeFilter")
 nodeH1h.location = (1460, 500)
@@ -143,8 +145,10 @@ nodeH2a.filter_type = 'SOBEL'
 
 nodeH2b = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeH2b.location = (540, 0)
-# cursor1 (loc = 0.2 ; colorHex = 000000)
-# cursor2 (loc = 0.3 ; colorHex = FFFFFF)
+nodeH2b.color_ramp.elements[0].position = 0.2
+nodeH2b.color_ramp.elements[1].position = 0.3
+nodeH2b.color_ramp.elements[0].color = (0, 0, 0, 1)
+nodeH2b.color_ramp.elements[1].color = (1, 1, 1, 1)
 
 nodeH2c = nodeH_nodetree.nodes.new("CompositorNodeInvert")
 nodeH2c.location = (820, 0)
@@ -175,8 +179,8 @@ nodeH3e.location = (1180, -240)
     # controlPoint1_y = 0
     # controlPoint2_x = 0.25
     # controlPoint2_y = 0.15
-    # controlPoint3_x = 0.666   is it possible to write`2/3`?
-    # controlPoint3_y = 0.333   is it possible to write`1/3`?
+    # controlPoint3_x = 2/3
+    # controlPoint3_y = 1/3
     # controlPoint4_x = 0.85
     # controlPoint4_y = 0.75
     # controlPoint5_x = 1
@@ -1352,21 +1356,24 @@ nodeR2Ca.inputs[2].default_value = 100
 
 nodeR2Ab = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR2Ab.location = (360, 420)
-# interpolation: Constant
-# cursor1 (loc = 0.0 ; colorHex = 000000)
-# cursor2 (loc = 0.5 ; colorHex = FFFFFF)
+nodeR2Ab.color_ramp.interpolation = "CONSTANT"
+nodeR2Ab.color_ramp.elements[1].position = 0.5
+nodeR2Ab.color_ramp.elements[0].color = (0, 0, 0, 1)
+nodeR2Ab.color_ramp.elements[1].color = (1, 1, 1, 1)
 
 nodeR2Bb = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR2Bb.location = (360, 200)
-# interpolation: Constant
-# cursor1 (loc = 0.0 ; colorHex = 000000)
-# cursor2 (loc = 0.5 ; colorHex = FFFFFF)
+nodeR2Bb.color_ramp.interpolation = "CONSTANT"
+nodeR2Bb.color_ramp.elements[1].position = 0.5
+nodeR2Bb.color_ramp.elements[0].color = (0, 0, 0, 1)
+nodeR2Bb.color_ramp.elements[1].color = (1, 1, 1, 1)
 
 nodeR2Cb = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR2Cb.location = (360, -20)
-# interpolation: Constant
-# cursor1 (loc = 0.0 ; colorHex = 000000)
-# cursor2 (loc = 0.5 ; colorHex = FFFFFF)
+nodeR2Cb.color_ramp.interpolation = "CONSTANT"
+nodeR2Cb.color_ramp.elements[1].position = 0.5
+nodeR2Cb.color_ramp.elements[0].color = (0, 0, 0, 1)
+nodeR2Cb.color_ramp.elements[1].color = (1, 1, 1, 1)
 
 ## File Output
 nodeR2z = nodeR2_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -1445,12 +1452,16 @@ nodeR3dm1_grey_out.file_slots.new("Cam-##_R3_DM2")
 ### DM-BBR
 nodeR3dm1_BBR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR3dm1_BBR.location = (800, 480)
-# interpolation: B-Spline
-# cursor1 (loc = 0.0 ; colorHex = 0000FA)
-# cursor2 (loc = 0.425 ; colorHex = 4FF0F0)
-# cursor3 (loc = 0.5 ; colorHex = FFFFFF)
-# cursor4 (loc = 0.575 ; colorHex = F0F000)
-# cursor5 (loc = 1.0 ; colorHex = FF0500)
+nodeR3dm1_BBR.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm1_BBR.color_ramp.elements[1].position = 0.425
+nodeR3dm1_BBR.color_ramp.elements.new(0.5)
+nodeR3dm1_BBR.color_ramp.elements.new(0.575)
+nodeR3dm1_BBR.color_ramp.elements.new(1)
+nodeR3dm1_BBR.color_ramp.elements[0].color = (0, 0, 1, 1)
+nodeR3dm1_BBR.color_ramp.elements[1].color = (0, 1, 1, 1)
+nodeR3dm1_BBR.color_ramp.elements[2].color = (1, 1, 1, 1)
+nodeR3dm1_BBR.color_ramp.elements[3].color = (1, 1, 0, 1)
+nodeR3dm1_BBR.color_ramp.elements[4].color = (1, 0, 0, 1)
 
 nodeR3dm1_BBR_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
 nodeR3dm1_BBR_out.location = (1080, 480)
@@ -1464,11 +1475,14 @@ nodeR3dm1_BBR_out.file_slots.new("Cam-##_R3_DM2-BBR")
 ### DM-BVJR
 nodeR3dm1_BVJR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR3dm1_BVJR.location = (800, 240)
-# interpolation: B-Spline
-# cursor1 (loc = 0.0 ; colorHex = 0000FF)
-# cursor2 (loc = 0.4 ; colorHex = 00CC00)
-# cursor3 (loc = 0.6 ; colorHex = FFFF00)
-# cursor4 (loc = 1.0 ; colorHex = FF0000)
+nodeR3dm1_BVJR.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm1_BVJR.color_ramp.elements[1].position = 0.4
+nodeR3dm1_BVJR.color_ramp.elements.new(0.6)
+nodeR3dm1_BVJR.color_ramp.elements.new(1)
+nodeR3dm1_BVJR.color_ramp.elements[0].color = (0, 0, 1, 1)
+nodeR3dm1_BVJR.color_ramp.elements[1].color = (0, 0.6, 0, 1)
+nodeR3dm1_BVJR.color_ramp.elements[2].color = (1, 1, 0, 1)
+nodeR3dm1_BVJR.color_ramp.elements[3].color = (1, 0, 0, 1)
 
 nodeR3dm1_BVJR_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
 nodeR3dm1_BVJR_out.location = (1080, 240)
@@ -1482,12 +1496,16 @@ nodeR3dm1_BVJR_out.file_slots.new("Cam-##_R3_DM2-BVJR")
 ### DM-Magma
 nodeR3dm1_MAGMA = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR3dm1_MAGMA.location = (800, 0)
-# interpolation: B-Spline
-# cursor1 (loc = 0.0 ; colorHex = 000000)
-# cursor2 (loc = 0.25 ; colorHex = 50127B)
-# cursor3 (loc = 0.5 ; colorHex = B63679)
-# cursor4 (loc = 0.75 ; colorHex = FC8761)
-# cursor5 (loc = 1.0 ; colorHex = FCFDBF)
+nodeR3dm1_MAGMA.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm1_MAGMA.color_ramp.elements[1].position = 0.25
+nodeR3dm1_MAGMA.color_ramp.elements.new(0.5)
+nodeR3dm1_MAGMA.color_ramp.elements.new(0.75)
+nodeR3dm1_MAGMA.color_ramp.elements.new(1)
+nodeR3dm1_MAGMA.color_ramp.elements[0].color = (0, 0, 0, 1)
+nodeR3dm1_MAGMA.color_ramp.elements[1].color = (0.08, 0, 0.2, 1)
+nodeR3dm1_MAGMA.color_ramp.elements[2].color = (0.45, 0.04, 0.2, 1)
+nodeR3dm1_MAGMA.color_ramp.elements[3].color = (1, 0.25, 0.1, 1)
+nodeR3dm1_MAGMA.color_ramp.elements[4].color = (1, 1, 0.5, 1)
 
 nodeR3dm1_MAGMA_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
 nodeR3dm1_MAGMA_out.location = (1080, 0)
@@ -1501,12 +1519,16 @@ nodeR3dm1_MAGMA_out.file_slots.new("Cam-##_R3_DM2-MAGMA")
 ### DM-Spectral
 nodeR3dm1_SPECTRAL = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR3dm1_SPECTRAL.location = (800, -240)
-# interpolation: B-Spline
-# cursor1 (loc = 0.0 ; colorHex = 000000)
-# cursor2 (loc = 0.25 ; colorHex = 50127B)
-# cursor3 (loc = 0.5 ; colorHex = B63679)
-# cursor4 (loc = 0.75 ; colorHex = FC8761)
-# cursor5 (loc = 1.0 ; colorHex = FCFDBF)
+nodeR3dm1_SPECTRAL.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm1_SPECTRAL.color_ramp.elements[1].position = 1/3
+nodeR3dm1_SPECTRAL.color_ramp.elements.new(0.5)
+nodeR3dm1_SPECTRAL.color_ramp.elements.new(2/3)
+nodeR3dm1_SPECTRAL.color_ramp.elements.new(1)
+nodeR3dm1_SPECTRAL.color_ramp.elements[0].color = (1, 0, 0, 1)
+nodeR3dm1_SPECTRAL.color_ramp.elements[1].color = (1, 0.4, 0.1, 1)
+nodeR3dm1_SPECTRAL.color_ramp.elements[2].color = (1, 1, 0.5, 1)
+nodeR3dm1_SPECTRAL.color_ramp.elements[3].color = (0.4, 0.75, 0.4, 1)
+nodeR3dm1_SPECTRAL.color_ramp.elements[4].color = (0, 0.25, 0.5, 1)
 
 nodeR3dm1_SPECTRAL_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
 nodeR3dm1_SPECTRAL_out.location = (1080, -240)
@@ -1521,12 +1543,16 @@ nodeR3dm1_SPECTRAL_out.file_slots.new("Cam-##_R3_DM2-SPECTRAL")
 ### DM-Viridis
 nodeR3dm1_VIRIDIS = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeR3dm1_VIRIDIS.location = (800, -480)
-# interpolation: B-Spline
-# cursor1 (loc = 0.0 ; colorHex = 000000)
-# cursor2 (loc = 0.25 ; colorHex = 50127B)
-# cursor3 (loc = 0.5 ; colorHex = B63679)
-# cursor4 (loc = 0.75 ; colorHex = FC8761)
-# cursor5 (loc = 1.0 ; colorHex = FCFDBF)
+nodeR3dm1_VIRIDIS.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm1_VIRIDIS.color_ramp.elements[1].position = .25
+nodeR3dm1_VIRIDIS.color_ramp.elements.new(0.5)
+nodeR3dm1_VIRIDIS.color_ramp.elements.new(0.75)
+nodeR3dm1_VIRIDIS.color_ramp.elements.new(1)
+nodeR3dm1_VIRIDIS.color_ramp.elements[0].color = (0.06, 0, 0.09, 1)
+nodeR3dm1_VIRIDIS.color_ramp.elements[1].color = (0.05, 0.09, 0.26, 1)
+nodeR3dm1_VIRIDIS.color_ramp.elements[2].color = (0.02, 0.3, 0.27, 1)
+nodeR3dm1_VIRIDIS.color_ramp.elements[3].color = (0.11, 0.58, 0.12, 1)
+nodeR3dm1_VIRIDIS.color_ramp.elements[4].color = (1, 0.9, 0, 1)
 
 nodeR3dm1_VIRIDIS_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
 nodeR3dm1_VIRIDIS_out.location = (1080, -480)
