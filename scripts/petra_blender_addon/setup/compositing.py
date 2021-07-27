@@ -24,7 +24,7 @@ for node in nodetree.nodes:
 
 # adding Render Layers, node 1
 node1 = nodetree.nodes.new("CompositorNodeRLayers")
-node1.location = (-300, -200)
+node1.location = (-300, -260)
 
 
 
@@ -405,12 +405,16 @@ nodeB1g_in.location = (0, 0)
 nodeB1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeB1a = nodeB1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeB1a = nodeB1g_nodetree.nodes.new("CompositorNodeSepRGBA")
 nodeB1a.location = (180, 0)
+
+nodeB1b = nodeB1g_nodetree.nodes.new("CompositorNodeGamma")
+nodeB1b.location = (360, 0)
+    # gamma = 2.4
 
 # create group's output
 nodeB1g_out = nodeB1g_nodetree.nodes.new("NodeGroupOutput")
-nodeB1g_out.location = (1000, 0)
+nodeB1g_out.location = (540, 0)
 nodeB1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 ## File Output
@@ -426,6 +430,10 @@ nodeBout.file_slots.new("Cam-##_R1_NMC_B2")
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeB1g.inputs[0])
 nodeR1_nodetree.links.new(nodeB1g.outputs[0], nodeBout.inputs[0])
+    #inside nodegroup
+nodeB1g_nodetree.links.new(nodeB1g_in.outputs[0], nodeB1a.inputs[0])
+nodeB1g_nodetree.links.new(nodeB1a.outputs[2], nodeB1b.inputs[0])
+nodeB1g_nodetree.links.new(nodeB1b.outputs[0], nodeB1g_out.inputs[0])
 
 
 ## ---------------------
@@ -445,17 +453,35 @@ nodeB2g_in.location = (0, 0)
 nodeB2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeB1a = nodeB2g_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeB1a.location = (180, 0)
+nodeB2a = nodeB2g_nodetree.nodes.new("CompositorNodeSepRGBA")
+nodeB2a.location = (180, 0)
+
+nodeB2b = nodeB2g_nodetree.nodes.new("CompositorNodeGamma")
+nodeB2b.location = (360, 0)
+    # gamma = 2.4
+
+nodeB2c = nodeB2g_nodetree.nodes.new("CompositorNodeCurveRGB")
+nodeB2c.location = (540, 0)
+    # controlPoint1_X = 0
+    # controlPoint1_Y = 1
+    # controlPoint2_X = 0.25
+    # controlPoint2_Y = 0.25
+    # controlPoint3_X = 1
+    # controlPoint3_Y = 0
 
 # create group's output
 nodeB2g_out = nodeB2g_nodetree.nodes.new("NodeGroupOutput")
-nodeB2g_out.location = (1000, 0)
+nodeB2g_out.location = (780, 0)
 nodeB2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeB2g.inputs[0])
 nodeR1_nodetree.links.new(nodeB2g.outputs[0], nodeBout.inputs[1])
+    #inside nodegroup
+nodeB2g_nodetree.links.new(nodeB2g_in.outputs[0], nodeB2a.inputs[0])
+nodeB2g_nodetree.links.new(nodeB2a.outputs[2], nodeB2b.inputs[0])
+nodeB2g_nodetree.links.new(nodeB2b.outputs[0], nodeB2c.inputs[1])
+nodeB2g_nodetree.links.new(nodeB2c.outputs[0], nodeB2g_out.inputs[0])
 
 ## ---------------------
 ## Cb1
@@ -474,12 +500,17 @@ nodeCb1g_in.location = (0, 0)
 nodeCb1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeCb1a = nodeCb1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCb1a = nodeCb1g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeCb1a.location = (180, 0)
+    # mode = ITU 709
+
+nodeCb1b = nodeCb1g_nodetree.nodes.new("CompositorNodeGamma")
+nodeCb1b.location = (360, 0)
+    # gamma = 3.6
 
 # create group's output
 nodeCb1g_out = nodeCb1g_nodetree.nodes.new("NodeGroupOutput")
-nodeCb1g_out.location = (1000, 0)
+nodeCb1g_out.location = (540, 0)
 nodeCb1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 ## File Output
@@ -495,6 +526,10 @@ nodeCbout.file_slots.new("Cam-##_R1_NMC_Cb2")
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCb1g.inputs[0])
 nodeR1_nodetree.links.new(nodeCb1g.outputs[0], nodeCbout.inputs[0])
+    #inside nodegroup
+nodeCb1g_nodetree.links.new(nodeCb1g_in.outputs[0], nodeCb1a.inputs[0])
+nodeCb1g_nodetree.links.new(nodeCb1a.outputs[1], nodeCb1b.inputs[0])
+nodeCb1g_nodetree.links.new(nodeCb1b.outputs[0], nodeCb1g_out.inputs[0])
 
 ## ---------------------
 ## Cb2
@@ -513,17 +548,36 @@ nodeCb2g_in.location = (0, 0)
 nodeCb2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeCb2a = nodeCb2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCb2a = nodeCb2g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeCb2a.location = (180, 0)
+    # mode = ITU 601
+
+nodeCb2b = nodeCb2g_nodetree.nodes.new("CompositorNodeGamma")
+nodeCb2b.location = (360, 0)
+    # gamma = 2.4
+
+nodeCb2c = nodeCb2g_nodetree.nodes.new("CompositorNodeCurveRGB")
+nodeCb2c.location = (540, 0)
+    # controlPoint1_X = 0
+    # controlPoint1_Y = 1
+    # controlPoint2_X = 0.25
+    # controlPoint2_Y = 0.25
+    # controlPoint3_X = 1
+    # controlPoint3_Y = 0
 
 # create group's output
 nodeCb2g_out = nodeCb2g_nodetree.nodes.new("NodeGroupOutput")
-nodeCb2g_out.location = (1000, 0)
+nodeCb2g_out.location = (780, 0)
 nodeCb2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCb2g.inputs[0])
 nodeR1_nodetree.links.new(nodeCb2g.outputs[0], nodeCbout.inputs[1])
+    #inside nodegroup
+nodeCb2g_nodetree.links.new(nodeCb2g_in.outputs[0], nodeCb2a.inputs[0])
+nodeCb2g_nodetree.links.new(nodeCb2a.outputs[1], nodeCb2b.inputs[0])
+nodeCb2g_nodetree.links.new(nodeCb2b.outputs[0], nodeCb2c.inputs[1])
+nodeCb2g_nodetree.links.new(nodeCb2c.outputs[0], nodeCb2g_out.inputs[0])
 
 ## ---------------------
 ## Cr1
@@ -542,17 +596,23 @@ nodeCr1g_in.location = (0, 0)
 nodeCr1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeCr1a = nodeCr1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCr1a = nodeCr1g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeCr1a.location = (180, 0)
+    # mode = ITU 601
+
+nodeCr1b = nodeCr1g_nodetree.nodes.new("CompositorNodeGamma")
+nodeCr1b.location = (360, 0)
+    # gamma = 2.4
 
 # create group's output
 nodeCr1g_out = nodeCr1g_nodetree.nodes.new("NodeGroupOutput")
-nodeCr1g_out.location = (1000, 0)
+nodeCr1g_out.location = (540, 0)
 nodeCr1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeCr1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeCr1Flat.location = (1180, 700)    # how to mute this node?
+nodeCr1Flat.location = (1180, 700)
+nodeCr1Flat.mute = True
     # Bright = 23.0
     # Contrast = 68.0
 
@@ -570,6 +630,10 @@ nodeCrout.file_slots.new("Cam-##_R1_NMC_Cr2")
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCr1g.inputs[0])
 nodeR1_nodetree.links.new(nodeCr1g.outputs[0], nodeCr1Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeCr1Flat.outputs[0], nodeCrout.inputs[0])
+    #inside nodegroup
+nodeCr1g_nodetree.links.new(nodeCr1g_in.outputs[0], nodeCr1a.inputs[0])
+nodeCr1g_nodetree.links.new(nodeCr1a.outputs[2], nodeCr1b.inputs[0])
+nodeCr1g_nodetree.links.new(nodeCr1b.outputs[0], nodeCr1g_out.inputs[0])
 
 ## ---------------------
 ## Cr2
@@ -588,17 +652,32 @@ nodeCr2g_in.location = (0, 0)
 nodeCr2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeCr2a = nodeCr2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeCr2a = nodeCr2g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeCr2a.location = (180, 0)
+    # mode = ITU 601
+
+nodeCr2b = nodeCr2g_nodetree.nodes.new("CompositorNodeGamma")
+nodeCr2b.location = (360, 0)
+    # gamma = 2.4
+
+nodeCr2c = nodeCr2g_nodetree.nodes.new("CompositorNodeCurveRGB")
+nodeCr2c.location = (540, 0)
+    # controlPoint1_X = 0
+    # controlPoint1_Y = 1
+    # controlPoint2_X = 0.25
+    # controlPoint2_Y = 0.25
+    # controlPoint3_X = 1
+    # controlPoint3_Y = 0
 
 # create group's output
 nodeCr2g_out = nodeCr2g_nodetree.nodes.new("NodeGroupOutput")
-nodeCr2g_out.location = (1000, 0)
+nodeCr2g_out.location = (780, 0)
 nodeCr2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeCr2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeCr2Flat.location = (1180, 540)    # how to mute this node?
+nodeCr2Flat.location = (1180, 540)
+nodeCr2Flat.mute = True
     # Bright = 0.0
     # Contrast = 68.0
 
@@ -606,6 +685,11 @@ nodeCr2Flat.location = (1180, 540)    # how to mute this node?
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeCr2g.inputs[0])
 nodeR1_nodetree.links.new(nodeCr2g.outputs[0], nodeCr2Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeCr2Flat.outputs[0], nodeCrout.inputs[1])
+    #inside nodegroup
+nodeCr2g_nodetree.links.new(nodeCr2g_in.outputs[0], nodeCr2a.inputs[0])
+nodeCr2g_nodetree.links.new(nodeCr2a.outputs[2], nodeCr2b.inputs[0])
+nodeCr2g_nodetree.links.new(nodeCr2b.outputs[0], nodeCr2c.inputs[1])
+nodeCr2g_nodetree.links.new(nodeCr2c.outputs[0], nodeCr2g_out.inputs[0])
 
 ## ---------------------
 ## G1
@@ -624,17 +708,18 @@ nodeG1g_in.location = (0, 0)
 nodeG1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeG1a = nodeG1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeG1a = nodeG1g_nodetree.nodes.new("CompositorNodeSepRGBA")
 nodeG1a.location = (180, 0)
 
 # create group's output
 nodeG1g_out = nodeG1g_nodetree.nodes.new("NodeGroupOutput")
-nodeG1g_out.location = (1000, 0)
+nodeG1g_out.location = (360, 0)
 nodeG1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeG1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeG1Flat.location = (1180, 380)    # how to mute this node?
+nodeG1Flat.location = (1180, 380)
+nodeG1Flat.mute = True
     # Bright = 0.0
     # Contrast = 30.0
 
@@ -652,6 +737,9 @@ nodeGout.file_slots.new("Cam-##_R1_NMC_G2")
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeG1g.inputs[0])
 nodeR1_nodetree.links.new(nodeG1g.outputs[0], nodeG1Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeG1Flat.outputs[0], nodeGout.inputs[0])
+    #inside nodegroup
+nodeG1g_nodetree.links.new(nodeG1g_in.outputs[0], nodeG1a.inputs[0])
+nodeG1g_nodetree.links.new(nodeG1a.outputs[1], nodeG1g_out.inputs[0])
 
 ## ---------------------
 ## G2
@@ -670,17 +758,27 @@ nodeG2g_in.location = (0, 0)
 nodeG2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeG2a = nodeG2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeG2a = nodeG2g_nodetree.nodes.new("CompositorNodeSepRGBA")
 nodeG2a.location = (180, 0)
+
+nodeG2b = nodeG2g_nodetree.nodes.new("CompositorNodeCurveRGB")
+nodeG2b.location = (360, 0)
+    # controlPoint1_X = 0
+    # controlPoint1_Y = 1
+    # controlPoint2_X = 0.25
+    # controlPoint2_Y = 0.25
+    # controlPoint3_X = 1
+    # controlPoint3_Y = 0
 
 # create group's output
 nodeG2g_out = nodeG2g_nodetree.nodes.new("NodeGroupOutput")
-nodeG2g_out.location = (1000, 0)
+nodeG2g_out.location = (600, 0)
 nodeG2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeG2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeG2Flat.location = (1180, 220)    # how to mute this node?
+nodeG2Flat.location = (1180, 220)
+nodeG2Flat.mute = True
     # Bright = 0.0
     # Contrast = 40.0
 
@@ -688,6 +786,10 @@ nodeG2Flat.location = (1180, 220)    # how to mute this node?
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeG2g.inputs[0])
 nodeR1_nodetree.links.new(nodeG2g.outputs[0], nodeG2Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeG2Flat.outputs[0], nodeGout.inputs[1])
+    #inside nodegroup
+nodeG2g_nodetree.links.new(nodeG2g_in.outputs[0], nodeG2a.inputs[0])
+nodeG2g_nodetree.links.new(nodeG2a.outputs[1], nodeG2b.inputs[1])
+nodeG2g_nodetree.links.new(nodeG2b.outputs[0], nodeG2g_out.inputs[0])
 
 ## ---------------------
 ## Red1
@@ -706,17 +808,18 @@ nodeRed1g_in.location = (0, 0)
 nodeRed1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeRed1a = nodeRed1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeRed1a = nodeRed1g_nodetree.nodes.new("CompositorNodeSepRGBA")
 nodeRed1a.location = (180, 0)
 
 # create group's output
 nodeRed1g_out = nodeRed1g_nodetree.nodes.new("NodeGroupOutput")
-nodeRed1g_out.location = (1000, 0)
+nodeRed1g_out.location = (360, 0)
 nodeRed1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeRed1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeRed1Flat.location = (1180, 60)    # how to mute this node?
+nodeRed1Flat.location = (1180, 60)
+nodeRed1Flat.mute = True
     # Bright = 0.0
     # Contrast = 30.0
 
@@ -734,6 +837,9 @@ nodeRedout.file_slots.new("Cam-##_R1_NMC_Red2")
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeRed1g.inputs[0])
 nodeR1_nodetree.links.new(nodeRed1g.outputs[0], nodeRed1Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeRed1Flat.outputs[0], nodeRedout.inputs[0])
+    #inside nodegroup
+nodeRed1g_nodetree.links.new(nodeRed1g_in.outputs[0], nodeRed1a.inputs[0])
+nodeRed1g_nodetree.links.new(nodeRed1a.outputs[0], nodeRed1g_out.inputs[0])
 
 ## ---------------------
 ## Red2
@@ -752,17 +858,27 @@ nodeRed2g_in.location = (0, 0)
 nodeRed2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeRed2a = nodeRed2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeRed2a = nodeRed2g_nodetree.nodes.new("CompositorNodeSepRGBA")
 nodeRed2a.location = (180, 0)
+
+nodeRed2b = nodeRed2g_nodetree.nodes.new("CompositorNodeCurveRGB")
+nodeRed2b.location = (360, 0)
+    # controlPoint1_X = 0
+    # controlPoint1_Y = 1
+    # controlPoint2_X = 0.25
+    # controlPoint2_Y = 0.25
+    # controlPoint3_X = 1
+    # controlPoint3_Y = 0
 
 # create group's output
 nodeRed2g_out = nodeRed2g_nodetree.nodes.new("NodeGroupOutput")
-nodeRed2g_out.location = (1000, 0)
+nodeRed2g_out.location = (600, 0)
 nodeRed2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeRed2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeRed2Flat.location = (1180, -100)    # how to mute this node?
+nodeRed2Flat.location = (1180, -100)
+nodeRed2Flat.mute = True
     # Bright = 0.0
     # Contrast = 40.0
 
@@ -770,6 +886,10 @@ nodeRed2Flat.location = (1180, -100)    # how to mute this node?
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeRed2g.inputs[0])
 nodeR1_nodetree.links.new(nodeRed2g.outputs[0], nodeRed2Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeRed2Flat.outputs[0], nodeRedout.inputs[1])
+    #inside nodegroup
+nodeRed2g_nodetree.links.new(nodeRed2g_in.outputs[0], nodeRed2a.inputs[0])
+nodeRed2g_nodetree.links.new(nodeRed2a.outputs[0], nodeRed2b.inputs[1])
+nodeRed2g_nodetree.links.new(nodeRed2b.outputs[0], nodeRed2g_out.inputs[0])
 
 ## ---------------------
 ## S1
@@ -788,17 +908,22 @@ nodeS1g_in.location = (0, 0)
 nodeS1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeS1a = nodeS1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeS1a = nodeS1g_nodetree.nodes.new("CompositorNodeSepHSVA")
 nodeS1a.location = (180, 0)
+
+nodeS1b = nodeS1g_nodetree.nodes.new("CompositorNodeGamma")
+nodeS1b.location = (360, 0)
+    # factor = 4.7
 
 # create group's output
 nodeS1g_out = nodeS1g_nodetree.nodes.new("NodeGroupOutput")
-nodeS1g_out.location = (1000, 0)
+nodeS1g_out.location = (540, 0)
 nodeS1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeS1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeS1Flat.location = (1180, -260)    # how to mute this node?
+nodeS1Flat.location = (1180, -260)
+nodeS1Flat.mute = True
     # Bright = 0.0
     # Contrast = 50.0
 
@@ -816,6 +941,10 @@ nodeSout.file_slots.new("Cam-##_R1_NMC_S2")
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeS1g.inputs[0])
 nodeR1_nodetree.links.new(nodeS1g.outputs[0], nodeS1Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeS1Flat.outputs[0], nodeSout.inputs[0])
+    #inside nodegroup
+nodeS1g_nodetree.links.new(nodeS1g_in.outputs[0], nodeS1a.inputs[0])
+nodeS1g_nodetree.links.new(nodeS1a.outputs[1], nodeS1b.inputs[0])
+nodeS1g_nodetree.links.new(nodeS1b.outputs[0], nodeS1g_out.inputs[0])
 
 ## ---------------------
 ## S2
@@ -834,17 +963,25 @@ nodeS2g_in.location = (0, 0)
 nodeS2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeS2a = nodeS2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeS2a = nodeS2g_nodetree.nodes.new("CompositorNodeSepHSVA")
 nodeS2a.location = (180, 0)
+
+nodeS2b = nodeS2g_nodetree.nodes.new("CompositorNodeGamma")
+nodeS2b.location = (360, 0)
+    # factor = 4.7
+
+nodeS2c = nodeS2g_nodetree.nodes.new("CompositorNodeInvert")
+nodeS2c.location = (540, 0)
 
 # Create group's output
 nodeS2g_out = nodeS2g_nodetree.nodes.new("NodeGroupOutput")
-nodeS2g_out.location = (1000, 0)
+nodeS2g_out.location = (720, 0)
 nodeS2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeS2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeS2Flat.location = (1180, -420)    # how to mute this node?
+nodeS2Flat.location = (1180, -420)
+nodeS2Flat.mute = True
     # Bright = -12.0
     # Contrast = 77.0
 
@@ -852,6 +989,11 @@ nodeS2Flat.location = (1180, -420)    # how to mute this node?
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeS2g.inputs[0])
 nodeR1_nodetree.links.new(nodeS2g.outputs[0], nodeS2Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeS2Flat.outputs[0], nodeSout.inputs[1])
+    #inside nodegroup
+nodeS2g_nodetree.links.new(nodeS2g_in.outputs[0], nodeS2a.inputs[0])
+nodeS2g_nodetree.links.new(nodeS2a.outputs[1], nodeS2b.inputs[0])
+nodeS2g_nodetree.links.new(nodeS2b.outputs[0], nodeS2c.inputs[1])
+nodeS2g_nodetree.links.new(nodeS2c.outputs[0], nodeS2g_out.inputs[0])
 
 ## ---------------------
 ## U1
@@ -870,12 +1012,21 @@ nodeU1g_in.location = (0, 0)
 nodeU1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeU1a = nodeU1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeU1a = nodeU1g_nodetree.nodes.new("CompositorNodeSepYUVA")
 nodeU1a.location = (180, 0)
+
+nodeU1b = nodeU1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeU1b.location = (360, 0)
+    # bright = 39.1
+    # contrast = 46.1
+
+nodeU1c = nodeU1g_nodetree.nodes.new("CompositorNodeGamma")
+nodeU1c.location = (540, 0)
+    # factor = 3.2
 
 # create group's output
 nodeU1g_out = nodeU1g_nodetree.nodes.new("NodeGroupOutput")
-nodeU1g_out.location = (1000, 0)
+nodeU1g_out.location = (720, 0)
 nodeU1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 ## File Output
@@ -891,6 +1042,11 @@ nodeUout.file_slots.new("Cam-##_R1_NMC_U2")
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeU1g.inputs[0])
 nodeR1_nodetree.links.new(nodeU1g.outputs[0], nodeUout.inputs[0])
+    #inside nodegroup
+nodeU1g_nodetree.links.new(nodeU1g_in.outputs[0], nodeU1a.inputs[0])
+nodeU1g_nodetree.links.new(nodeU1a.outputs[1], nodeU1b.inputs[0])
+nodeU1g_nodetree.links.new(nodeU1b.outputs[0], nodeU1c.inputs[0])
+nodeU1g_nodetree.links.new(nodeU1c.outputs[0], nodeU1g_out.inputs[0])
 
 ## ---------------------
 ## U2
@@ -909,17 +1065,30 @@ nodeU2g_in.location = (0, 0)
 nodeU2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeU2a = nodeU2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeU2a = nodeU2g_nodetree.nodes.new("CompositorNodeSepYUVA")
 nodeU2a.location = (180, 0)
+
+nodeU2b = nodeU2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeU2b.location = (360, 0)
+    # bright = 39.1
+    # contrast = 46.1
+
+nodeU2c = nodeU2g_nodetree.nodes.new("CompositorNodeInvert")
+nodeU2c.location = (540, 0)
 
 # Create group's output
 nodeU2g_out = nodeU2g_nodetree.nodes.new("NodeGroupOutput")
-nodeU2g_out.location = (1000, 0)
+nodeU2g_out.location = (720, 0)
 nodeU2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeU2g.inputs[0])
 nodeR1_nodetree.links.new(nodeU2g.outputs[0], nodeUout.inputs[1])
+    #inside nodegroup
+nodeU2g_nodetree.links.new(nodeU2g_in.outputs[0], nodeU2a.inputs[0])
+nodeU2g_nodetree.links.new(nodeU2a.outputs[1], nodeU2b.inputs[0])
+nodeU2g_nodetree.links.new(nodeU2b.outputs[0], nodeU2c.inputs[1])
+nodeU2g_nodetree.links.new(nodeU2c.outputs[0], nodeU2g_out.inputs[0])
 
 ## ---------------------
 ## V1
@@ -939,12 +1108,16 @@ nodeV1g_in.location = (0, 0)
 nodeV1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeV1a = nodeV1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeV1a = nodeV1g_nodetree.nodes.new("CompositorNodeSepHSVA")
 nodeV1a.location = (180, 0)
+
+nodeV1b = nodeV1g_nodetree.nodes.new("CompositorNodeGamma")
+nodeV1b.location = (360, 0)
+    # Factor = 3.2
 
 # create group's output
 nodeV1g_out = nodeV1g_nodetree.nodes.new("NodeGroupOutput")
-nodeV1g_out.location = (1000, 0)
+nodeV1g_out.location = (540, 0)
 nodeV1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 ## File Output
@@ -960,6 +1133,10 @@ nodeVout.file_slots.new("Cam-##_R1_NMC_V2")
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeV1g.inputs[0])
 nodeR1_nodetree.links.new(nodeV1g.outputs[0], nodeVout.inputs[0])
+    #inside nodegroup
+nodeV1g_nodetree.links.new(nodeV1g_in.outputs[0], nodeV1a.inputs[0])
+nodeV1g_nodetree.links.new(nodeV1a.outputs[2], nodeV1b.inputs[0])
+nodeV1g_nodetree.links.new(nodeV1b.outputs[0], nodeV1g_out.inputs[0])
 
 ## ---------------------
 ## V2
@@ -978,17 +1155,35 @@ nodeV2g_in.location = (0, 0)
 nodeV2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeV2a = nodeV2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeV2a = nodeV2g_nodetree.nodes.new("CompositorNodeSepHSVA")
 nodeV2a.location = (180, 0)
+
+nodeV2b = nodeV2g_nodetree.nodes.new("CompositorNodeGamma")
+nodeV2b.location = (360, 0)
+    # Factor = 3.0
+
+nodeV2c = nodeV2g_nodetree.nodes.new("CompositorNodeCurveRGB")
+nodeV2c.location = (540, 0)
+    # controlPoint1_X = 0
+    # controlPoint1_Y = 1
+    # controlPoint2_X = 0.25
+    # controlPoint2_Y = 0.25
+    # controlPoint3_X = 1
+    # controlPoint3_Y = 0
 
 # Create group's output
 nodeV2g_out = nodeV2g_nodetree.nodes.new("NodeGroupOutput")
-nodeV2g_out.location = (1000, 0)
+nodeV2g_out.location = (780, 0)
 nodeV2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeV2g.inputs[0])
 nodeR1_nodetree.links.new(nodeV2g.outputs[0], nodeVout.inputs[1])
+    #inside nodegroup
+nodeV2g_nodetree.links.new(nodeV2g_in.outputs[0], nodeV2a.inputs[0])
+nodeV2g_nodetree.links.new(nodeV2a.outputs[2], nodeV2b.inputs[0])
+nodeV2g_nodetree.links.new(nodeV2b.outputs[0], nodeV2c.inputs[1])
+nodeV2g_nodetree.links.new(nodeV2c.outputs[0], nodeV2g_out.inputs[0])
 
 ## ---------------------
 ## Y1
@@ -1007,17 +1202,23 @@ nodeY1g_in.location = (0, 0)
 nodeY1g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeY1a = nodeY1g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeY1a = nodeY1g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeY1a.location = (180, 0)
+    # mode = ITU 601
+
+nodeY1b = nodeY1g_nodetree.nodes.new("CompositorNodeGamma")
+nodeY1b.location = (360, 0)
+    # Factor = 1.9
 
 # create group's output
 nodeY1g_out = nodeY1g_nodetree.nodes.new("NodeGroupOutput")
-nodeY1g_out.location = (1000, 0)
+nodeY1g_out.location = (540, 0)
 nodeY1g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeY1Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeY1Flat.location = (1180, -1060)    # how to mute this node?
+nodeY1Flat.location = (1180, -1060)
+nodeY1Flat.mute = True
     # Bright = 34.0
     # Contrast = 88.0
 
@@ -1035,6 +1236,10 @@ nodeYout.file_slots.new("Cam-##_R1_NMC_Y2")
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeY1g.inputs[0])
 nodeR1_nodetree.links.new(nodeY1g.outputs[0], nodeY1Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeY1Flat.outputs[0], nodeYout.inputs[0])
+    #inside nodegroup
+nodeY1g_nodetree.links.new(nodeY1g_in.outputs[0], nodeY1a.inputs[0])
+nodeY1g_nodetree.links.new(nodeY1a.outputs[0], nodeY1b.inputs[0])
+nodeY1g_nodetree.links.new(nodeY1b.outputs[0], nodeY1g_out.inputs[0])
 
 ## ---------------------
 ## Y2
@@ -1053,17 +1258,37 @@ nodeY2g_in.location = (0, 0)
 nodeY2g_nodetree.inputs.new("NodeSocketColor", "input")
 
 # inside the group
-nodeY2a = nodeY2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeY2a = nodeY2g_nodetree.nodes.new("CompositorNodeSepYCCA")
 nodeY2a.location = (180, 0)
+    # mode = ITU 601
+
+nodeY2b = nodeY2g_nodetree.nodes.new("CompositorNodeGamma")
+nodeY2b.location = (360, 0)
+    # Factor = 1.9
+
+nodeY2c = nodeY2g_nodetree.nodes.new("CompositorNodeCurveRGB")
+nodeY2c.location = (540, 0)
+    # controlPoint1_X = 0
+    # controlPoint1_Y = 1
+    # controlPoint2_X = 0.25
+    # controlPoint2_Y = 0.25
+    # controlPoint3_X = 1
+    # controlPoint3_Y = 0
+
+nodeY2d = nodeY2g_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeY2d.location = (780, 0)
+    # bright = 0.0
+    # contrast = 30.0
 
 # Create group's output
 nodeY2g_out = nodeY2g_nodetree.nodes.new("NodeGroupOutput")
-nodeY2g_out.location = (1000, 0)
+nodeY2g_out.location = (960, 0)
 nodeY2g_nodetree.outputs.new("NodeSocketColor", "output")
 
 # flat surface option
 nodeY2Flat = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeY2Flat.location = (1180, -1220)    # how to mute this node?
+nodeY2Flat.location = (1180, -1220)
+nodeY2Flat.mute = True
     # Bright = 1.0
     # Contrast = 80.0
 
@@ -1071,6 +1296,13 @@ nodeY2Flat.location = (1180, -1220)    # how to mute this node?
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeY2g.inputs[0])
 nodeR1_nodetree.links.new(nodeY2g.outputs[0], nodeY2Flat.inputs[0])
 nodeR1_nodetree.links.new(nodeY2Flat.outputs[0], nodeYout.inputs[1])
+    #inside nodegroup
+nodeY2g_nodetree.links.new(nodeY2g_in.outputs[0], nodeY2a.inputs[0])
+nodeY2g_nodetree.links.new(nodeY2a.outputs[0], nodeY2b.inputs[0])
+nodeY2g_nodetree.links.new(nodeY2b.outputs[0], nodeY2c.inputs[1])
+nodeY2g_nodetree.links.new(nodeY2c.outputs[0], nodeY2d.inputs[0])
+nodeY2g_nodetree.links.new(nodeY2d.outputs[0], nodeY2g_out.inputs[0])
+
 
 
 # ------------------------------------------------------------------
