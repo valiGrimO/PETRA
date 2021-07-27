@@ -2,28 +2,28 @@ List of pictures created with PETRA, saved in the folder `tmp`
 ===
 ---
 
-**C1_color**
+## C1_couleur (color)
 + `Cam-##_C1_PRT.png`
 + `Cam-##_C1_PRV.png`
 
-**H_habillage (covering)**
+## H_habillage (covering)
 + `Cam-##_H1_Masks.png`
 + `Cam-##_H2_OBN.jpg`
 + `Cam-##_H3_Details.jpg`
 
-**L1_lumiere (light)**
+## L1_lumiere (light)
 + `Cam-##_L1_AO.jpg`
 
-**L2_eclairageRasant (lowAngledLight)**
+## L2_eclairageRasant (lowAngledLight)
 + `Cam-##_L2_[azimuth]-[inclinaison].jpg`, with :
  + `azimtuh` from `0` to `360`, with a step of `10`
  + `inclinaison` from `0` to `180` (possible), mainly between `80` and `120` with a step of `5`
 
-**L3_eclairageRasant (lowAngledLight)**
+## L3_eclairageRasant (lowAngledLight)
 + `Cam-##_L3_[azimuth]-10.jpg`,  with :
  + `azimtuh` from `0` to `360`, with a step of `10`
 
-**R1_Ombrages (shading)**
+## R1_Ombrages (shading)
 + `Cam-##_R1_NMC.png`
 + `Cam-##_R1_B1.jpg`
 + `Cam-##_R1_B2.jpg`
@@ -44,12 +44,12 @@ List of pictures created with PETRA, saved in the folder `tmp`
 + `Cam-##_R1_Y1.jpg`
 + `Cam-##_R1_Y2.jpg`
 
-**R2_courbesDeNiveau (contour lines)**
+## R2_courbesDeNiveau (contour lines)
 + `Cam-##_R2_CDN1.jpg`
 + `Cam-##_R2_CDN2.jpg`
 + `Cam-##_R2_CDN3.jpg`
 
-**R3_carteEcarts (distanceMap)**
+## R3_carteEcarts (deviationMap)
 + `Cam-##_R3_DM1.png`
 + `Cam-##_R3_DM1-BBR.jpg`
 + `Cam-##_R3_DM1-BVJR.jpg`
@@ -63,15 +63,15 @@ List of pictures created with PETRA, saved in the folder `tmp`
 + `Cam-##_R3_DM2-SPECTRAL.jpg`
 + `Cam-##_R3_DM2-VIRIDIS.jpg`
 
-**R4_pointosite (pointiness)**
+## R4_pointosite (pointiness)
 + `Cam-##_R4_POI-10pc.jpg`
 + `Cam-##_R4_POI-25pc.jpg`
 + `Cam-##_R4_POI-100pc.jpg`
 
-**R5_aspect (aspect)**
+## R5_aspect (aspect)
 + `Cam-##_R5_ASP-10pc.jpg`
 + `Cam-##_R5_ASP-25pc.jpg`
 + `Cam-##_R5_ASP-100pc.jpg`
 
-**R6_pente (slope)**
+## R6_pente (slope)
 + `Cam-##_R6_Slope.jpg`
