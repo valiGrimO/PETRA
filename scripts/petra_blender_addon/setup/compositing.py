@@ -842,8 +842,8 @@ nodeRedout.base_path = "//tmp"
 nodeRedout.format.file_format = "JPEG"
 nodeRedout.format.color_mode = "BW"
 nodeRedout.format.quality = 100
-nodeRedout.file_slots[0].path = "Cam-##_R1_NMC_Red1"
-nodeRedout.file_slots.new("Cam-##_R1_NMC_Red2")
+nodeRedout.file_slots[0].path = "Cam-##_R1_NMC_R1"
+nodeRedout.file_slots.new("Cam-##_R1_NMC_R2")
 
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeRed1g.inputs[0])
@@ -1382,9 +1382,9 @@ nodeR2z.base_path = "//tmp"
 nodeR2z.format.file_format = "JPEG"
 nodeR2z.format.color_mode = "BW"
 nodeR2z.format.quality = 100
-nodeR2z.file_slots[0].path = "Cam-##_R4_POI-100pc"
-nodeR2z.file_slots.new("Cam-##_R4_POI-25pc")
-nodeR2z.file_slots.new("Cam-##_R4_POI-10pc")
+nodeR2z.file_slots[0].path = "Cam-##_R2_CDN1"
+nodeR2z.file_slots.new("Cam-##_R2_CDN2")
+nodeR2z.file_slots.new("Cam-##_R2_CDN3")
 
 # connections
 nodetree.links.new(node2.outputs[2], nodeR2.inputs[0]) # to change during the rendering
@@ -1680,9 +1680,9 @@ nodeR5_nodetree = nodeR5.node_tree  # shortcut; akin to `nodetree`
 # create inputs
 nodeR5_in = nodeR5_nodetree.nodes.new("NodeGroupInput")
 nodeR5_in.location = (0, 0)
-nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R4_POI-100%")
-nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R4_POI-25%")
-nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R4_POI-10%")
+nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R5_ASP-100%")
+nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R5_ASP-25%")
+nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R5_ASP-10%")
 
 # hide input values
 for nodeR5_input in nodeR5_nodetree.inputs:
