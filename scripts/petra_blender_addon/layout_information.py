@@ -10,7 +10,7 @@ from .paradata import BlenderData
 
 MODULE_PATH = Path(__file__).parent
 
-RENDERED_IMAGES_FOLDER = "temp"
+RENDERED_IMAGES_FOLDER = "tmp"
 SVG_TEMPLATE_FILEPATH = MODULE_PATH / "templates" / "layout_information.svg"
 LAYERS_TO_INCLUDE_FILEPATH = MODULE_PATH / "templates" / "layers_to_include.txt"
 
@@ -138,7 +138,7 @@ def find_file_in_directory_by_stem(file_stem, directory):
 
     Examples
     --------
-    >>>find_file_in_directory_by_stem('Cam-01_C1_PRV', '/home/vgrimaud/temp')
+    >>>find_file_in_directory_by_stem('Cam-01_C1_PRV', '/home/vgrimaud/tmp')
     Path('Cam-01_C1_PRV.png')
 
     """
