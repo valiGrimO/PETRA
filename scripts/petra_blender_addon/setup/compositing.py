@@ -356,7 +356,6 @@ nodeC1z.file_slots[0].path = "Cam-##_C1_PRT"
 nodeC1z.file_slots.new("Cam-##_C1_PRV")
 
 # connections
-nodetree.links.new(node2.outputs[0], nodeC1.inputs[1])
 nodeC1_nodetree.links.new(nodeC1_in.outputs[0], nodeC1a.inputs[0])
 nodeC1_nodetree.links.new(nodeC1_in.outputs[1], nodeC1b.inputs[0])
 nodeC1_nodetree.links.new(nodeC1a.outputs[0], nodeC1z.inputs[0])
