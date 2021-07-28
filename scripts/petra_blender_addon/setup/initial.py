@@ -103,10 +103,75 @@ so.name = "Cam-06"
 C.object.hide_set(True)
 
 ## Set Camera Ortho
-for obj in C.scene.objects:
+for obj in C.scene.objects: # how to apply only on cameras in the `PETRA collection`?
     if obj.type == "CAMERA":
         print(obj.data.type)
         obj.data.type = "ORTHO"
+
+## Define orthographic scale:
+### Cam-01
+    # Choose the highest value between
+        # bpy.data.objects["Framing Box"].scale[0]
+        # bpy.data.objects["Framing Box"].scale[2]
+    # Copy this value as a new driver
+        # bpy.ops.ui.copy_as_driver_button()
+
+    # Set this value as the orthographic scale of the camera
+        # bpy.ops.anim.paste_driver_button()
+
+### Cam-02
+    # Choose the highest value between
+        # bpy.data.objects["Framing Box"].scale[1]
+        # bpy.data.objects["Framing Box"].scale[2]
+    # Copy this value as a new driver
+        # bpy.ops.ui.copy_as_driver_button()
+
+    # Set this value as the orthographic scale of the camera
+        # bpy.ops.anim.paste_driver_button()
+
+
+### Cam-03
+    # Choose the highest value between
+        # bpy.data.objects["Framing Box"].scale[0]
+        # bpy.data.objects["Framing Box"].scale[2]
+    # Copy this value as a new driver
+        # bpy.ops.ui.copy_as_driver_button()
+
+    # Set this value as the orthographic scale of the camera
+        # bpy.ops.anim.paste_driver_button()
+
+
+### Cam-04
+    # Choose the highest value between
+        # bpy.data.objects["Framing Box"].scale[1]
+        # bpy.data.objects["Framing Box"].scale[2]
+    # Copy this value as a new driver
+        # bpy.ops.ui.copy_as_driver_button()
+
+    # Set this value as the orthographic scale of the camera
+        # bpy.ops.anim.paste_driver_button()
+
+
+### Cam-05
+    # Choose the highest value between
+        # bpy.data.objects["Framing Box"].scale[0]
+        # bpy.data.objects["Framing Box"].scale[1]
+    # Copy this value as a new driver
+        # bpy.ops.ui.copy_as_driver_button()
+
+    # Set this value as the orthographic scale of the camera
+        # bpy.ops.anim.paste_driver_button()
+
+
+### Cam-06
+    # Choose the highest value between
+        # bpy.data.objects["Framing Box"].scale[0]
+        # bpy.data.objects["Framing Box"].scale[1]
+    # Copy this value as a new driver
+        # bpy.ops.ui.copy_as_driver_button()
+
+    # Set this value as the orthographic scale of the camera
+        # bpy.ops.anim.paste_driver_button()
 
 ## Parenting Cameras to 'Framing Box'
 a = D.objects["Framing Box"]
