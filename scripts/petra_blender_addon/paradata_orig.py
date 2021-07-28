@@ -77,60 +77,26 @@ def generate_yaml(context, filepath):
     """
     result = read_yaml(YAML_TEMPLATE_FILEPATH)
 
-    # begining of yaml file
+    ########################################################
+    #    VALENTIN TODO: COMPLETE CODE BETWEEN THE LINES    #
+    ########################################################
 
     # Note: if `blenderdata` misses a value,
     # then edit the BlenderData class above.
     blenderdata = BlenderData(context)
 
-    # title
-    result["nomObjetDocumenté"] = "Fill it manually for the moment" # Have to find where to get the name
-    
-    # definition Framing Box
-    framingBox = result["definitionBoiteEnglobante"]
-    framingBox["locationX"] = locations[0] "m"
-    framingBox["locationY"] = locations[1] "m"
-    framingBox["locationZ"] = locations[2] "m"
+    result["nomObjetDocumenté"] = "this is a test"
 
     rotations = blenderdata.framing_box.rotation_euler
-    framingBox["rotationX"] = f"{rotations[0]}°"
-    framingBox["rotationY"] = f"{rotations[1]}°"
-    framingBox["rotationZ"] = f"{rotations[2]}°"
-    
-    framingBox["dimensionX"] = scale[0] "m"
-    framingBox["dimensionY"] = scale[1] "m"
-    framingBox["dimensionZ"] = scale[2] "m"
+    result["definitionBoiteEnglobante"]["rotationY"] = rotations[0]
+    result["definitionBoiteEnglobante"]["rotationY"] = f"{rotations[1]}°"
+    result["definitionBoiteEnglobante"]["rotationZ"] = "this is a test"
 
-    # caracteristiques documentation
-    docInfo = result["caracteristiquesImage"]
-    docInfo["echelleDocumentation"] = blenderdata.documentation_scale_fraction
-    docInfo["resolutionImage"] = blenderdata.resolution_of_image "ppi"
-    docInfo["resolutionSpatiale"] = "1 px = " blenderdata.spatial_resolution "mm"
+    item = result["caracteristiquesImage"]
+    item["echelleDocumentation"] = blenderdata.documentation_scale_fraction
 
-    # cameras
-    # we should find a way to apply this to each camera present in the collection 'PETRA'
-    
-    Cam_01 = result["cameras"][0]
-    Cam_01["nomDeLaVue"] = blenderdata.cam_01.name
-    
-    Cam_01["parametresImage"]["orthographicScale"] = 
-    Cam_01["parametresImage"]["dimensionsCm"] = 
-    Cam_01["parametresImage"]["dimensionsPixel"] = 
-    
-    Cam_01["parametresCamera"]["clippingStart"] = bpy.data.cameras["Cam-01"].clip_start
-    Cam_01["parametresCamera"]["clippingEnd"] = bpy.data.cameras["Cam-01"].clip_end
-    
-    Cam_01["parametresCamera"]["shiftX"] = bpy.data.cameras["Cam-01"].shift_x
-    Cam_01["parametresCamera"]["shiftY"] = bpy.data.cameras["Cam-01"].shift_y
-    
-    Cam_01["parametresCamera"]["relativeLocationX"] = bpy.data.objects["Cam-01"].location[0]
-    Cam_01["parametresCamera"]["relativeLocationY"] = bpy.data.objects["Cam-01"].location[1]
-    Cam_01["parametresCamera"]["relativeLocationZ"] = bpy.data.objects["Cam-01"].location[2]
-    
-    Cam_01["parametresCamera"]["relativeRotationX"] = bpy.data.objects["Cam-01"].rotation[0]
-    Cam_01["parametresCamera"]["relativeRotationY"] = bpy.data.objects["Cam-01"].rotation[1]
-    Cam_01["parametresCamera"]["relativeRotationZ"] = bpy.data.objects["Cam-01"].rotation[2]
+    result["cameras"][0]["nomDeLaVue"] = blenderdata.cam_01.name
 
-    # end of yaml file
+    ########################################################
 
     save_yaml(result, filepath)
