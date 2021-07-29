@@ -1,18 +1,18 @@
-nomObjetDocumenté: NOM
+nomObjetDocumenté: 
 definitionBoiteEnglobante:
-  locationX: 0 m
-  locationY: 0 m
-  locationZ: 0 m
-  rotationX: 0.0
-  rotationY: 0°
-  rotationZ: 0°
-  dimensionX: 1 m
-  dimensionY: 1 m
-  dimensionZ: 1 m
+  locationX: 
+  locationY: 
+  locationZ: 
+  rotationX: 
+  rotationY: 
+  rotationZ: 
+  dimensionX: 
+  dimensionY: 
+  dimensionZ: 
 caracteristiquesImage:
-  echelleDocumentation: 1/10
+  echelleDocumentation: 
   resolutionImage: 254 ppi
-  resolutionsurface: 1 pixel = 1 mm
+  resolutionSpatiale: 1 pixel = 1 mm
 cameras:
 - nomDeLaVue: Cam-01
   commentaire: null
@@ -23,9 +23,14 @@ cameras:
   parametresCamera:
     clippingStart: 0,001m
     clippingEnd: 1000m
-    rotationX: 0°
-    rotationY: 0°
-    rotationZ: 0°
+    shiftX: 
+    shiftY:
+    relativeLocationX: 
+    relativeLocationY: 
+    relativeLocationZ: 
+    relativeRotationX: 0°
+    relativeRotationY: 0°
+    relativeRotationZ: 0°
 - nomDeLaVue: Cam-02
   commentaire: null
   parametresImage:
