@@ -471,9 +471,9 @@ nodeB2b.inputs[1].default_value = 2.4
 
 nodeB2c = nodeB2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeB2c.location = (540, 0)
-# nodeB2c.mapping.curves[3].points[0].position = (0, 1) -> how to change the position of a point?
+nodeB2c.mapping.curves[3].points[0].location = (0, 1)
 nodeB2c.mapping.curves[3].points.new(0.25, 0.25)
-# nodeB2c.mapping.curves[3].points[2].position = (1, 0)
+nodeB2c.mapping.curves[3].points[2].location = (1, 0)
 
 # create group's output
 nodeB2g_out = nodeB2g_nodetree.nodes.new("NodeGroupOutput")
@@ -564,9 +564,9 @@ nodeCb2b.inputs[1].default_value = 3.6
 
 nodeCb2c = nodeCb2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeCb2c.location = (540, 0)
-# nodeCb2c.mapping.curves[3].points[0].position = (0, 1)
+nodeCb2c.mapping.curves[3].points[0].location = (0, 1)
 nodeCb2c.mapping.curves[3].points.new(0.25, 0.25)
-# nodeCb2c.mapping.curves[3].points[2].position = (1, 0)
+nodeCb2c.mapping.curves[3].points[2].location = (1, 0)
 
 # create group's output
 nodeCb2g_out = nodeCb2g_nodetree.nodes.new("NodeGroupOutput")
@@ -665,9 +665,9 @@ nodeCr2b.inputs[1].default_value = 2.4
 
 nodeCr2c = nodeCr2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeCr2c.location = (540, 0)
-# nodeCr2c.curves[3].points[0].position = (0, 1)
+nodeCr2c.mapping.curves[3].points[0].location = (0, 1)
 nodeCr2c.mapping.curves[3].points.new(0.25, 0.25)
-# nodeCr2c.mapping.curves[3].points[2].position = (1, 0)
+nodeCr2c.mapping.curves[3].points[2].location = (1, 0)
 
 # create group's output
 nodeCr2g_out = nodeCr2g_nodetree.nodes.new("NodeGroupOutput")
@@ -761,9 +761,9 @@ nodeG2a.location = (180, 0)
 
 nodeG2b = nodeG2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeG2b.location = (360, 0)
-# nodeG2b.curves[3].points[0].position = (0, 1)
+nodeG2b.mapping.curves[3].points[0].location = (0, 1)
 nodeG2b.mapping.curves[3].points.new(0.25, 0.25)
-# nodeG2b.mapping.curves[3].points[2].position = (1, 0)
+nodeG2b.mapping.curves[3].points[2].location = (1, 0)
 
 # create group's output
 nodeG2g_out = nodeG2g_nodetree.nodes.new("NodeGroupOutput")
@@ -856,9 +856,9 @@ nodeRed2a.location = (180, 0)
 
 nodeRed2b = nodeRed2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeRed2b.location = (360, 0)
-# nodeRed2b.curves[3].points[0].position = (0, 1)
+nodeRed2b.mapping.curves[3].points[0].location = (0, 1)
 nodeRed2b.mapping.curves[3].points.new(0.25, 0.25)
-# nodeRed2b.mapping.curves[3].points[2].position = (1, 0)
+nodeRed2b.mapping.curves[3].points[2].location = (1, 0)
 
 # create group's output
 nodeRed2g_out = nodeRed2g_nodetree.nodes.new("NodeGroupOutput")
@@ -1152,9 +1152,9 @@ nodeV2b.inputs[1].default_value = 3
 
 nodeV2c = nodeV2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeV2c.location = (540, 0)
-# nodeV2c.curves[3].points[0].position = (0, 1)
+nodeV2c.mapping.curves[3].points[0].location = (0, 1)
 nodeV2c.mapping.curves[3].points.new(0.25, 0.25)
-# nodeV2c.mapping.curves[3].points[2].position = (1, 0)
+nodeV2c.mapping.curves[3].points[2].location = (1, 0)
 
 # Create group's output
 nodeV2g_out = nodeV2g_nodetree.nodes.new("NodeGroupOutput")
@@ -1253,9 +1253,9 @@ nodeY2b.inputs[1].default_value = 1.9
 
 nodeY2c = nodeY2g_nodetree.nodes.new("CompositorNodeCurveRGB")
 nodeY2c.location = (540, 0)
-# nodeY2c.curves[3].points[0].position = (0, 1)
+nodeY2c.mapping.curves[3].points[0].location = (0, 1)
 nodeY2c.mapping.curves[3].points.new(0.25, 0.25)
-# nodeY2c.mapping.curves[3].points[2].position = (1, 0)
+nodeY2c.mapping.curves[3].points[2].location = (1, 0)
 
 nodeY2d = nodeY2g_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeY2d.location = (780, 0)
