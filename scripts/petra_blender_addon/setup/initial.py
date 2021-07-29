@@ -108,7 +108,43 @@ for obj in C.scene.objects: # how to apply only on cameras in the `PETRA collect
         print(obj.data.type)
         obj.data.type = "ORTHO"
 
+
+
 ## Define orthographic scale:
+### create new drivers
+camera = bpy.data.objects["Cam-01"].data
+framing_box = bpy.data.objects["Framing Box"]
+fcurve = camera.driver_add("ortho_scale")
+fcurve.driver.type = "MAX"
+
+var1 = fcurve.driver.variables.new()
+var1.targets[0].id = framing_box
+var1.targets[0].data_path = "dimensions[0]"
+
+var2 = fcurve.driver.variables.new()
+var2.targets[0].id = framing_box
+var2.targets[0].data_path = "dimensions[2]"
+
+### inspect created drivers
+camera = bpy.data.objects["Cam-01"].data
+drivers = camera.animation_data.drivers
+
+drivers[0].data_path
+'ortho_scale'
+drivers[0].driver.type
+'MAX'
+
+drivers[0].driver.variables[0].targets[0].id
+bpy.data.objects['Framing Box']
+drivers[0].driver.variables[0].targets[0].data_type
+'dimensions[0]'
+
+drivers[0].driver.variables[1].targets[0].id
+bpy.data.objects['Framing Box']
+drivers[0].driver.variables[1].targets[0].data_path
+'dimensions[2]'
+
+
 ### Cam-01
     # Choose the highest value between
         # bpy.data.objects["Framing Box"].scale[0]
