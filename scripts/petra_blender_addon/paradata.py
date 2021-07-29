@@ -85,51 +85,51 @@ def generate_yaml(context, filepath):
 
     # title
     result["nomObjetDocumenté"] = "Fill it manually for the moment" # Have to find where to get the name
-    
+
     # definition Framing Box
-    framingBox = result["definitionBoiteEnglobante"]
-    framingBox["locationX"] = f"{locations[0]} m"
-    framingBox["locationY"] = f"{locations[1]} m"
-    framingBox["locationZ"] = f"{locations[2]} m"
+    framing_box = result["definitionBoiteEnglobante"]
+    framing_box["locationX"] = f"{locations[0]} m"
+    framing_box["locationY"] = f"{locations[1]} m"
+    framing_box["locationZ"] = f"{locations[2]} m"
 
     rotations = blenderdata.framing_box.rotation_euler
-    framingBox["rotationX"] = f"{rotations[0]}°"
-    framingBox["rotationY"] = f"{rotations[1]}°"
-    framingBox["rotationZ"] = f"{rotations[2]}°"
-    
-    framingBox["dimensionX"] = f"{scale[0]} m"
-    framingBox["dimensionY"] = f"{scale[1]} m"
-    framingBox["dimensionZ"] = f"{scale[2]} m"
+    framing_box["rotationX"] = f"{rotations[0]}°"
+    framing_box["rotationY"] = f"{rotations[1]}°"
+    framing_box["rotationZ"] = f"{rotations[2]}°"
+
+    framing_box["dimensionX"] = f"{scale[0]} m"
+    framing_box["dimensionY"] = f"{scale[1]} m"
+    framing_box["dimensionZ"] = f"{scale[2]} m"
 
     # caracteristiques documentation
-    docInfo = result["caracteristiquesImage"]
-    docInfo["echelleDocumentation"] = blenderdata.documentation_scale_fraction
-    docInfo["resolutionImage"] = blenderdata.resolution_of_image "ppi"
-    docInfo["resolutionSpatiale"] = "1 px = " blenderdata.spatial_resolution "mm"
+    doc_info = result["caracteristiquesImage"]
+    doc_info["echelleDocumentation"] = blenderdata.documentation_scale_fraction
+    doc_info["resolutionImage"] = blenderdata.resolution_of_image "ppi"
+    doc_info["resolutionSpatiale"] = "1 px = " blenderdata.spatial_resolution "mm"
 
     # cameras
     # we should find a way to apply this to each camera present in the collection 'PETRA'
-    
-    Cam_01 = result["cameras"][0]
-    Cam_01["nomDeLaVue"] = blenderdata.cam_01.name
-    
-    Cam_01["parametresImage"]["orthographicScale"] = 
-    Cam_01["parametresImage"]["dimensionsCm"] = 
-    Cam_01["parametresImage"]["dimensionsPixel"] = 
-    
-    Cam_01["parametresCamera"]["clippingStart"] = f"{bpy.data.cameras["Cam-01"].clip_start} m"
-    Cam_01["parametresCamera"]["clippingEnd"] = f"{bpy.data.cameras["Cam-01"].clip_end} m"
-    
-    Cam_01["parametresCamera"]["shiftX"] = f"{bpy.data.cameras["Cam-01"].shift_x} m"
-    Cam_01["parametresCamera"]["shiftY"] = f"{bpy.data.cameras["Cam-01"].shift_y} m"
-    
-    Cam_01["parametresCamera"]["relativeLocationX"] = f"{bpy.data.objects["Cam-01"].location[0]} m"
-    Cam_01["parametresCamera"]["relativeLocationY"] = f"{bpy.data.objects["Cam-01"].location[1]} m"
-    Cam_01["parametresCamera"]["relativeLocationZ"] = f"{bpy.data.objects["Cam-01"].location[2]} m"
-    
-    Cam_01["parametresCamera"]["relativeRotationX"] = f"{bpy.data.objects["Cam-01"].rotation[0]} m"
-    Cam_01["parametresCamera"]["relativeRotationY"] = f"{bpy.data.objects["Cam-01"].rotation[1]} m"
-    Cam_01["parametresCamera"]["relativeRotationZ"] = f"{bpy.data.objects["Cam-01"].rotation[2]} m"
+
+    cam_01 = result["cameras"][0]
+    cam_01["nomDeLaVue"] = blenderdata.cam_01.name
+
+    cam_01["parametresImage"]["orthographicScale"] =
+    cam_01["parametresImage"]["dimensionsCm"] =
+    cam_01["parametresImage"]["dimensionsPixel"] =
+
+    cam_01["parametresCamera"]["clippingStart"] = f"{bpy.data.cameras["Cam-01"].clip_start} m"
+    cam_01["parametresCamera"]["clippingEnd"] = f"{bpy.data.cameras["Cam-01"].clip_end} m"
+
+    cam_01["parametresCamera"]["shiftX"] = f"{bpy.data.cameras["Cam-01"].shift_x} m"
+    cam_01["parametresCamera"]["shiftY"] = f"{bpy.data.cameras["Cam-01"].shift_y} m"
+
+    cam_01["parametresCamera"]["relativeLocationX"] = f"{bpy.data.objects["Cam-01"].location[0]} m"
+    cam_01["parametresCamera"]["relativeLocationY"] = f"{bpy.data.objects["Cam-01"].location[1]} m"
+    cam_01["parametresCamera"]["relativeLocationZ"] = f"{bpy.data.objects["Cam-01"].location[2]} m"
+
+    cam_01["parametresCamera"]["relativeRotationX"] = f"{bpy.data.objects["Cam-01"].rotation[0]} m"
+    cam_01["parametresCamera"]["relativeRotationY"] = f"{bpy.data.objects["Cam-01"].rotation[1]} m"
+    cam_01["parametresCamera"]["relativeRotationZ"] = f"{bpy.data.objects["Cam-01"].rotation[2]} m"
 
     # end of yaml file
 
