@@ -88,18 +88,18 @@ def generate_yaml(context, filepath):
     
     # definition Framing Box
     framingBox = result["definitionBoiteEnglobante"]
-    framingBox["locationX"] = locations[0] "m"
-    framingBox["locationY"] = locations[1] "m"
-    framingBox["locationZ"] = locations[2] "m"
+    framingBox["locationX"] = f"{locations[0]} m"
+    framingBox["locationY"] = f"{locations[1]} m"
+    framingBox["locationZ"] = f"{locations[2]} m"
 
     rotations = blenderdata.framing_box.rotation_euler
     framingBox["rotationX"] = f"{rotations[0]}°"
     framingBox["rotationY"] = f"{rotations[1]}°"
     framingBox["rotationZ"] = f"{rotations[2]}°"
     
-    framingBox["dimensionX"] = scale[0] "m"
-    framingBox["dimensionY"] = scale[1] "m"
-    framingBox["dimensionZ"] = scale[2] "m"
+    framingBox["dimensionX"] = f"{scale[0]} m"
+    framingBox["dimensionY"] = f"{scale[1]} m"
+    framingBox["dimensionZ"] = f"{scale[2]} m"
 
     # caracteristiques documentation
     docInfo = result["caracteristiquesImage"]
@@ -117,19 +117,19 @@ def generate_yaml(context, filepath):
     Cam_01["parametresImage"]["dimensionsCm"] = 
     Cam_01["parametresImage"]["dimensionsPixel"] = 
     
-    Cam_01["parametresCamera"]["clippingStart"] = bpy.data.cameras["Cam-01"].clip_start
-    Cam_01["parametresCamera"]["clippingEnd"] = bpy.data.cameras["Cam-01"].clip_end
+    Cam_01["parametresCamera"]["clippingStart"] = f"{bpy.data.cameras["Cam-01"].clip_start} m"
+    Cam_01["parametresCamera"]["clippingEnd"] = f"{bpy.data.cameras["Cam-01"].clip_end} m"
     
-    Cam_01["parametresCamera"]["shiftX"] = bpy.data.cameras["Cam-01"].shift_x
-    Cam_01["parametresCamera"]["shiftY"] = bpy.data.cameras["Cam-01"].shift_y
+    Cam_01["parametresCamera"]["shiftX"] = f"{bpy.data.cameras["Cam-01"].shift_x} m"
+    Cam_01["parametresCamera"]["shiftY"] = f"{bpy.data.cameras["Cam-01"].shift_y} m"
     
-    Cam_01["parametresCamera"]["relativeLocationX"] = bpy.data.objects["Cam-01"].location[0]
-    Cam_01["parametresCamera"]["relativeLocationY"] = bpy.data.objects["Cam-01"].location[1]
-    Cam_01["parametresCamera"]["relativeLocationZ"] = bpy.data.objects["Cam-01"].location[2]
+    Cam_01["parametresCamera"]["relativeLocationX"] = f"{bpy.data.objects["Cam-01"].location[0]} m"
+    Cam_01["parametresCamera"]["relativeLocationY"] = f"{bpy.data.objects["Cam-01"].location[1]} m"
+    Cam_01["parametresCamera"]["relativeLocationZ"] = f"{bpy.data.objects["Cam-01"].location[2]} m"
     
-    Cam_01["parametresCamera"]["relativeRotationX"] = bpy.data.objects["Cam-01"].rotation[0]
-    Cam_01["parametresCamera"]["relativeRotationY"] = bpy.data.objects["Cam-01"].rotation[1]
-    Cam_01["parametresCamera"]["relativeRotationZ"] = bpy.data.objects["Cam-01"].rotation[2]
+    Cam_01["parametresCamera"]["relativeRotationX"] = f"{bpy.data.objects["Cam-01"].rotation[0]} m"
+    Cam_01["parametresCamera"]["relativeRotationY"] = f"{bpy.data.objects["Cam-01"].rotation[1]} m"
+    Cam_01["parametresCamera"]["relativeRotationZ"] = f"{bpy.data.objects["Cam-01"].rotation[2]} m"
 
     # end of yaml file
 
