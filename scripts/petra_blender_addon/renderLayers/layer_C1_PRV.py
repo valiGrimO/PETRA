@@ -6,10 +6,12 @@ nodetree = bpy.context.scene.node_tree
 node1 = bpy.data.scenes["Scene"].node_tree.nodes["Render Layers"]
 node2 = bpy.data.node_groups["Hub"]
 
-# node2_in = node2_nodetree.nodes["NodeGroupInput"] -> how to recognize inputs and outputs?
-# node2_out = node2_nodetree.nodes("NodeGroupOutput")
+node2_in = node2.nodes["Group Input"]
+node2_out = node2.nodes["Group Output"]
 
 nodeC1 = bpy.data.node_groups["C1: Color"]
+nodeC1_in = nodeC1.nodes["Group Input"]
+
 # will be used later in other scripts:
     # nodeR1 = bpy.data.node_groups["R1: Shading"]
     # nodeR2 = bpy.data.node_groups["R2: Contour Lines"]
@@ -28,9 +30,9 @@ bpy.context.scene.render.engine = 'BLENDER_EEVEE'
 
 # connect compositing nodes
 ## from 'render layer' to 'hub'
-nodetree.links.new(node1.outputs[0], node2.inputs[0])
+nodetree.links.new(node1.outputs[0], node2_in.inputs[0])
 ## from 'hub' to 'branch'
-nodetree.links.new(node2.outputs[0], nodeC1.inputs[1])
+nodetree.links.new(node2_out.outputs[0], nodeC1.inputs[1])
 
 # disconnect compositing nodes
 ## from 'render layer' to 'hub'
