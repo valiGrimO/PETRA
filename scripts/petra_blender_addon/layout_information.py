@@ -17,16 +17,80 @@ LAYERS_TO_INCLUDE_FILEPATH = MODULE_PATH / "templates" / "layers_to_include.txt"
 SVG_LAYERS_INSERT_AFTER_THIS = "</metadata>"
 
 
-def make_svg_for_layer(layer_name, relative_directory, suffix, U2, V2, W2):
-    cameras = [
-        {"x": 20, "y": V2 + 30, "width": U2, "height": W2},
-        {"x": U2 + 30, "y": V2 + 30, "width": V2, "height": W2},
-        {"x": U2 + V2 + 40, "y": V2 + 30, "width": U2, "height": W2},
-        {"x": 2 * U2 + V2 + 50, "y": V2 + 30, "width": V2, "height": W2},
-        {"x": 20, "y": 20, "width": U2, "height": V2},
-        {"x": 20, "y": V2 + W2 + 40, "width": U2, "height": V2},
+def make_camera_parameters(context):
+    blenderdata = BlenderData(context)
+
+    # size of the original framing cube (in meters)
+    U1, V1, W1 = blenderdata.framing_box.dimensions
+    DS = blenderdata.documentation_scale
+    RI = blenderdata.resolution_of_image
+
+    # Compute
+    # --------------------------------------------------
+    # size of the scaled down framing cube (in millimeters!)
+    U2 = round(U1 * DS * 1000, 2)
+    V2 = round(V1 * DS * 1000, 2)
+    W2 = round(W1 * DS * 1000, 2)
+
+    # size in pixels
+    U3 = round(U2 / 25.4 * RI)
+    V3 = round(V2 / 25.4 * RI)
+    W3 = round(W2 / 25.4 * RI)
+
+    return [
+        # Cam-01
+        {
+            "x": 20,
+            "y": V2 + 30,
+            "width": U2,
+            "height": W2,
+            "px": (U3, W3),
+        },
+        # Cam-02
+        {
+            "x": U2 + 30,
+            "y": V2 + 30,
+            "width": V2,
+            "height": W2,
+            "px": (V3, W3),
+        },
+        # Cam-03
+        {
+            "x": U2 + V2 + 40,
+            "y": V2 + 30,
+            "width": U2,
+            "height": W2,
+            "px": (U3, W3),
+        },
+        # Cam-04
+        {
+            "x": 2 * U2 + V2 + 50,
+            "y": V2 + 30,
+            "width": V2,
+            "height": W2,
+            "px": (V3, W3),
+        },
+        # Cam-05
+        {
+            "x": 20,
+            "y": 20,
+            "width": U2,
+            "height": V2,
+            "px": (U3, V3),
+        },
+        # Cam-06
+        {
+            "x": 20,
+            "y": V2 + W2 + 40,
+            "width": U2,
+            "height": V2,
+            "px": (U3, V3),
+        },
     ]
 
+
+def make_svg_for_layer(layer_name, relative_directory, suffix, camera_parameters):
+    cameras = camera_parameters
     return f"""
   <g id="{layer_name}" inkscape:label="{layer_name}" inkscape:groupmode="layer">
     <image id="Cam-01_{layer_name}" xlink:href="{relative_directory}/Cam-01_{layer_name}{suffix}" x="{cameras[0]["x"]}" y="{cameras[0]["y"]}" width="{cameras[0]["width"]}" height="{cameras[0]["height"]}" preserveAspectRatio="none" />
@@ -66,26 +130,17 @@ def generate_svg(context, filepath):
     layers_to_include = read(LAYERS_TO_INCLUDE_FILEPATH).split()
     svg_template = read(SVG_TEMPLATE_FILEPATH)
 
-    blenderdata = BlenderData(context)
-    # size of the original framing cube (in meters)
-    U1, V1, W1 = blenderdata.framing_box.dimensions
-    DS = blenderdata.documentation_scale
-
-    # Compute
-    # --------------------------------------------------
-    # size of the scaled down framing cube (in millimeters)
-    U2 = round(U1 * DS * 1000, 2)
-    V2 = round(V1 * DS * 1000, 2)
-    W2 = round(W1 * DS * 1000, 2)
-
     # Stitch together the SVG.
     # --------------------------------------------------
     separator = SVG_LAYERS_INSERT_AFTER_THIS
     beginning, end = svg_template.split(separator, maxsplit=1)
     beginning += separator
+
     # insert blenderdata into rest of template
+    blenderdata = BlenderData(context)
     for key, value in vars(blenderdata).items():
         end = end.replace(f"{{blenderdata.{key}}}", str(value))
+
     middle_parts = []
     current_index = 0
     for layer in layers_to_include:
@@ -101,9 +156,7 @@ def generate_svg(context, filepath):
             layer_name=layer.replace(" ", "_"),  # Note: SVG ids can't have whitespace
             relative_directory=RENDERED_IMAGES_FOLDER,
             suffix=image_filename.suffix,
-            U2=U2,  # in mm
-            V2=V2,
-            W2=W2,
+            camera_parameters=make_camera_parameters(context),
         )
         middle_parts.append(text)
     final_svg_text = "".join((beginning, *reversed(middle_parts), end))
