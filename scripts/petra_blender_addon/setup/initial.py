@@ -103,12 +103,10 @@ so.name = "Cam-06"
 C.object.hide_set(True)
 
 ## Set Camera Ortho
-for obj in C.scene.objects: # how to apply only on cameras in the `PETRA collection`?
+for obj in D.collections['PETRA'].all_objects:
     if obj.type == "CAMERA":
         print(obj.data.type)
         obj.data.type = "ORTHO"
-
-
 
 ## Define orthographic scale:
 
