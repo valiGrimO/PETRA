@@ -111,103 +111,96 @@ for obj in C.scene.objects: # how to apply only on cameras in the `PETRA collect
 
 
 ## Define orthographic scale:
-### create new drivers
-camera = bpy.data.objects["Cam-01"].data
+
+### ------
+### CAM-01
+cam_01 = bpy.data.objects["Cam-01"].data
 framing_box = bpy.data.objects["Framing Box"]
-fcurve = camera.driver_add("ortho_scale")
+fcurve = cam_01.driver_add("ortho_scale")
 fcurve.driver.type = "MAX"
 
-var1 = fcurve.driver.variables.new()
-var1.targets[0].id = framing_box
-var1.targets[0].data_path = "dimensions[0]"
+var1a = fcurve.driver.variables.new()
+var1a.targets[0].id = framing_box
+var1a.targets[0].data_path = "dimensions[0]"
 
-var2 = fcurve.driver.variables.new()
-var2.targets[0].id = framing_box
-var2.targets[0].data_path = "dimensions[2]"
+var1b = fcurve.driver.variables.new()
+var1b.targets[0].id = framing_box
+var1b.targets[0].data_path = "dimensions[2]"
 
-### inspect created drivers
-camera = bpy.data.objects["Cam-01"].data
-drivers = camera.animation_data.drivers
+### ------
+### CAM-02
+cam_02 = bpy.data.objects["Cam-02"].data
+framing_box = bpy.data.objects["Framing Box"]
+fcurve = cam_02.driver_add("ortho_scale")
+fcurve.driver.type = "MAX"
 
-drivers[0].data_path
-'ortho_scale'
-drivers[0].driver.type
-'MAX'
+var2a = fcurve.driver.variables.new()
+var2a.targets[0].id = framing_box
+var2a.targets[0].data_path = "dimensions[1]"
 
-drivers[0].driver.variables[0].targets[0].id
-bpy.data.objects['Framing Box']
-drivers[0].driver.variables[0].targets[0].data_type
-'dimensions[0]'
+var2b = fcurve.driver.variables.new()
+var2b.targets[0].id = framing_box
+var2b.targets[0].data_path = "dimensions[2]"
 
-drivers[0].driver.variables[1].targets[0].id
-bpy.data.objects['Framing Box']
-drivers[0].driver.variables[1].targets[0].data_path
-'dimensions[2]'
+### ------
+### CAM-03
+cam_03 = bpy.data.objects["Cam-03"].data
+framing_box = bpy.data.objects["Framing Box"]
+fcurve = cam_03.driver_add("ortho_scale")
+fcurve.driver.type = "MAX"
 
+var3a = fcurve.driver.variables.new()
+var3a.targets[0].id = framing_box
+var3a.targets[0].data_path = "dimensions[0]"
 
-### Cam-01
-    # Choose the highest value between
-        # bpy.data.objects["Framing Box"].scale[0]
-        # bpy.data.objects["Framing Box"].scale[2]
-    # Copy this value as a new driver
-        # bpy.ops.ui.copy_as_driver_button()
+var3b = fcurve.driver.variables.new()
+var3b.targets[0].id = framing_box
+var3b.targets[0].data_path = "dimensions[2]"
 
-    # Set this value as the orthographic scale of the camera
-        # bpy.ops.anim.paste_driver_button()
+### ------
+### CAM-04
+cam_04 = bpy.data.objects["Cam-04"].data
+framing_box = bpy.data.objects["Framing Box"]
+fcurve = cam_04.driver_add("ortho_scale")
+fcurve.driver.type = "MAX"
 
-### Cam-02
-    # Choose the highest value between
-        # bpy.data.objects["Framing Box"].scale[1]
-        # bpy.data.objects["Framing Box"].scale[2]
-    # Copy this value as a new driver
-        # bpy.ops.ui.copy_as_driver_button()
+var4a = fcurve.driver.variables.new()
+var4a.targets[0].id = framing_box
+var4a.targets[0].data_path = "dimensions[1]"
 
-    # Set this value as the orthographic scale of the camera
-        # bpy.ops.anim.paste_driver_button()
+var4b = fcurve.driver.variables.new()
+var4b.targets[0].id = framing_box
+var4b.targets[0].data_path = "dimensions[2]"
 
+### ------
+### CAM-05
+cam_05 = bpy.data.objects["Cam-05"].data
+framing_box = bpy.data.objects["Framing Box"]
+fcurve = cam_05.driver_add("ortho_scale")
+fcurve.driver.type = "MAX"
 
-### Cam-03
-    # Choose the highest value between
-        # bpy.data.objects["Framing Box"].scale[0]
-        # bpy.data.objects["Framing Box"].scale[2]
-    # Copy this value as a new driver
-        # bpy.ops.ui.copy_as_driver_button()
+var5a = fcurve.driver.variables.new()
+var5a.targets[0].id = framing_box
+var5a.targets[0].data_path = "dimensions[0]"
 
-    # Set this value as the orthographic scale of the camera
-        # bpy.ops.anim.paste_driver_button()
+var5b = fcurve.driver.variables.new()
+var5b.targets[0].id = framing_box
+var5b.targets[0].data_path = "dimensions[1]"
 
+### ------
+### CAM-06
+cam_06 = bpy.data.objects["Cam-06"].data
+framing_box = bpy.data.objects["Framing Box"]
+fcurve = cam_06.driver_add("ortho_scale")
+fcurve.driver.type = "MAX"
 
-### Cam-04
-    # Choose the highest value between
-        # bpy.data.objects["Framing Box"].scale[1]
-        # bpy.data.objects["Framing Box"].scale[2]
-    # Copy this value as a new driver
-        # bpy.ops.ui.copy_as_driver_button()
+var6a = fcurve.driver.variables.new()
+var6a.targets[0].id = framing_box
+var6a.targets[0].data_path = "dimensions[0]"
 
-    # Set this value as the orthographic scale of the camera
-        # bpy.ops.anim.paste_driver_button()
-
-
-### Cam-05
-    # Choose the highest value between
-        # bpy.data.objects["Framing Box"].scale[0]
-        # bpy.data.objects["Framing Box"].scale[1]
-    # Copy this value as a new driver
-        # bpy.ops.ui.copy_as_driver_button()
-
-    # Set this value as the orthographic scale of the camera
-        # bpy.ops.anim.paste_driver_button()
-
-
-### Cam-06
-    # Choose the highest value between
-        # bpy.data.objects["Framing Box"].scale[0]
-        # bpy.data.objects["Framing Box"].scale[1]
-    # Copy this value as a new driver
-        # bpy.ops.ui.copy_as_driver_button()
-
-    # Set this value as the orthographic scale of the camera
-        # bpy.ops.anim.paste_driver_button()
+var6b = fcurve.driver.variables.new()
+var6b.targets[0].id = framing_box
+var6b.targets[0].data_path = "dimensions[1]"
 
 ## Parenting Cameras to 'Framing Box'
 a = D.objects["Framing Box"]
