@@ -108,30 +108,23 @@ def generate_yaml(context, filepath):
     doc_info["resolutionSpatiale"] = f"1 px = {blenderdata.spatial_resolution} mm"
 
     # cameras
-    # we should find a way to apply this to each camera present in the collection 'PETRA'
-
-    cam_01 = result["cameras"][0]
-    cam_01["nomDeLaVue"] = blenderdata.cam_01.name
-
-    # cam_01["parametresImage"]["orthographicScale"] =
-    # cam_01["parametresImage"]["dimensionsCm"] =
-    # cam_01["parametresImage"]["dimensionsPixel"] =
-
-    cam_01_params = cam_01["parametresCamera"]
-
-    cam_01_params["clippingStart"] = f"{blenderdata.cam_01.clip_start} m"
-    cam_01_params["clippingEnd"] = f"{blenderdata.cam_01.clip_end} m"
-
-    cam_01_params["shiftX"] = f"{blenderdata.cam_01.shift_x} m"
-    cam_01_params["shiftY"] = f"{blenderdata.cam_01.shift_y} m"
-
-    cam_01_params["relativeLocationX"] = f"{blenderdata.cam_01.location[0]} m"
-    cam_01_params["relativeLocationY"] = f"{blenderdata.cam_01.location[1]} m"
-    cam_01_params["relativeLocationZ"] = f"{blenderdata.cam_01.location[2]} m"
-
-    cam_01_params["relativeRotationX"] = f"{blenderdata.cam_01.rotation[0]} m"
-    cam_01_params["relativeRotationY"] = f"{blenderdata.cam_01.rotation[1]} m"
-    cam_01_params["relativeRotationZ"] = f"{blenderdata.cam_01.rotation[2]} m"
+    # select cameras in 'PETRA' collection
+    for obj in bpy.data.collections['PETRA'].all_objects:
+        if obj.type == "CAMERA":
+            file.write('\n'+obj.name+':''\n')
+            #file.write('    orthographicScale: f"{} x {} m''\n')
+            #file.write('    dimensions (cm): f"{} x {} m''\n')
+            #file.write('    dimensions (px): f"{} x {} m''\n')
+            file.write('    clippingStart: f"{bpy.data.cameras.clip_start} m''\n')
+            file.write('    clippingEnd: f"{bpy.data.cameras.clip_End} m''\n')
+            file.write('    shiftX: f"{bpy.data.cameras.shift_x} m''\n')
+            file.write('    shiftY: f"{bpy.data.cameras.shift_y} m''\n')
+            file.write('    relativeLocationX: '+str(obj.location.x)+' m''\n')
+            file.write('    relativeLocationY: '+str(obj.location.y)+' m''\n')
+            file.write('    relativeLocationZ: '+str(obj.location.z)+' m''\n')
+            file.write('    relativeRotationX: '+str(obj.rotation.x)+' m''\n')
+            file.write('    relativeRotationY: '+str(obj.rotation.y)+' m''\n')
+            file.write('    relativeRotationZ: '+str(obj.rotation.z)+' m''\n')
 
     # end of yaml file
 
