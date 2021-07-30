@@ -88,7 +88,7 @@ def generate_yaml(context, filepath):
 
     # definition Framing Box
     framing_box = result["definitionBoiteEnglobante"]
-    framing_box["locationX"] = f"{locations[0]} m"
+    framing_box["locationX"] = f"{locations[0]} m" # don't recognize anymore locations[0]...
     framing_box["locationY"] = f"{locations[1]} m"
     framing_box["locationZ"] = f"{locations[2]} m"
 
@@ -104,32 +104,27 @@ def generate_yaml(context, filepath):
     # caracteristiques documentation
     doc_info = result["caracteristiquesImage"]
     doc_info["echelleDocumentation"] = blenderdata.documentation_scale_fraction
-    doc_info["resolutionImage"] = blenderdata.resolution_of_image "ppi"
-    doc_info["resolutionSpatiale"] = "1 px = " blenderdata.spatial_resolution "mm"
+    doc_info["resolutionImage"] = f"{blenderdata.resolution_of_image} ppi"
+    doc_info["resolutionSpatiale"] = f"1 px = {blenderdata.spatial_resolution} mm"
 
     # cameras
-    # we should find a way to apply this to each camera present in the collection 'PETRA'
-
-    cam_01 = result["cameras"][0]
-    cam_01["nomDeLaVue"] = blenderdata.cam_01.name
-
-    cam_01["parametresImage"]["orthographicScale"] =
-    cam_01["parametresImage"]["dimensionsCm"] =
-    cam_01["parametresImage"]["dimensionsPixel"] =
-
-    cam_01["parametresCamera"]["clippingStart"] = f"{bpy.data.cameras["Cam-01"].clip_start} m"
-    cam_01["parametresCamera"]["clippingEnd"] = f"{bpy.data.cameras["Cam-01"].clip_end} m"
-
-    cam_01["parametresCamera"]["shiftX"] = f"{bpy.data.cameras["Cam-01"].shift_x} m"
-    cam_01["parametresCamera"]["shiftY"] = f"{bpy.data.cameras["Cam-01"].shift_y} m"
-
-    cam_01["parametresCamera"]["relativeLocationX"] = f"{bpy.data.objects["Cam-01"].location[0]} m"
-    cam_01["parametresCamera"]["relativeLocationY"] = f"{bpy.data.objects["Cam-01"].location[1]} m"
-    cam_01["parametresCamera"]["relativeLocationZ"] = f"{bpy.data.objects["Cam-01"].location[2]} m"
-
-    cam_01["parametresCamera"]["relativeRotationX"] = f"{bpy.data.objects["Cam-01"].rotation[0]} m"
-    cam_01["parametresCamera"]["relativeRotationY"] = f"{bpy.data.objects["Cam-01"].rotation[1]} m"
-    cam_01["parametresCamera"]["relativeRotationZ"] = f"{bpy.data.objects["Cam-01"].rotation[2]} m"
+    # select cameras in 'PETRA' collection
+    for obj in bpy.data.collections['PETRA'].all_objects:
+        if obj.type == "CAMERA":
+            file.write('\n'+obj.name+':''\n')
+            #file.write('    orthographicScale: f"{} x {} m''\n')
+            #file.write('    dimensions (cm): f"{} x {} m''\n')
+            #file.write('    dimensions (px): f"{} x {} m''\n')
+            file.write('    clippingStart: f"{bpy.data.cameras.clip_start} m''\n')
+            file.write('    clippingEnd: f"{bpy.data.cameras.clip_End} m''\n')
+            file.write('    shiftX: f"{bpy.data.cameras.shift_x} m''\n')
+            file.write('    shiftY: f"{bpy.data.cameras.shift_y} m''\n')
+            file.write('    relativeLocationX: '+str(obj.location.x)+' m''\n')
+            file.write('    relativeLocationY: '+str(obj.location.y)+' m''\n')
+            file.write('    relativeLocationZ: '+str(obj.location.z)+' m''\n')
+            file.write('    relativeRotationX: '+str(obj.rotation.x)+' m''\n')
+            file.write('    relativeRotationY: '+str(obj.rotation.y)+' m''\n')
+            file.write('    relativeRotationZ: '+str(obj.rotation.z)+' m''\n')
 
     # end of yaml file
 
