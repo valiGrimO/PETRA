@@ -110,6 +110,8 @@ for obj in D.collections['PETRA'].all_objects:
 
 ## Define orthographic scale:
 
+    # review this part with Python Functions and Python Loops to make it more easy to read
+
 ### ------
 ### CAM-01
 cam_01 = bpy.data.objects["Cam-01"].data
