@@ -1,62 +1,23 @@
 import bpy
 
-# get reference and list of nodes
-nodetree = bpy.context.scene.node_tree
-
-node1 = bpy.data.scenes["Scene"].node_tree.nodes["Render Layers"]
-node2 = bpy.data.node_groups["Hub"]
-
-node2_in = node2.nodes["Group Input"]
-node2_out = node2.nodes["Group Output"]
-
-nodeC1 = bpy.data.node_groups["C1: Color"]
-nodeC1_in = nodeC1.nodes["Group Input"]
-
-# will be used later in other scripts:
-    # nodeR1 = bpy.data.node_groups["R1: Shading"]
-    # nodeR2 = bpy.data.node_groups["R2: Contour Lines"]
-    # nodeR3 = bpy.data.node_groups["R3: Distance Map"]
-    # nodeR4 = bpy.data.node_groups["R4: Pointiness"]
-    # nodeR5 = bpy.data.node_groups["R5: Aspect"]
-
-# set render engine
+# Select render Engine
 bpy.context.scene.render.engine = 'BLENDER_EEVEE'
 
-# assign material to selected objects
-# for obj in bpy.context.selected_objects:
-#    objectName.setMaterials([c1_prv])
-#    data.materials.append(bpy.data.materials.get('c1_prv'))
+# Apply material to selected objects
+    # For selected objects:
+        # Apply `C1_PRV` material
 
+# Configure Compositor
+    # Connect `Render Layers/[0]` to `Hub/[0]`
+    # Connect `Hub/C1:[0]` to `C1:Color/[1]`
 
-# connect compositing nodes
-## from 'render layer' to 'hub'
-nodetree.links.new(node1.outputs[0], node2_in.inputs[0])
-## from 'hub' to 'branch'
-nodetree.links.new(node2_out.outputs[0], nodeC1.inputs[1])
+# Lock interface while rendering
+    # Render Display Type: Keep User Interface
+    # bpy.context.scene.render.use_lock_interface = True
 
-# disconnect compositing nodes
-## from 'render layer' to 'hub'
-# nodetree.links.remove(node1.outputs[0], node2.inputs[0]) -> will be used later
-nodetree.links.remove(node1.outputs[0], node2.inputs[1])
-nodetree.links.remove(node1.outputs[0], node2.inputs[2])
-nodetree.links.remove(node1.outputs[0], node2.inputs[3])
-nodetree.links.remove(node1.outputs[0], node2.inputs[4])
-nodetree.links.remove(node1.outputs[0], node2.inputs[5])
-nodetree.links.remove(node1.outputs[0], node2.inputs[6])
-nodetree.links.remove(node1.outputs[0], node2.inputs[7])
-nodetree.links.remove(node1.outputs[0], node2.inputs[8])
-nodetree.links.remove(node1.outputs[0], node2.inputs[9])
+# Produce Documentation
+    # hit "produce documentation" in the PETrA Pannel (Rendering)
 
-## from 'hub' to 'branch'
-nodetree.links.remove(node2.outputs[0], nodeC1.inputs[0])
-
-# Reference Sphere
-bpy.data.objects["Reference Sphere"].hide_render = True
-
-# ambient occlusion
-bpy.context.scene.eevee.use_gtao = False
-# bpy.context.scene.eevee.gtao_distance = 10
-# bpy.context.scene.eevee.gtao_quality = 1
-
-# hit render button
-# bpy.ops.petra.produce_documentation()
+# Set Compositor in its initial state
+    # Disconnect `Render Layers/[0]` to `Hub/[0]`
+    # Disconnect `Hub/C1:[0]` to `C1:Color/[1]`
