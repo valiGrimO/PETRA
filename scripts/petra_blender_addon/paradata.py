@@ -50,12 +50,11 @@ class BlenderData:
             round(Fraction(params.documentation_scale), 7)
         )
 
-        # Note: this is in millimetres.
+        # Note: this is in millimetres per pixel.
         self.spatial_resolution = params.spatial_resolution
 
-        self.resolution_of_image = round(
-            self.documentation_scale / (self.spatial_resolution / 25.4)
-        )
+        # Note: this is in pixels per inch.
+        self.resolution_of_image = round(25.4 / self.spatial_resolution)
 
 
 def generate_yaml(context, filepath):
@@ -84,11 +83,12 @@ def generate_yaml(context, filepath):
     blenderdata = BlenderData(context)
 
     # title
-    result["nomObjetDocumenté"] = "Fill it manually for the moment" # Have to find where to get the name
+    # TODO(@Valentin): Have to find where to get the name
+    result["nomObjetDocumenté"] = "Fill it manually for the moment"
 
     # definition Framing Box
     framing_box = result["definitionBoiteEnglobante"]
-    framing_box["locationX"] = f"{locations[0]} m" # don't recognize anymore locations[0]...
+    framing_box["locationX"] = f"{locations[0]} m"
     framing_box["locationY"] = f"{locations[1]} m"
     framing_box["locationZ"] = f"{locations[2]} m"
 

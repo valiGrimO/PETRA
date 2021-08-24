@@ -1,7 +1,7 @@
 bl_info = {
     "name": "PETRA",
     "author": "Valentin Grimaud",
-    "version": (0, 2, 3),
+    "version": (0, 2, 4),
     "blender": (2, 80, 0),
     "location": "View3D > Sidebar > New Tab",
     "description": "Protocole d'Exploitation des représentations TRidimensionnelles en Archéologie.",
@@ -64,7 +64,7 @@ class PetraPropertyGroup(bpy.types.PropertyGroup):
 
     spatial_resolution: bpy.props.FloatProperty(
         name="Spatial resolution",
-        description="Size of 1 pixel in mm. Equivalent to 25.4 / PPI.",
+        description="Size of 1 pixel in mm. Equivalent to 25.4 / PPI",
         # This sets the unit to 'mm'. See: https://git.io/J4cZe
         unit="CAMERA",
         subtype="DISTANCE_CAMERA",
@@ -90,6 +90,29 @@ class PETRA_OT_build_initial_setup(Operator):
         return {"FINISHED"}
 
 
+class PETRA_OT_apply_render_parameters_to_scene(Operator):
+
+    bl_idname = "petra.apply_render_parameters_to_scene"
+    bl_label = "Apply to scene"
+    bl_description = (
+        "Apply the selected camera to the X- and Y-resolution of the scene dimensions."
+    )
+
+    def execute(self, context):
+        chosen_camera = bpy.context.space_data.camera
+
+        camera_params = layout_information.make_camera_parameters(context)
+        camera_number = int(chosen_camera.name[-2:])
+        camera_index = camera_number - 1
+
+        camera_resolution = camera_params[camera_index]["px"]
+        render_settings = context.scene.render
+        render_settings.resolution_x = camera_resolution[0]
+        render_settings.resolution_y = camera_resolution[1]
+
+        return {"FINISHED"}
+
+
 class PETRA_OT_produce_documentation(Operator):
 
     bl_idname = "petra.produce_documentation"
@@ -109,7 +132,7 @@ class PETRA_OT_export_scene_paradata(Operator):
 
     def execute(self, context):
         if not bpy.data.filepath:
-            popup(text=f"Save Blender file first.")
+            popup(text="Save Blender file first.")
             return {"FINISHED"}
 
         blend_filepath = Path(bpy.data.filepath)
@@ -233,6 +256,7 @@ class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
         col.label(text="Printed documentation:")
         col.prop(context.scene.petra, "documentation_scale", text="Scale")
         col.prop(context.scene.petra, "spatial_resolution", text="Resolution")
+        col.operator(PETRA_OT_apply_render_parameters_to_scene.bl_idname)
 
         layout.label(text="Camera manager:")
         for camera in cameras:
@@ -347,6 +371,7 @@ class PETRA_PT_rendering(PetraPanelMixin, Panel):
 classes = (
     PetraPropertyGroup,
     PETRA_OT_activate_and_preview_scene_camera,
+    PETRA_OT_apply_render_parameters_to_scene,
     PETRA_OT_build_initial_setup,
     PETRA_OT_export_layout_information,
     PETRA_OT_export_scene_paradata,
