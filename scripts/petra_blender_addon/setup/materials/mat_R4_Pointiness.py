@@ -1,14 +1,16 @@
 import bpy
 
 # MATERIAL
-r4 = bpy.data.materials.new(name='r4')
-r4.use_nodes = True
-node_tree0 = r4.node_tree
+r4_pointiness = bpy.data.materials.new(name='r4_pointiness')
+r4_pointiness.use_nodes = True
+node_tree0 = r4_pointiness.node_tree
 for node in node_tree0.nodes:
     node_tree0.nodes.remove(node)
 
 # NODES
 colorramp_0 = node_tree0.nodes.new('ShaderNodeValToRGB')
+if hasattr(colorramp_0, 'active_preview'):
+    colorramp_0.active_preview = False
 if hasattr(colorramp_0, 'color'):
     colorramp_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(colorramp_0, 'color_ramp'):
@@ -52,6 +54,8 @@ colorramp_0.outputs[0].default_value = (0.0, 0.0, 0.0, 0.0)
 colorramp_0.outputs[1].default_value = 0.0
 
 gamma_0 = node_tree0.nodes.new('ShaderNodeGamma')
+if hasattr(gamma_0, 'active_preview'):
+    gamma_0.active_preview = False
 if hasattr(gamma_0, 'color'):
     gamma_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(gamma_0, 'hide'):
@@ -71,6 +75,8 @@ gamma_0.inputs[1].default_value = 2.299999952316284
 gamma_0.outputs[0].default_value = (0.0, 0.0, 0.0, 0.0)
 
 bright_contrast_0 = node_tree0.nodes.new('ShaderNodeBrightContrast')
+if hasattr(bright_contrast_0, 'active_preview'):
+    bright_contrast_0.active_preview = False
 if hasattr(bright_contrast_0, 'color'):
     bright_contrast_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(bright_contrast_0, 'hide'):
@@ -91,6 +97,8 @@ bright_contrast_0.inputs[2].default_value = 1.2000000476837158
 bright_contrast_0.outputs[0].default_value = (0.0, 0.0, 0.0, 0.0)
 
 geometry_0 = node_tree0.nodes.new('ShaderNodeNewGeometry')
+if hasattr(geometry_0, 'active_preview'):
+    geometry_0.active_preview = False
 if hasattr(geometry_0, 'color'):
     geometry_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(geometry_0, 'hide'):
@@ -116,6 +124,8 @@ geometry_0.outputs[7].default_value = 0.0
 geometry_0.outputs[8].default_value = 0.0
 
 emission_0 = node_tree0.nodes.new('ShaderNodeEmission')
+if hasattr(emission_0, 'active_preview'):
+    emission_0.active_preview = False
 if hasattr(emission_0, 'color'):
     emission_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(emission_0, 'hide'):
@@ -134,6 +144,8 @@ emission_0.inputs[0].default_value = (1.0, 1.0, 1.0, 1.0)
 emission_0.inputs[1].default_value = 1.0
 
 emission_001_0 = node_tree0.nodes.new('ShaderNodeEmission')
+if hasattr(emission_001_0, 'active_preview'):
+    emission_001_0.active_preview = False
 if hasattr(emission_001_0, 'color'):
     emission_001_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(emission_001_0, 'hide'):
@@ -152,6 +164,8 @@ emission_001_0.inputs[0].default_value = (1.0, 1.0, 1.0, 1.0)
 emission_001_0.inputs[1].default_value = 1.0
 
 mix_shader_0 = node_tree0.nodes.new('ShaderNodeMixShader')
+if hasattr(mix_shader_0, 'active_preview'):
+    mix_shader_0.active_preview = False
 if hasattr(mix_shader_0, 'color'):
     mix_shader_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(mix_shader_0, 'hide'):
@@ -169,6 +183,8 @@ if hasattr(mix_shader_0, 'width'):
 mix_shader_0.inputs[0].default_value = 0.5
 
 material_output_0 = node_tree0.nodes.new('ShaderNodeOutputMaterial')
+if hasattr(material_output_0, 'active_preview'):
+    material_output_0.active_preview = False
 if hasattr(material_output_0, 'color'):
     material_output_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(material_output_0, 'hide'):
@@ -202,4 +218,4 @@ node_tree0.links.new(geometry_0.outputs[6], mix_shader_0.inputs[0])
 # TO ACTIVE
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
-    obj.active_material = r4
+    obj.active_material = r4_pointiness

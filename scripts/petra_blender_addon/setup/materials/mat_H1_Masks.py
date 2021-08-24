@@ -1,14 +1,16 @@
 import bpy
 
 # MATERIAL
-zh_masks = bpy.data.materials.new(name='zh_masks')
-zh_masks.use_nodes = True
-node_tree0 = zh_masks.node_tree
+h1_masks = bpy.data.materials.new(name='h1_masks')
+h1_masks.use_nodes = True
+node_tree0 = h1_masks.node_tree
 for node in node_tree0.nodes:
     node_tree0.nodes.remove(node)
 
 # NODES
 geometry_0 = node_tree0.nodes.new('ShaderNodeNewGeometry')
+if hasattr(geometry_0, 'active_preview'):
+    geometry_0.active_preview = False
 if hasattr(geometry_0, 'color'):
     geometry_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(geometry_0, 'hide'):
@@ -34,6 +36,8 @@ geometry_0.outputs[7].default_value = 0.0
 geometry_0.outputs[8].default_value = 0.0
 
 emission_0 = node_tree0.nodes.new('ShaderNodeEmission')
+if hasattr(emission_0, 'active_preview'):
+    emission_0.active_preview = False
 if hasattr(emission_0, 'color'):
     emission_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(emission_0, 'hide'):
@@ -52,6 +56,8 @@ emission_0.inputs[0].default_value = (0.21404114365577698, 0.21404114365577698, 
 emission_0.inputs[1].default_value = 1.0
 
 emission_001_0 = node_tree0.nodes.new('ShaderNodeEmission')
+if hasattr(emission_001_0, 'active_preview'):
+    emission_001_0.active_preview = False
 if hasattr(emission_001_0, 'color'):
     emission_001_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(emission_001_0, 'hide'):
@@ -70,6 +76,8 @@ emission_001_0.inputs[0].default_value = (0.0, 0.0, 0.0, 1.0)
 emission_001_0.inputs[1].default_value = 1.0
 
 mix_shader_0 = node_tree0.nodes.new('ShaderNodeMixShader')
+if hasattr(mix_shader_0, 'active_preview'):
+    mix_shader_0.active_preview = False
 if hasattr(mix_shader_0, 'color'):
     mix_shader_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(mix_shader_0, 'hide'):
@@ -87,6 +95,8 @@ if hasattr(mix_shader_0, 'width'):
 mix_shader_0.inputs[0].default_value = 0.5
 
 material_output_0 = node_tree0.nodes.new('ShaderNodeOutputMaterial')
+if hasattr(material_output_0, 'active_preview'):
+    material_output_0.active_preview = False
 if hasattr(material_output_0, 'color'):
     material_output_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(material_output_0, 'hide'):
@@ -116,4 +126,5 @@ node_tree0.links.new(mix_shader_0.outputs[0], material_output_0.inputs[0])
 # TO ACTIVE
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
-    obj.active_material = zh_masks
+    obj.active_material = h1_masks
+

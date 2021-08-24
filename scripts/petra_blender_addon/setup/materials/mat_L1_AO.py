@@ -1,14 +1,16 @@
 import bpy
 
 # MATERIAL
-l1_occlusionambiante = bpy.data.materials.new(name='l1_occlusionambiante')
-l1_occlusionambiante.use_nodes = True
-node_tree0 = l1_occlusionambiante.node_tree
+l1_ao = bpy.data.materials.new(name='l1_ao')
+l1_ao.use_nodes = True
+node_tree0 = l1_ao.node_tree
 for node in node_tree0.nodes:
     node_tree0.nodes.remove(node)
 
 # NODES
 principled_bsdf_0 = node_tree0.nodes.new('ShaderNodeBsdfPrincipled')
+if hasattr(principled_bsdf_0, 'active_preview'):
+    principled_bsdf_0.active_preview = False
 if hasattr(principled_bsdf_0, 'color'):
     principled_bsdf_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(principled_bsdf_0, 'distribution'):
@@ -52,6 +54,8 @@ principled_bsdf_0.inputs[21].default_value = (0.0, 0.0, 0.0)
 principled_bsdf_0.inputs[22].default_value = (0.0, 0.0, 0.0)
 
 colorramp_0 = node_tree0.nodes.new('ShaderNodeValToRGB')
+if hasattr(colorramp_0, 'active_preview'):
+    colorramp_0.active_preview = False
 if hasattr(colorramp_0, 'color'):
     colorramp_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(colorramp_0, 'color_ramp'):
@@ -95,6 +99,8 @@ colorramp_0.outputs[0].default_value = (0.0, 0.0, 0.0, 0.0)
 colorramp_0.outputs[1].default_value = 0.0
 
 ambient_occlusion_001_0 = node_tree0.nodes.new('ShaderNodeAmbientOcclusion')
+if hasattr(ambient_occlusion_001_0, 'active_preview'):
+    ambient_occlusion_001_0.active_preview = False
 if hasattr(ambient_occlusion_001_0, 'color'):
     ambient_occlusion_001_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(ambient_occlusion_001_0, 'hide'):
@@ -122,6 +128,8 @@ ambient_occlusion_001_0.outputs[0].default_value = (1.0, 1.0, 1.0, 1.0)
 ambient_occlusion_001_0.outputs[1].default_value = 0.0
 
 emission_002_0 = node_tree0.nodes.new('ShaderNodeEmission')
+if hasattr(emission_002_0, 'active_preview'):
+    emission_002_0.active_preview = False
 if hasattr(emission_002_0, 'color'):
     emission_002_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(emission_002_0, 'hide'):
@@ -140,6 +148,8 @@ emission_002_0.inputs[0].default_value = (1.0, 1.0, 1.0, 1.0)
 emission_002_0.inputs[1].default_value = 1.0
 
 mix_shader_001_0 = node_tree0.nodes.new('ShaderNodeMixShader')
+if hasattr(mix_shader_001_0, 'active_preview'):
+    mix_shader_001_0.active_preview = False
 if hasattr(mix_shader_001_0, 'color'):
     mix_shader_001_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(mix_shader_001_0, 'hide'):
@@ -157,6 +167,8 @@ if hasattr(mix_shader_001_0, 'width'):
 mix_shader_001_0.inputs[0].default_value = 0.5
 
 material_output_0 = node_tree0.nodes.new('ShaderNodeOutputMaterial')
+if hasattr(material_output_0, 'active_preview'):
+    material_output_0.active_preview = False
 if hasattr(material_output_0, 'color'):
     material_output_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(material_output_0, 'hide'):
@@ -178,6 +190,8 @@ if hasattr(material_output_0, 'width'):
 material_output_0.inputs[2].default_value = (0.0, 0.0, 0.0)
 
 geometry_001_0 = node_tree0.nodes.new('ShaderNodeNewGeometry')
+if hasattr(geometry_001_0, 'active_preview'):
+    geometry_001_0.active_preview = False
 if hasattr(geometry_001_0, 'color'):
     geometry_001_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(geometry_001_0, 'hide'):
@@ -213,4 +227,4 @@ node_tree0.links.new(mix_shader_001_0.outputs[0], material_output_0.inputs[0])
 # TO ACTIVE
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
-    obj.active_material = l1_occlusionambiante
+    obj.active_material = l1_ao
