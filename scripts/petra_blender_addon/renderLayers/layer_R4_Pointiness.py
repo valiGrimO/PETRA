@@ -7,10 +7,6 @@ bpy.context.scene.render.engine = 'CYCLES'
     # For selected objects:
         # Apply `R4_Pointiness` material
 
-# Lock interface while rendering
-    # Render Display Type: Keep User Interface
-    # bpy.context.scene.render.use_lock_interface = True
-
 # 100%
 ## Configure Compositor
     # Connect `Render Layers/[0]` to `Hub/[7]`

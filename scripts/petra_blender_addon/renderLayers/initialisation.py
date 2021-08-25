@@ -19,3 +19,7 @@ bpy.data.objects["Reference Sphere"].hide_render = True
     # Disconnect `Render Layers/[0]` to `Hub/[7]`
     # Disconnect `Render Layers/[0]` to `Hub/[8]`
     # Disconnect `Render Layers/[0]` to `Hub/[9]`
+
+# Lock interface while rendering
+    # Render Display Type: Keep User Interface
+    # bpy.context.scene.render.use_lock_interface = True

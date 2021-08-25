@@ -15,10 +15,6 @@ bpy.context.scene.render.engine = 'BLENDER_EEVEE'
 # Render `Reference Sphere`
 bpy.data.objects["Reference Sphere"].hide_render = False
 
-# Lock interface while rendering
-    # Render Display Type: Keep User Interface
-    # bpy.context.scene.render.use_lock_interface = True
-
 # Produce Documentation
     # hit "produce documentation" in the PETrA Pannel (Rendering)
 

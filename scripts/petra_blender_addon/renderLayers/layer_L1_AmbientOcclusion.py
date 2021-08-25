@@ -19,10 +19,6 @@ bpy.context.scene.eevee.gtao_quality = 1
 # Configure Compositor
     # Connect `Render Layers/[0]` to `Hub/[3]`
 
-# Lock interface while rendering
-    # Render Display Type: Keep User Interface
-    # bpy.context.scene.render.use_lock_interface = True
-
 # Produce Documentation
     # hit "produce documentation" in the PETrA Pannel (Rendering)
 

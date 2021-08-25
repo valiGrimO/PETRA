@@ -10,10 +10,6 @@ bpy.context.scene.render.engine = 'BLENDER_EEVEE'
 # Configure Compositor
     # Connect `Render Layers/[0]` to `Hub/[5]`
 
-# Lock interface while rendering
-    # Render Display Type: Keep User Interface
-    # bpy.context.scene.render.use_lock_interface = True
-
 # CONTOUR LINES 1
 ## Configure Material
     # Unmute `Math`
