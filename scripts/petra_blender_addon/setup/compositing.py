@@ -214,9 +214,9 @@ nodeH_nodetree.links.new(nodeH1h.outputs[0], nodeH1i.inputs[0])
 nodeH_nodetree.links.new(nodeH1a.outputs[3], nodeH1i.inputs[1])
 nodeH_nodetree.links.new(nodeH1i.outputs[0], nodeH1z.inputs[0])
 ## H2
-nodeH_nodetree.links.new(nodeH_in.outputs[1], nodeH2a.inputs[0])
+nodeH_nodetree.links.new(nodeH_in.outputs[1], nodeH2a.inputs[1])
 nodeH_nodetree.links.new(nodeH2a.outputs[0], nodeH2b.inputs[0])
-nodeH_nodetree.links.new(nodeH2b.outputs[0], nodeH2c.inputs[0])
+nodeH_nodetree.links.new(nodeH2b.outputs[0], nodeH2c.inputs[1])
 nodeH_nodetree.links.new(nodeH2c.outputs[0], nodeH2d.inputs[0])
 nodeH_nodetree.links.new(nodeH2d.outputs[0], nodeH2z.inputs[0])
 ## H3
