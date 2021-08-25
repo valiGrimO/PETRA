@@ -105,8 +105,8 @@ nodeH1b.size_y = 20
 nodeH1c = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
 nodeH1c.location = (540, 500)
 nodeH1c.color_ramp.interpolation = "CONSTANT"
-nodeH1c.color_ramp.elements[1].position = 0.1
 nodeH1c.color_ramp.elements[0].color = (1, 1, 1, 1)
+nodeH1c.color_ramp.elements[1].position = 0.1
 nodeH1c.color_ramp.elements[1].color = (0, 0, 0, 1)
 
 nodeH1d = nodeH_nodetree.nodes.new("CompositorNodeValToRGB")
@@ -186,7 +186,7 @@ nodeH1z.location = (1820, 500)
 nodeH1z.base_path = "//tmp"
 nodeH1z.format.file_format = "PNG"
 nodeH1z.format.color_mode = "RGBA"
-nodeH1z.format.compression = 100
+nodeH1z.format.compression = 20
 nodeH1z.file_slots[0].path = "Cam-##_H1_Masks"
 
 ## H2 - File Output
@@ -205,8 +205,8 @@ nodeH_nodetree.links.new(nodeH_in.outputs[0], nodeH1a.inputs[0])
 nodeH_nodetree.links.new(nodeH1a.outputs[0], nodeH1b.inputs[0])
 nodeH_nodetree.links.new(nodeH1b.outputs[0], nodeH1c.inputs[0])
 nodeH_nodetree.links.new(nodeH1a.outputs[2], nodeH1d.inputs[0])
-nodeH_nodetree.links.new(nodeH1c.outputs[1], nodeH1e.inputs[1])
-nodeH_nodetree.links.new(nodeH1d.outputs[1], nodeH1e.inputs[2])
+nodeH_nodetree.links.new(nodeH1c.outputs[0], nodeH1e.inputs[1])
+nodeH_nodetree.links.new(nodeH1d.outputs[0], nodeH1e.inputs[2])
 nodeH_nodetree.links.new(nodeH1e.outputs[0], nodeH1f.inputs[1])
 nodeH_nodetree.links.new(nodeH1f.outputs[0], nodeH1g.inputs[0])
 nodeH_nodetree.links.new(nodeH1g.outputs[0], nodeH1h.inputs[1])
