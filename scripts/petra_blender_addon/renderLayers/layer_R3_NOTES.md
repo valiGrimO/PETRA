@@ -6,6 +6,9 @@ It should be configured as follow:
 + negative color: pure Green
 + out of range color: pure Blue, *but we don't care in reality*
 
+**Note:**
+**I succeed to change the default parameter, so we don't need to load this interface, we just have to select the 2 meshes (in the right order), and then hit `Generate Distance Map`!!!**
+
 Then:
 1. select the light mesh (worked with MeshLab)
 2. `shift`+ click on the documented mesh
