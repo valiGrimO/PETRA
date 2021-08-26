@@ -1273,10 +1273,6 @@ nodeY2Flat.mute = True
 nodeY2Flat.inputs[1].default_value = 1
 nodeY2Flat.inputs[2].default_value = 80
 
-
-    # Bright = 1.0
-    # Contrast = 80.0
-
 # connections
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeY2g.inputs[0])
 nodeR1_nodetree.links.new(nodeY2g.outputs[0], nodeY2Flat.inputs[0])
@@ -1388,203 +1384,197 @@ nodeR3_nodetree = nodeR3.node_tree  # shortcut; akin to `nodetree`
 # create inputs
 nodeR3_in = nodeR3_nodetree.nodes.new("NodeGroupInput")
 nodeR3_in.location = (0, 0)
-nodeR3_nodetree.inputs.new("NodeSocketColor", "Cam-##_R3_DM1")
-nodeR3_nodetree.inputs.new("NodeSocketColor", "Cam-##_R3_DM2")
+nodeR3_nodetree.inputs.new("NodeSocketColor", "Cam-##_R3_DM")
 
 # hide input values
 for nodeR3_input in nodeR3_nodetree.inputs:
     nodeR3_input.hide_value = True
 
+nodeR3dmA = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeR3dmA.location = (180, 0)
 
-nodeR3dm1A = nodeR3_nodetree.nodes.new("CompositorNodeRGBToBW")
-nodeR3dm1A.location = (200, 0)   # DM2 y: -620)
+nodeR3dmB = nodeR3_nodetree.nodes.new("CompositorNodeRGBToBW")
+nodeR3dmB.location = (360, 0)
 
-nodeR3dm1B = nodeR3_nodetree.nodes.new("CompositorNodeGamma")
-nodeR3dm1B.location = (340, 0)
-nodeR3dm1B.inputs[1].default_value = 0.5
+### Out of range data converted to covering layer
+nodeR3dmC = nodeR3_nodetree.nodes.new("CompositorNodeSepRGBA")
+nodeR3dmC.location = (180, -720)
 
-nodeR3dm1C = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR3dm1C.location = (520, 0)
-nodeR3dm1C.inputs[2].default_value = 40
+nodeR3dmD = nodeR3_nodetree.nodes.new("CompositorNodeMath")
+nodeR3dmD.location = (360, -720)
+nodeR3dmD.operation = "SUBTRACT"
 
+nodeR3dmE = nodeR3_nodetree.nodes.new("CompositorNodeBlur")
+nodeR3dmE.location = (540, -720)
+nodeR3dmE.size_x = 5
+nodeR3dmE.size_y = 5
 
-### DM-grey
-nodeR3dm1_grey = nodeR3_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR3dm1_grey.location = (800, 640)
+nodeR3dmF = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dmF.location = (720, -720)
+nodeR3dmF.color_ramp.interpolation = "CONSTANT"
+nodeR3dmF.color_ramp.elements[1].position = 0.5
+nodeR3dmF.color_ramp.elements[0].color = (0, 0, 0, 1)
+nodeR3dmF.color_ramp.elements[1].color = (1, 1, 1, 1)
 
-nodeR3dm1_grey_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_grey_out.location = (1080, 640)
-nodeR3dm1_grey_out.base_path = "//tmp"
-nodeR3dm1_grey_out.format.file_format = "PNG"
-nodeR3dm1_grey_out.format.color_mode = "RGBA"
-nodeR3dm1_grey_out.format.compression = 0
-nodeR3dm1_grey_out.file_slots[0].path = "Cam-##_R3_DM1"
-nodeR3dm1_grey_out.file_slots.new("Cam-##_R3_DM2")
+### DM-GREY -> Reroute
+nodeR3dmA_GREY = nodeR3_nodetree.nodes.new("NodeReroute")
+nodeR3dmA_GREY.location = (720, 520)
+
+nodeR3dmB_GREY = nodeR3_nodetree.nodes.new("NodeReroute")
+nodeR3dmB_GREY.location = (960, 520)
 
 ### DM-BBR
-nodeR3dm1_BBR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_BBR.location = (800, 480)
-nodeR3dm1_BBR.color_ramp.interpolation = "B_SPLINE"
-nodeR3dm1_BBR.color_ramp.elements[1].position = 0.425
-nodeR3dm1_BBR.color_ramp.elements.new(0.5)
-nodeR3dm1_BBR.color_ramp.elements.new(0.575)
-nodeR3dm1_BBR.color_ramp.elements.new(1)
-nodeR3dm1_BBR.color_ramp.elements[0].color = (0, 0, 1, 1)
-nodeR3dm1_BBR.color_ramp.elements[1].color = (0, 1, 1, 1)
-nodeR3dm1_BBR.color_ramp.elements[2].color = (1, 1, 1, 1)
-nodeR3dm1_BBR.color_ramp.elements[3].color = (1, 1, 0, 1)
-nodeR3dm1_BBR.color_ramp.elements[4].color = (1, 0, 0, 1)
-
-nodeR3dm1_BBR_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_BBR_out.location = (1080, 480)
-nodeR3dm1_BBR_out.base_path = "//tmp"
-nodeR3dm1_BBR_out.format.file_format = "JPEG"
-nodeR3dm1_BBR_out.format.color_mode = "RGB"
-nodeR3dm1_BBR_out.format.quality = 100
-nodeR3dm1_BBR_out.file_slots[0].path = "Cam-##_R3_DM1-BBR"
-nodeR3dm1_BBR_out.file_slots.new("Cam-##_R3_DM2-BBR")
+nodeR3dm_BBR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm_BBR.location = (720, 480)
+nodeR3dm_BBR.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm_BBR.color_ramp.elements[1].position = 0.425
+nodeR3dm_BBR.color_ramp.elements.new(0.5)
+nodeR3dm_BBR.color_ramp.elements.new(0.575)
+nodeR3dm_BBR.color_ramp.elements.new(1)
+nodeR3dm_BBR.color_ramp.elements[0].color = (0, 0, 1, 1)
+nodeR3dm_BBR.color_ramp.elements[1].color = (0, 1, 1, 1)
+nodeR3dm_BBR.color_ramp.elements[2].color = (1, 1, 1, 1)
+nodeR3dm_BBR.color_ramp.elements[3].color = (1, 1, 0, 1)
+nodeR3dm_BBR.color_ramp.elements[4].color = (1, 0, 0, 1)
 
 ### DM-BVJR
-nodeR3dm1_BVJR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_BVJR.location = (800, 240)
-nodeR3dm1_BVJR.color_ramp.interpolation = "B_SPLINE"
-nodeR3dm1_BVJR.color_ramp.elements[1].position = 0.4
-nodeR3dm1_BVJR.color_ramp.elements.new(0.6)
-nodeR3dm1_BVJR.color_ramp.elements.new(1)
-nodeR3dm1_BVJR.color_ramp.elements[0].color = (0, 0, 1, 1)
-nodeR3dm1_BVJR.color_ramp.elements[1].color = (0, 0.6, 0, 1)
-nodeR3dm1_BVJR.color_ramp.elements[2].color = (1, 1, 0, 1)
-nodeR3dm1_BVJR.color_ramp.elements[3].color = (1, 0, 0, 1)
-
-nodeR3dm1_BVJR_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_BVJR_out.location = (1080, 240)
-nodeR3dm1_BVJR_out.base_path = "//tmp"
-nodeR3dm1_BVJR_out.format.file_format = "JPEG"
-nodeR3dm1_BVJR_out.format.color_mode = "RGB"
-nodeR3dm1_BVJR_out.format.quality = 100
-nodeR3dm1_BVJR_out.file_slots[0].path = "Cam-##_R3_DM1-BVJR"
-nodeR3dm1_BVJR_out.file_slots.new("Cam-##_R3_DM2-BVJR")
+nodeR3dm_BVJR = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm_BVJR.location = (720, 240)
+nodeR3dm_BVJR.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm_BVJR.color_ramp.elements[1].position = 0.4
+nodeR3dm_BVJR.color_ramp.elements.new(0.6)
+nodeR3dm_BVJR.color_ramp.elements.new(1)
+nodeR3dm_BVJR.color_ramp.elements[0].color = (0, 0, 1, 1)
+nodeR3dm_BVJR.color_ramp.elements[1].color = (0, 0.6, 0, 1)
+nodeR3dm_BVJR.color_ramp.elements[2].color = (1, 1, 0, 1)
+nodeR3dm_BVJR.color_ramp.elements[3].color = (1, 0, 0, 1)
 
 ### DM-Magma
-nodeR3dm1_MAGMA = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_MAGMA.location = (800, 0)
-nodeR3dm1_MAGMA.color_ramp.interpolation = "B_SPLINE"
-nodeR3dm1_MAGMA.color_ramp.elements[1].position = 0.25
-nodeR3dm1_MAGMA.color_ramp.elements.new(0.5)
-nodeR3dm1_MAGMA.color_ramp.elements.new(0.75)
-nodeR3dm1_MAGMA.color_ramp.elements.new(1)
-nodeR3dm1_MAGMA.color_ramp.elements[0].color = (0, 0, 0, 1)
-nodeR3dm1_MAGMA.color_ramp.elements[1].color = (0.08, 0, 0.2, 1)
-nodeR3dm1_MAGMA.color_ramp.elements[2].color = (0.45, 0.04, 0.2, 1)
-nodeR3dm1_MAGMA.color_ramp.elements[3].color = (1, 0.25, 0.1, 1)
-nodeR3dm1_MAGMA.color_ramp.elements[4].color = (1, 1, 0.5, 1)
-
-nodeR3dm1_MAGMA_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_MAGMA_out.location = (1080, 0)
-nodeR3dm1_MAGMA_out.base_path = "//tmp"
-nodeR3dm1_MAGMA_out.format.file_format = "JPEG"
-nodeR3dm1_MAGMA_out.format.color_mode = "RGB"
-nodeR3dm1_MAGMA_out.format.quality = 100
-nodeR3dm1_MAGMA_out.file_slots[0].path = "Cam-##_R3_DM1-MAGMA"
-nodeR3dm1_MAGMA_out.file_slots.new("Cam-##_R3_DM2-MAGMA")
+nodeR3dm_MAGMA = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm_MAGMA.location = (720, 0)
+nodeR3dm_MAGMA.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm_MAGMA.color_ramp.elements[1].position = 0.25
+nodeR3dm_MAGMA.color_ramp.elements.new(0.5)
+nodeR3dm_MAGMA.color_ramp.elements.new(0.75)
+nodeR3dm_MAGMA.color_ramp.elements.new(1)
+nodeR3dm_MAGMA.color_ramp.elements[0].color = (0, 0, 0, 1)
+nodeR3dm_MAGMA.color_ramp.elements[1].color = (0.08, 0, 0.2, 1)
+nodeR3dm_MAGMA.color_ramp.elements[2].color = (0.45, 0.04, 0.2, 1)
+nodeR3dm_MAGMA.color_ramp.elements[3].color = (1, 0.25, 0.1, 1)
+nodeR3dm_MAGMA.color_ramp.elements[4].color = (1, 1, 0.5, 1)
 
 ### DM-Spectral
-nodeR3dm1_SPECTRAL = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_SPECTRAL.location = (800, -240)
-nodeR3dm1_SPECTRAL.color_ramp.interpolation = "B_SPLINE"
-nodeR3dm1_SPECTRAL.color_ramp.elements[1].position = 1/3
-nodeR3dm1_SPECTRAL.color_ramp.elements.new(0.5)
-nodeR3dm1_SPECTRAL.color_ramp.elements.new(2/3)
-nodeR3dm1_SPECTRAL.color_ramp.elements.new(1)
-nodeR3dm1_SPECTRAL.color_ramp.elements[0].color = (1, 0, 0, 1)
-nodeR3dm1_SPECTRAL.color_ramp.elements[1].color = (1, 0.4, 0.1, 1)
-nodeR3dm1_SPECTRAL.color_ramp.elements[2].color = (1, 1, 0.5, 1)
-nodeR3dm1_SPECTRAL.color_ramp.elements[3].color = (0.4, 0.75, 0.4, 1)
-nodeR3dm1_SPECTRAL.color_ramp.elements[4].color = (0, 0.25, 0.5, 1)
-
-nodeR3dm1_SPECTRAL_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_SPECTRAL_out.location = (1080, -240)
-nodeR3dm1_SPECTRAL_out.base_path = "//tmp"
-nodeR3dm1_SPECTRAL_out.format.file_format = "JPEG"
-nodeR3dm1_SPECTRAL_out.format.color_mode = "RGB"
-nodeR3dm1_SPECTRAL_out.format.quality = 100
-nodeR3dm1_SPECTRAL_out.file_slots[0].path = "Cam-##_R3_DM1-SPECTRAL"
-nodeR3dm1_SPECTRAL_out.file_slots.new("Cam-##_R3_DM2-SPECTRAL")
-
+nodeR3dm_SPECTRAL = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm_SPECTRAL.location = (720, -240)
+nodeR3dm_SPECTRAL.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm_SPECTRAL.color_ramp.elements[1].position = 1/3
+nodeR3dm_SPECTRAL.color_ramp.elements.new(0.5)
+nodeR3dm_SPECTRAL.color_ramp.elements.new(2/3)
+nodeR3dm_SPECTRAL.color_ramp.elements.new(1)
+nodeR3dm_SPECTRAL.color_ramp.elements[0].color = (1, 0, 0, 1)
+nodeR3dm_SPECTRAL.color_ramp.elements[1].color = (1, 0.4, 0.1, 1)
+nodeR3dm_SPECTRAL.color_ramp.elements[2].color = (1, 1, 0.5, 1)
+nodeR3dm_SPECTRAL.color_ramp.elements[3].color = (0.4, 0.75, 0.4, 1)
+nodeR3dm_SPECTRAL.color_ramp.elements[4].color = (0, 0.25, 0.5, 1)
 
 ### DM-Viridis
-nodeR3dm1_VIRIDIS = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR3dm1_VIRIDIS.location = (800, -480)
-nodeR3dm1_VIRIDIS.color_ramp.interpolation = "B_SPLINE"
-nodeR3dm1_VIRIDIS.color_ramp.elements[1].position = .25
-nodeR3dm1_VIRIDIS.color_ramp.elements.new(0.5)
-nodeR3dm1_VIRIDIS.color_ramp.elements.new(0.75)
-nodeR3dm1_VIRIDIS.color_ramp.elements.new(1)
-nodeR3dm1_VIRIDIS.color_ramp.elements[0].color = (0.06, 0, 0.09, 1)
-nodeR3dm1_VIRIDIS.color_ramp.elements[1].color = (0.05, 0.09, 0.26, 1)
-nodeR3dm1_VIRIDIS.color_ramp.elements[2].color = (0.02, 0.3, 0.27, 1)
-nodeR3dm1_VIRIDIS.color_ramp.elements[3].color = (0.11, 0.58, 0.12, 1)
-nodeR3dm1_VIRIDIS.color_ramp.elements[4].color = (1, 0.9, 0, 1)
+nodeR3dm_VIRIDIS = nodeR3_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR3dm_VIRIDIS.location = (720, -480)
+nodeR3dm_VIRIDIS.color_ramp.interpolation = "B_SPLINE"
+nodeR3dm_VIRIDIS.color_ramp.elements[1].position = .25
+nodeR3dm_VIRIDIS.color_ramp.elements.new(0.5)
+nodeR3dm_VIRIDIS.color_ramp.elements.new(0.75)
+nodeR3dm_VIRIDIS.color_ramp.elements.new(1)
+nodeR3dm_VIRIDIS.color_ramp.elements[0].color = (0.06, 0, 0.09, 1)
+nodeR3dm_VIRIDIS.color_ramp.elements[1].color = (0.05, 0.09, 0.26, 1)
+nodeR3dm_VIRIDIS.color_ramp.elements[2].color = (0.02, 0.3, 0.27, 1)
+nodeR3dm_VIRIDIS.color_ramp.elements[3].color = (0.11, 0.58, 0.12, 1)
+nodeR3dm_VIRIDIS.color_ramp.elements[4].color = (1, 0.9, 0, 1)
 
-nodeR3dm1_VIRIDIS_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_VIRIDIS_out.location = (1080, -480)
-nodeR3dm1_VIRIDIS_out.base_path = "//tmp"
-nodeR3dm1_VIRIDIS_out.format.file_format = "JPEG"
-nodeR3dm1_VIRIDIS_out.format.color_mode = "RGB"
-nodeR3dm1_VIRIDIS_out.format.quality = 100
-nodeR3dm1_VIRIDIS_out.file_slots[0].path = "Cam-##_R3_DM1-VIRIDIS"
-nodeR3dm1_VIRIDIS_out.file_slots.new("Cam-##_R3_DM2-VIRIDIS")
+### Output DM1 - GREY
+nodeR3dm1_Gout = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm1_Gout.location = (1100, 660)
+nodeR3dm1_Gout.base_path = "//tmp"
+nodeR3dm1_Gout.format.file_format = "PNG"
+nodeR3dm1_Gout.format.color_mode = "BW"
+nodeR3dm1_Gout.format.compression = 0
+nodeR3dm1_Gout.file_slots[0].path = "Cam-##_R3_DM1"
+
+### Output DM2 - GREY
+nodeR3dm2_Gout = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm2_Gout.location = (1100, 540)
+nodeR3dm2_Gout.base_path = "//tmp"
+nodeR3dm2_Gout.format.file_format = "PNG"
+nodeR3dm2_Gout.format.color_mode = "BW"
+nodeR3dm2_Gout.format.quality = 0
+nodeR3dm2_Gout.file_slots[0].path = "Cam-##_R3_DM2"
+
+### Output DM1 - colored
+nodeR3dm1_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm1_out.location = (1100, 0)
+nodeR3dm1_out.base_path = "//tmp"
+nodeR3dm1_out.format.file_format = "JPEG"
+nodeR3dm1_out.format.color_mode = "RGB"
+nodeR3dm1_out.format.quality = 100
+nodeR3dm1_out.file_slots[0].path = "Cam-##_R3_DM1-BBR"
+nodeR3dm1_out.file_slots.new("Cam-##_R3_DM1-BVJR")
+nodeR3dm1_out.file_slots.new("Cam-##_R3_DM1-MAGMA")
+nodeR3dm1_out.file_slots.new("Cam-##_R3_DM1-SPECTRAL")
+nodeR3dm1_out.file_slots.new("Cam-##_R3_DM1-VIRIDIS")
+nodeR3dm1_out.file_slots.new("Cam-##_H1_DM1")
+
+### Output DM2 - colored
+nodeR3dm2_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm2_out.location = (1100, -220)
+nodeR3dm2_out.base_path = "//tmp"
+nodeR3dm2_out.format.file_format = "JPEG"
+nodeR3dm2_out.format.color_mode = "RGB"
+nodeR3dm2_out.format.quality = 100
+nodeR3dm2_out.file_slots[0].path = "Cam-##_R3_DM2-BBR"
+nodeR3dm2_out.file_slots.new("Cam-##_R3_DM2-BVJR")
+nodeR3dm2_out.file_slots.new("Cam-##_R3_DM2-MAGMA")
+nodeR3dm2_out.file_slots.new("Cam-##_R3_DM2-SPECTRAL")
+nodeR3dm2_out.file_slots.new("Cam-##_R3_DM2-VIRIDIS")
+nodeR3dm2_out.file_slots.new("Cam-##_H1_DM2")
 
 
 # connections
 nodetree.links.new(node2.outputs[3], nodeR3.inputs[0])
+nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dmA.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmA.outputs[0], nodeR3dmB.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB.outputs[0], nodeR3dmA_GREY.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmA_GREY.outputs[0], nodeR3dmB_GREY.inputs[0])
+nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dmC.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmC.outputs[0], nodeR3dmD.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmD.outputs[0], nodeR3dmE.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmE.outputs[0], nodeR3dmF.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB.outputs[0], nodeR3dm_BBR.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB.outputs[0], nodeR3dm_BVJR.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB.outputs[0], nodeR3dm_MAGMA.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB.outputs[0], nodeR3dm_SPECTRAL.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB.outputs[0], nodeR3dm_VIRIDIS.inputs[0])
 
-## DM1
-nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dm1A.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm1A.outputs[0], nodeR3dm1B.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm1B.outputs[0], nodeR3dm1C.inputs[0])
-### DM1-grey
-nodeR3_nodetree.links.new(nodeR3dm1A.outputs[0], nodeR3dm1_grey.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm1_grey.outputs[0], nodeR3dm1_grey_out.inputs[0])
-### DM1-BBR
-nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_BBR.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm1_BBR.outputs[0], nodeR3dm1_BBR_out.inputs[0])
-### DM1-BVJR
-nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_BVJR.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm1_BVJR.outputs[0], nodeR3dm1_BVJR_out.inputs[0])
-### DM1-Magma
-nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_MAGMA.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm1_MAGMA.outputs[0], nodeR3dm1_MAGMA_out.inputs[0])
-### DM1-Spectral
-nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_SPECTRAL.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm1_SPECTRAL.outputs[0], nodeR3dm1_SPECTRAL_out.inputs[0])
-### DM1-Viridis
-nodeR3_nodetree.links.new(nodeR3dm1C.outputs[0], nodeR3dm1_VIRIDIS.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm1_VIRIDIS.outputs[0], nodeR3dm1_VIRIDIS_out.inputs[0])
+## connections for DM - grey
+nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dmA_GREY.inputs[0])
 
-## DM2
-#nodeR3_nodetree.links.new(nodeR3_in.outputs[1], nodeR3dm2A.inputs[0])
-#nodeR3_nodetree.links.new(nodeR3dm2A.outputs[0], nodeR3dm2B.inputs[0])
-#nodeR3_nodetree.links.new(nodeR3dm2B.outputs[0], nodeR3dm2C.inputs[0])
-### DM2-grey
-#nodeR3_nodetree.links.new(nodeR3dm2A.outputs[0], nodeR3dm2_grey.inputs[0])
-#nodeR3_nodetree.links.new(nodeR3dm2_grey.outputs[0], nodeR3dm2_grey_out.inputs[0])
-### DM2-BBR
-#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_BBR.inputs[0])
-#nodeR3_nodetree.links.new(nodeR3dm2_BBR.outputs[0], nodeR3dm2_BBR_out.inputs[0])
-### DM2-BVJR
-#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_BVJR.inputs[0])
-#nodeR3_nodetree.links.new(nodeR3dm2_BVJR.outputs[0], nodeR3dm2_BVJR_out.inputs[0])
-### DM2-Magma
-#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_MAGMA.inputs[0])
-#nodeR3_nodetree.links.new(nodeR3dm2_MAGMA.outputs[0], nodeR3dm2_MAGMA_out.inputs[0])
-### DM2-Spectral
-#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_SPECTRAL.inputs[0])
-#nodeR3_nodetree.links.new(nodeR3dm2_SPECTRAL.outputs[0], nodeR3dm2_SPECTRAL_out.inputs[0])
-### DM2-Viridis
-#nodeR3_nodetree.links.new(nodeR3dm2C.outputs[0], nodeR3dm2_VIRIDIS.inputs[0])
-#nodeR3_nodetree.links.new(nodeR3dm2_VIRIDIS.outputs[0], nodeR3dm2_VIRIDIS_out.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB_GREY.outputs[0], nodeR3dm1_Gout.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB_GREY.outputs[0], nodeR3dm2_Gout.inputs[0])
 
+## connections for DM1 - colored
+nodeR3_nodetree.links.new(nodeR3dm_BBR.outputs[0], nodeR3dm1_out.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm_BVJR.outputs[0], nodeR3dm1_out.inputs[1])
+nodeR3_nodetree.links.new(nodeR3dm_MAGMA.outputs[0], nodeR3dm1_out.inputs[2])
+nodeR3_nodetree.links.new(nodeR3dm_SPECTRAL.outputs[0], nodeR3dm1_out.inputs[3])
+nodeR3_nodetree.links.new(nodeR3dm_VIRIDIS.outputs[0], nodeR3dm1_out.inputs[4])
+nodeR3_nodetree.links.new(nodeR3dmF.outputs[0], nodeR3dm1_out.inputs[5])
+
+## connections for DM2 - colored
+nodeR3_nodetree.links.new(nodeR3dm_BBR.outputs[0], nodeR3dm2_out.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm_BVJR.outputs[0], nodeR3dm2_out.inputs[1])
+nodeR3_nodetree.links.new(nodeR3dm_MAGMA.outputs[0], nodeR3dm2_out.inputs[2])
+nodeR3_nodetree.links.new(nodeR3dm_SPECTRAL.outputs[0], nodeR3dm2_out.inputs[3])
+nodeR3_nodetree.links.new(nodeR3dm_VIRIDIS.outputs[0], nodeR3dm2_out.inputs[4])
+nodeR3_nodetree.links.new(nodeR3dmF.outputs[0], nodeR3dm2_out.inputs[5])
 
 # ------------------------------------------------------------------
 # R4: POINTINESS
