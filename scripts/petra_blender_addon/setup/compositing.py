@@ -1665,7 +1665,7 @@ nodeR5z = nodeR5_nodetree.nodes.new("CompositorNodeOutputFile")
 nodeR5z.location = (360, 0)
 nodeR5z.base_path = "//tmp"
 nodeR5z.format.file_format = "JPEG"
-nodeR5z.format.color_mode = "BW"
+nodeR5z.format.color_mode = "RGB"
 nodeR5z.format.quality = 100
 nodeR5z.file_slots[0].path = "Cam-##_R5_ASP-100pc"
 nodeR5z.file_slots.new("Cam-##_R5_ASP-25pc")
