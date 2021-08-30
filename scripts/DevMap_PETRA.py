@@ -1,6 +1,6 @@
 bl_info = {
     "name": "Deviation Map",
-    "author": "Niels Klop", "Valentin Grimaud"
+    "author": "Niels Klop"
     "version": (1, 17),
     "blender": (2, 90, 0),
     "location": "View3D > Sidebar > Distance Map",
