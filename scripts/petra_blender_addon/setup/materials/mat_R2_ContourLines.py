@@ -437,3 +437,6 @@ node_tree0.links.new(math_0.outputs[0], math_001_0.inputs[0])
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
     obj.active_material = r2_contourline
+
+# FAKE USER
+bpy.data.materials['r2_contourline'].use_fake_user = True

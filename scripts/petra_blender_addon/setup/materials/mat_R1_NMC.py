@@ -405,3 +405,6 @@ node_tree0.links.new(vector_transform_0.outputs[0], mapping_0.inputs[0])
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
     obj.active_material = r1_nmc
+
+# FAKE USER
+bpy.data.materials['r1_nmc'].use_fake_user = True

@@ -647,3 +647,6 @@ node_tree0.links.new(geometry_0.outputs[6], mix_shader_0.inputs[0])
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
     obj.active_material = r5_aspect
+
+# FAKE USER
+bpy.data.materials['r5_aspect'].use_fake_user = True

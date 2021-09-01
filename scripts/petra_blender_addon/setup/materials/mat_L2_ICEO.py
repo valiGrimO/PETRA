@@ -541,3 +541,5 @@ selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
     obj.active_material = iceo
 
+# FAKE USER
+bpy.data.materials['iceo'].use_fake_user = True

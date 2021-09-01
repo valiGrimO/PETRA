@@ -554,3 +554,6 @@ node_tree0.links.new(value_0.outputs[0], group_0.inputs[1])
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
     obj.active_material = r3_deviation_map
+
+# FAKE USER
+bpy.data.materials['r3_deviation_map'].use_fake_user = True
