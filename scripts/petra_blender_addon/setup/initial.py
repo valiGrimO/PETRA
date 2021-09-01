@@ -71,36 +71,42 @@ bpy.ops.object.modifier_apply(modifier="Subdivision", report=True)
 bpy.ops.object.camera_add(location=(0, -0.5, 0), rotation=(1.5708, 0, 0))
 so = C.selected_objects[0]
 so.name = "Cam-01"
+C.object.data.clip_start = 0.001
 
 ## Cam-02
 bpy.ops.object.camera_add(location=(0.5, 0, 0), rotation=(1.5708, 0.00, 1.5708))
 so = C.selected_objects[0]
 so.name = "Cam-02"
 C.object.hide_set(True)
+C.object.data.clip_start = 0.001
 
 ## Cam-03
 bpy.ops.object.camera_add(location=(0, 0.5, 0), rotation=(1.5708, 0.00, 3.14159))
 so = C.selected_objects[0]
 so.name = "Cam-03"
 C.object.hide_set(True)
+C.object.data.clip_start = 0.001
 
 ## Cam-04
 bpy.ops.object.camera_add(location=(-0.5, 0, 0), rotation=(1.5708, 0, -1.5708))
 so = C.selected_objects[0]
 so.name = "Cam-04"
 C.object.hide_set(True)
+C.object.data.clip_start = 0.001
 
 ## Cam-05
 bpy.ops.object.camera_add(location=(0, 0, 0.5), rotation=(0, 0, 0))
 so = C.selected_objects[0]
 so.name = "Cam-05"
 C.object.hide_set(True)
+C.object.data.clip_start = 0.001
 
 ## Cam-06
 bpy.ops.object.camera_add(location=(0, 0, -0.5), rotation=(0, 3.14159, 3.14159))
 so = C.selected_objects[0]
 so.name = "Cam-06"
 C.object.hide_set(True)
+C.object.data.clip_start = 0.001
 
 ## Set Camera Ortho
 for obj in D.collections['PETRA'].all_objects:
@@ -108,7 +114,7 @@ for obj in D.collections['PETRA'].all_objects:
         print(obj.data.type)
         obj.data.type = "ORTHO"
 
-## Define orthographic scale:
+## Link orthographic scale to framing box dimensions:
 
     # review this part with Python Functions and Python Loops to make it more easy to read
 
