@@ -15,8 +15,6 @@ if hasattr(vertex_color_0, 'color'):
     vertex_color_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
 if hasattr(vertex_color_0, 'hide'):
     vertex_color_0.hide = False
-if hasattr(vertex_color_0, 'layer_name'):
-    vertex_color_0.layer_name = 'DM2-10cm'
 if hasattr(vertex_color_0, 'location'):
     vertex_color_0.location = (-220.0, 20.0)
 if hasattr(vertex_color_0, 'mute'):
@@ -74,9 +72,9 @@ if hasattr(material_output_0, 'width'):
     material_output_0.width = 140.0
 material_output_0.inputs[2].default_value = (0.0, 0.0, 0.0)
 
-node_tree1 = bpy.data.node_groups.get('NodeGroup')
+node_tree1 = bpy.data.node_groups.get('DevMap')
 if not node_tree1:
-    node_tree1 = bpy.data.node_groups.new('NodeGroup', 'ShaderNodeTree')
+    node_tree1 = bpy.data.node_groups.new('DevMap', 'ShaderNodeTree')
     # INPUTS
     node_tree1.inputs.new('NodeSocketColor', 'Image')
     node_tree1.inputs.new('NodeSocketFloat', 'Value')
@@ -525,7 +523,7 @@ if not node_tree1:
 
 group_0 = node_tree0.nodes.new('ShaderNodeGroup')
 if hasattr(group_0, 'node_tree'):
-    group_0.node_tree = bpy.data.node_groups.get('NodeGroup')
+    group_0.node_tree = bpy.data.node_groups.get('DevMap')
 if hasattr(group_0, 'active_preview'):
     group_0.active_preview = False
 if hasattr(group_0, 'color'):
@@ -554,6 +552,7 @@ node_tree0.links.new(value_0.outputs[0], group_0.inputs[1])
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
     obj.active_material = r3_deviation_map
+
 
 # FAKE USER
 bpy.data.materials['r3_deviation_map'].use_fake_user = True
