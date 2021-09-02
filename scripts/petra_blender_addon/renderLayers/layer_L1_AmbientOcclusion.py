@@ -1,7 +1,15 @@
 import bpy
 
+# Get reference
+C = bpy.context
+D = bpy.data
+S = D.scenes["Scene"]
+
+node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
+node2 = S.node_tree.nodes["Group"] # This is "Hub"
+
 # Select render Engine
-bpy.context.scene.render.engine = 'BLENDER_EEVEE'
+C.scene.render.engine = 'BLENDER_EEVEE'
 
 # Activate Ambient Occlusion
 bpy.context.scene.eevee.use_gtao = True
@@ -13,11 +21,10 @@ bpy.context.scene.eevee.gtao_distance = 5
 bpy.context.scene.eevee.gtao_quality = 1
 
 # Apply material to selected objects
-    # For selected objects:
-        # Apply `l1_occlusionambiante`
+C.object.active_material.name = "l1_ao"
 
 # Configure Compositor
-    # Connect `Render Layers/[0]` to `Hub/[3]`
+nodetree.links.new(node1.outputs[0], node2.inputs[3])
 
 # Produce Documentation
     # hit "produce documentation" in the PETrA Pannel (Rendering)
@@ -26,4 +33,4 @@ bpy.context.scene.eevee.gtao_quality = 1
 bpy.context.scene.eevee.use_gtao = False
 
 # Set Compositor in its initial state
-    # Deconnect `Render Layers/[0]` to `Hub/[3]`
+nodetree.links.remove(node1.outputs[0], node2.inputs[3])

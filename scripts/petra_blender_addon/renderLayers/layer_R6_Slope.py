@@ -1,24 +1,31 @@
 import bpy
 
+# Get reference
+C = bpy.context
+D = bpy.data
+S = D.scenes["Scene"]
+
+node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
+node2 = S.node_tree.nodes["Group"] # This is "Hub"
+
 # Select render Engine
-bpy.context.scene.render.engine = 'BLENDER_EEVEE'
+C.scene.render.engine = 'BLENDER_EEVEE'
 
 # Apply material
-    # For selected objects:
-        # Apply `R6_Slope` material
-        # Apply `R6_Slope` material to Reference Sphere
+C.object.active_material.name = "r6_slope"
+D.objects["Reference Sphere"].active_material.name = "r6_slope"
         
 # Configure Compositor
-    # Connect `Render Layers/[0]` to `Hub/[9]`
+nodetree.links.new(node1.outputs[0], node2.inputs[9])
 
 # Render `Reference Sphere`
-bpy.data.objects["Reference Sphere"].hide_render = False
+D.objects["Reference Sphere"].hide_render = False
 
 # Produce Documentation
     # hit "produce documentation" in the PETrA Pannel (Rendering)
 
-# Set Compositor in its initial state
-    # Disconnect `Render Layers/[0]` from `Hub/[9]`
-
 # Set `Reference Sphere` in its initial state
-bpy.data.objects["Reference Sphere"].hide_render = True
+D.objects["Reference Sphere"].hide_render = True
+
+# Set Compositor in its initial state
+nodetree.links.remove(node1.outputs[0], node2.inputs[9])

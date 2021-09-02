@@ -1,14 +1,21 @@
 import bpy
 
+# Get reference
+C = bpy.context
+D = bpy.data
+S = D.scenes["Scene"]
+
+node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
+node2 = S.node_tree.nodes["Group"] # This is "Hub"
+
 # Select render Engine
-bpy.context.scene.render.engine = 'BLENDER_EEVEE'
+C.scene.render.engine = 'BLENDER_EEVEE'
 
 # Apply material to selected objects
-    # For selected objects:
-        # Apply `r3_deviation_map`
+C.object.active_material.name = "r3_deviation_map"
 
 # Configure Compositor
-    # Connect `Render Layers/[0]` to `Hub/[6]`
+nodetree.links.new(node1.outputs[0], node2.inputs[6])
 
 #################################################
 *This part is written in MarkDown:*
@@ -23,24 +30,28 @@ Those options are to be configured in the `r3_deviation_map` material.
 #################################################
 
 # DM1
-    # set the DM1 configuration 
+## Change vertex color in the material
+D.materials["r3_deviation_map"].node_tree.nodes["Vertex Color"].layer_name = "DM1"
 
-    # unmute `File Output`
-    # mute `File Output.001`
-    # unmute `File Output.002`
-    # mute `File Output.003`
+## Un/mute outputs
+D.node_groups["R3: Distance Map"].nodes["File Output"].unmute
+D.node_groups["R3: Distance Map"].nodes["File Output.001"].mute
+D.node_groups["R3: Distance Map"].nodes["File Output.002"].unmute
+D.node_groups["R3: Distance Map"].nodes["File Output.003"].mute
 
-    # hit "produce documentation" in the PETrA Pannel (Rendering)
+## hit "produce documentation" in the PETrA Pannel (Rendering)
 
 # DM2
-    # set the DM1 configuration 
+## Change vertex color in the material
+D.materials["r3_deviation_map"].node_tree.nodes["Vertex Color"].layer_name = "DM2"
 
-    # mute `File Output`
-    # unmute `File Output.001`
-    # mute `File Output.002`
-    # unmute `File Output.003`
+## Un/mute outputs
+D.node_groups["R3: Distance Map"].nodes["File Output"].mute
+D.node_groups["R3: Distance Map"].nodes["File Output.001"].unmute
+D.node_groups["R3: Distance Map"].nodes["File Output.002"].mute
+D.node_groups["R3: Distance Map"].nodes["File Output.003"].unmute
 
-    # hit "produce documentation" in the PETrA Pannel (Rendering)
+# hit "produce documentation" in the PETrA Pannel (Rendering)
 
 # Set Compositor in its initial state
-    # Deconnect `Render Layers/[0]` to `Hub/[6]`
+nodetree.links.remove(node1.outputs[0], node2.inputs[6])

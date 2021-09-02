@@ -5,21 +5,83 @@
 
 import bpy
 
+C = bpy.context
+D = bpy.data
+
 # Don't render `Reference Sphere`
 bpy.data.objects["Reference Sphere"].hide_render = True
 
+## Render transparent background
+C.scene.render.film_transparent = True
+
+# Set color management
+bpy.context.scene.view_settings.view_transform = 'Standard'
+
+# Hide in render
+bpy.data.objects["Reference Sphere"].hide_render = True
+bpy.data.objects["Framing Box"].hide_render = True
+
+
+#/////////////////////
 # Configure Compositor
-    # Disconnect `Render Layers/[0]` to `Hub/[0]`
-    # Disconnect `Render Layers/[0]` to `Hub/[1]`
-    # Disconnect `Render Layers/[0]` to `Hub/[2]`
-    # Disconnect `Render Layers/[0]` to `Hub/[3]`
-    # Connect `Render Layers/[0]` to `Hub/[4]`
-    # Disconnect `Render Layers/[0]` to `Hub/[5]`
-    # Disconnect `Render Layers/[0]` to `Hub/[6]`
-    # Disconnect `Render Layers/[0]` to `Hub/[7]`
-    # Disconnect `Render Layers/[0]` to `Hub/[8]`
-    # Disconnect `Render Layers/[0]` to `Hub/[9]`
+
+# Get reference
+S = D.scenes["Scene"]
+
+node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
+node2 = S.node_tree.nodes["Group"] # This is "Hub"
+nodeC1 = S.node_tree.nodes["Group.001"]# This is "C1: Color"
+nodeH = S.node_tree.nodes["Group"].node_tree.nodes["Group"] # This is "H: Covering"
+nodeL1 = S.node_tree.nodes["Group"].node_tree.nodes["Group.001"]# This is "L1: Ambient Occlusion"
+nodeR1 = S.node_tree.nodes["Group.002"]# This is "R1: Shading"
+nodeR2 = S.node_tree.nodes["Group.003"]# This is "Contour Lines"
+nodeR3 = S.node_tree.nodes["Group.004"]# This is "Distance Map"
+nodeR4 = S.node_tree.nodes["Group.005"]# This is "Pointiness"
+nodeR5 = S.node_tree.nodes["Group.006"]# This is Aspect
+nodeR6 = S.node_tree.nodes["Group"].node_tree.nodes["Group.002"] # This is "R6: Slope"
+
+
+# node2_in = node2_nodetree.nodes["Group"] #-> how to recognize inputs and outputs?
+#node2_out = node2_nodetree.nodes("NodeGroupOutput")
+
+
+node2_in = node2.node_tree.nodes["inputs"]
+node2_out = node2.node_tree.nodes["outputs"]
+
+
+# Remove links from "Render Layers" to "Hub"
+nodetree.links.remove(node1.outputs[0], node2.inputs[0])
+nodetree.links.remove(node1.outputs[0], node2.inputs[1])
+nodetree.links.remove(node1.outputs[0], node2.inputs[2])
+nodetree.links.remove(node1.outputs[0], node2.inputs[3])
+nodetree.links.remove(node1.outputs[0], node2.inputs[4])
+nodetree.links.remove(node1.outputs[0], node2.inputs[5])
+nodetree.links.remove(node1.outputs[0], node2.inputs[6])
+nodetree.links.remove(node1.outputs[0], node2.inputs[7])
+nodetree.links.remove(node1.outputs[0], node2.inputs[8])
+nodetree.links.remove(node1.outputs[0], node2.inputs[9])
+
+# Remove links from "Hub" to "C1: Color"
+nodetree.links.remove(node2.outputs[0], nodeC1.inputs[0])
+nodetree.links.remove(node2.outputs[0], nodeC1.inputs[1])
+
+# Remove links from "Hub" to "R2: Contour Lines"
+nodetree.links.remove(node2.outputs[2], nodeR2.inputs[0])
+nodetree.links.remove(node2.outputs[2], nodeR2.inputs[1])
+nodetree.links.remove(node2.outputs[2], nodeR2.inputs[2])
+
+# Remove links from "Hub" to "R4: Pointiness"
+nodetree.links.remove(node2.outputs[4], nodeR4.inputs[0])
+nodetree.links.remove(node2.outputs[4], nodeR4.inputs[1])
+nodetree.links.remove(node2.outputs[4], nodeR4.inputs[2])
+
+# Remove links from "Hub" to "R5: Aspect"
+nodetree.links.remove(node2.outputs[5], nodeR5.inputs[0])
+nodetree.links.remove(node2.outputs[5], nodeR5.inputs[1])
+nodetree.links.remove(node2.outputs[5], nodeR5.inputs[2])
 
 # Lock interface while rendering
-    # Render Display Type: Keep User Interface
-    # bpy.context.scene.render.use_lock_interface = True
+## Render Display Type: Keep User Interface
+
+## lock interface
+bpy.context.scene.render.use_lock_interface = True

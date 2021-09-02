@@ -1,17 +1,24 @@
 import bpy
 
+# Get reference
+C = bpy.context
+D = bpy.data
+S = D.scenes["Scene"]
+
+node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
+node2 = S.node_tree.nodes["Group"] # This is "Hub"
+
 # Select render Engine
-bpy.context.scene.render.engine = 'BLENDER_EEVEE'
+C.scene.render.engine = 'BLENDER_EEVEE'
 
 # Apply material to selected objects
-    # For selected objects:
-        # Apply `H2_OBN` material
+C.object.active_material.name = "h2_obn"
 
 # Configure Compositor
-    # Connect `Render Layers/[0]` to `Hub/[2]`
+nodetree.links.new(node1.outputs[0], node2.inputs[2])
 
 # Produce Documentation
     # hit "produce documentation" in the PETrA Pannel (Rendering)
 
 # Set Compositor in its initial state
-    # Disconnect `Render Layers/[0]` to `Hub/[2]`
+nodetree.links.remove(node1.outputs[0], node2.inputs[2])
