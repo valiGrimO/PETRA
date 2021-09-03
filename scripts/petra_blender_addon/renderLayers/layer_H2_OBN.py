@@ -4,6 +4,7 @@ import bpy
 C = bpy.context
 D = bpy.data
 S = D.scenes["Scene"]
+nodetree = bpy.context.scene.node_tree
 
 node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
 node2 = S.node_tree.nodes["Group"] # This is "Hub"
