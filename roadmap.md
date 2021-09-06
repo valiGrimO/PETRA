@@ -1,5 +1,8 @@
 # "Roadmap" for the development of PETrA
 
+[ ] : task to do
+[x] : completed task
+[!] : warning task
 
 User interface, general interactions:
 
