@@ -29,7 +29,7 @@
 - user can produce several `DM` layer. How to document them? In a sense of which parameters were used to produce the comparison mesh, and for which purpose?
  
 ### Generic task
-- [ ] **M* :red_circle: **render script** finish to write action's scripts
+- [ ] **M** :red_circle: **render script** finish to write action's scripts
   - [ ] how to remove a link?
   - [ ] how to apply (and not rename) a matrial to a selected object, and a specific object?
   - [ ] how to hit "produce documentation"?
