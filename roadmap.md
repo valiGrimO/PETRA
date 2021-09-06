@@ -3,21 +3,21 @@
 **Legend:**
 - [ ] : task to do
 - [x] : completed task
-- :red_circle: : high priority
-- :orange_circle: : medium priority
-- :blue_circle: : low priority
+:red_circle: : high priority
+:orange_circle: : medium priority
+:large_blue_circle: : low priority
 
 
 ## Developments about layers
 ### C1, color:
-+ [ ] :blue_circle: : Image decorrelation (see [DStrecth](http://www.dstretch.com/))
++ [ ] :large_blue_circle: : Image decorrelation (see [DStrecth](http://www.dstretch.com/))
  
-R2, contour lines:
+### R2, contour lines:
 + integrate the control of spacing in the side bar
 + in the script, apply rotation and scale to get a good result (we have a weird effect when rotation is different of 0, and scale different of 1)
 + how to affect the output name with the spacing value? The idea is to achieve an output file name like 'cam##_R2_CL-xmm'
  
-R3, deviation map:
+### R3, deviation map:
 + integrate the plugin "deviation map" to compute the distance between 2 meshes
 + add control on median value
 + add out of range value (blue colored vertices) in the mask layer
@@ -26,7 +26,7 @@ R3, deviation map:
     + in the DM plugin, how to name correctly output (for instance ,"DM2" instead of "DM.001")
 + how to affect the output name with the extreme and medlayeralues? The idea is to achieve an output file name like 'cam##_R3_DMx-x-x-xmm'
  
-Others:
+### Others:
 + finish to write action's scripts
 + about nodes, is it really better to name them?
 + when rendering, if R3 is selected, check if one DM vertex color at least is present on the selected mesh
