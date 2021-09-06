@@ -2,9 +2,9 @@
 
 **Legend:**
 - [ ] : task to do
-- [x] : completed task
-:red_circle: : high priority
-:orange_circle: : medium priority
+- [x] : completed task </br>
+:red_circle: : high priority </br>
+:yellow_circle: : medium priority </br>
 :large_blue_circle: : low priority
 
 
