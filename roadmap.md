@@ -5,16 +5,12 @@
 - [x] : completed task
 - :red_circle: : high priority
 - :orange_circle: : medium priority
-- :green_circle: : low priority
+- :blue_circle: : low priority
 
-User interface, general interactions:
 
-+ complete the integration of cameras manager
-+ load action's scripts and add a player to execute them (layer renderer)
-+ add controls over some rendering options (listed hereafter)
- 
-C1, color:
-+ décorrélation d'image
+## Developments about layers
+### C1, color:
++ [ ] :blue_circle: : Image decorrelation (see [DStrecth](http://www.dstretch.com/))
  
 R2, contour lines:
 + integrate the control of spacing in the side bar
@@ -36,3 +32,9 @@ Others:
 + when rendering, if R3 is selected, check if one DM vertex color at least is present on the selected mesh
 + add "help button" in the panel, in relation with each layer and/or parameter, linking to a specific page of the documentation for R3 at least, but probably each layer
 + rewrite the whole documentation, but in English this time
+
+
+## User interface, general interactions:
+- [ ] complete the integration of cameras manager
+- [ ] load action's scripts and add a player to execute them (layer renderer)
+- [ ] add controls over some rendering options (listed hereafter)
