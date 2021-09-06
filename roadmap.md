@@ -1,8 +1,11 @@
 # "Roadmap" for the development of PETrA
 
+**Legend:**
 - [ ] : task to do
 - [x] : completed task
-- [!] : warning task
+- :red_circle: : high priority
+- :orange_circle: : medium priority
+- :green_circle: : low priority
 
 User interface, general interactions:
 
