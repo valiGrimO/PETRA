@@ -23,19 +23,12 @@
 - [ ] integrate the control of spacing in the side bar
  
 ### R3, deviation map:
-**About the existing plugin**
-- [ ] :yellow_circle: integrate the plugin "deviation map" to compute the distance between 2 meshes
-- [ ] :red_circle: in the DM plugin, how to name correctly output (for instance ,"DM2" instead of "DM.001")
-
-**Material**
-- [ ] :red_circle: add control on median value in the material node
-- [ ] :red_circle: add out of range value (blue colored vertices) in the mask layer
-
-**Compositing**
-- [ ] :red_circle: how to affect the output name with the extreme and median values? The idea is to achieve an output file name like 'cam##_R3_DM`a`-`b`-`c`-`d`mm' where `a` is the ID of the deviation map computation ; `b` is the minimum value ; `c` is the median value ; `d` is the maximum value.
-
-**User interaction**
-- [ ] :large_blue_circle: interact in the side panel with median and extreme values
+- [ ] :yellow_circle: **ex. plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes
+- [ ] :red_circle: **ex. plugin** : in the DM plugin, how to name correctly output (for instance ,"DM2" instead of "DM.001")
+- [ ] :red_circle: **material** : add control on median value in the material node
+- [ ] :red_circle: **material** : add out of range value (blue colored vertices) in the mask layer
+- [ ] :red_circle: **render script** : how to affect the output name with the extreme and median values? The idea is to achieve an output file name like 'cam##_R3_DM`a`-`b`-`c`-`d`mm' where `a` is the ID of the deviation map computation ; `b` is the minimum value ; `c` is the median value ; `d` is the maximum value.
+- [ ] :large_blue_circle: **user interaction** : interact in the side panel with median and extreme values
  
 ### Others:
 - [ ] finish to write action's scripts
