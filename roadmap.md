@@ -13,23 +13,28 @@
 - [ ] :large_blue_circle: : Image decorrelation (see [DStrecth](http://www.dstretch.com/))
  
 ### R2, contour lines:
+**Render script**
+- [ ] :red_circle: in the script, apply rotation and scale to get a good result (we have a weird effect when rotation is different of 0, and scale different of 1)
+
+**Compositing**
+- [ ] :red_circle: how to affect the output name with the spacing value? The idea is to achieve an output file name like 'cam##_R2_CL-xmm'
+
+**User interaction**
 - [ ] integrate the control of spacing in the side bar
-- [ ] in the script, apply rotation and scale to get a good result (we have a weird effect when rotation is different of 0, and scale different of 1)
-- [ ] how to affect the output name with the spacing value? The idea is to achieve an output file name like 'cam##_R2_CL-xmm'
  
 ### R3, deviation map:
-About the existing plugin:
+**About the existing plugin**
 - [ ] :yellow_circle: integrate the plugin "deviation map" to compute the distance between 2 meshes
 - [ ] :red_circle: in the DM plugin, how to name correctly output (for instance ,"DM2" instead of "DM.001")
 
-Material:
+**Material**
 - [ ] :red_circle: add control on median value in the material node
 - [ ] :red_circle: add out of range value (blue colored vertices) in the mask layer
 
-Compositing:
+**Compositing**
 - [ ] :red_circle: how to affect the output name with the extreme and median values? The idea is to achieve an output file name like 'cam##_R3_DM`a`-`b`-`c`-`d`mm' where `a` is the ID of the deviation map computation ; `b` is the minimum value ; `c` is the median value ; `d` is the maximum value.
 
-User interaction:
+**User interaction**
 - [ ] :large_blue_circle: interact in the side panel with median and extreme values
  
 ### Others:
