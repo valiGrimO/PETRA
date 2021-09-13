@@ -68,7 +68,7 @@ class PetraPropertyGroup(bpy.types.PropertyGroup):
         # This sets the unit to 'mm'. See: https://git.io/J4cZe
         unit="CAMERA",
         subtype="DISTANCE_CAMERA",
-        default=0.5,
+        default=1,
     )
 
 
