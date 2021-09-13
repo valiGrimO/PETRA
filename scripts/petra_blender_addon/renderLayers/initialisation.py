@@ -16,8 +16,8 @@ bpy.data.objects["Reference Sphere"].hide_render = True
 ## Render transparent background
 C.scene.render.film_transparent = True
 
-# Set color Management to default
-bpy.context.scene.view_settings.view_transform = 'Filmic'
+## Color management
+C.scene.view_settings.view_transform = 'Standard'
 
 # Hide in render
 bpy.data.objects["Reference Sphere"].hide_render = True
