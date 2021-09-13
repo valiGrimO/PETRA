@@ -8,13 +8,16 @@
 
 ## Developments about layers
 ### C1, color
-- [ ] :large_blue_circle: : Image decorrelation (see [DStrecth](http://www.dstretch.com/))
- 
+- [ ] :large_blue_circle: : Image decorrelation
+   - [Image Decorrelation with DStrecth, for archaeologists](http://www.dstretch.com/))
+   - [Image Decorrelation with Python](https://github.com/Dan-in-CA/decorrstretch)
+   - [Image Decorrelation explanations](https://dhanushkadangampola.blogspot.com/2015/02/decorrelation-stretching.html)
+
 ### R2, contour lines
 - [ ] **M** :red_circle: **render script** : we have a weird effect if rotation is different of 0, and scale different of 1. We should warn the user to apply rotation and scale (`ctrl` + `A`) or propose to apply it for him.
 - [ ] **M** :red_circle: **render script** : how to affect the output name with the spacing value? The idea is to achieve an output file name like 'cam##_R2_CL-xmm'
 - [ ] **M** :yellow_circle: **user interaction** : integrate the control of spacing in the side bar
- 
+
 ### R3, deviation map
 - [ ] **M** :yellow_circle: **ex. plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We don't need to show him, just compute the distance
 - [ ] **M** :red_circle: **ex. plugin** : in the DM plugin, how to name correctly output (for instance ,"DM2" instead of "DM.001")
@@ -27,7 +30,7 @@
 
 **_Open questions_**
 - user can produce several `DM` layer. How to document them? In a sense of which parameters were used to produce the comparison mesh, and for which purpose?
- 
+
 ### Generic task
 - [ ] **M* :red_circle: **render script** finish to write action's scripts
   - [ ] how to remove a link?
@@ -41,6 +44,7 @@
 - [ ] **M** :yellow_circle: load action's scripts and add a player to execute them (layer renderer), when every script will work fine
 - [ ] **M+V** :large_blue_circle: add "help button" in the panel, in relation with each layer and/or parameter, linking to a specific page of the documentation for R3 at least, but probably each layer
 - [ ] **V** :yellow_circle: rewrite the whole documentation, but in English this time
+- [ ] **M** or **V** :yellow_circle: How to remove the `modelling` tab present by default in Blender? In this tab, we enter directly in edit mode, and since we are working with huge meshes, it is time consumming to wait until everything is loaded as we don't need to interact...
 
 ## Other
 - Need feedback about paradata and automatic layout
