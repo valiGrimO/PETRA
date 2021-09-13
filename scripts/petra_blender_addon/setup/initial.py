@@ -13,6 +13,10 @@ D = bpy.data
 ## Render transparent background
 C.scene.render.film_transparent = True
 
+## Color management
+C.scene.view_settings.view_transform = 'Standard'
+
+
 #####################
 # CREATE COLLECTION #
 #####################
