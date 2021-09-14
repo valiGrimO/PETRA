@@ -9,9 +9,6 @@
 ## Developments about layers
 ### C1, color
 - [ ] :large_blue_circle: : Image decorrelation
-   - [Image Decorrelation with DStrecth, for archaeologists](http://www.dstretch.com/))
-   - [Image Decorrelation with Python](https://github.com/Dan-in-CA/decorrstretch)
-   - [Image Decorrelation explanations](https://dhanushkadangampola.blogspot.com/2015/02/decorrelation-stretching.html)
 
 ### R2, contour lines
 - [ ] **M** :red_circle: **render script** : we have a weird effect if rotation is different of 0, and scale different of 1. We should warn the user to apply rotation and scale (`ctrl` + `A`) or propose to apply it for him.
