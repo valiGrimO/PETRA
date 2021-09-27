@@ -6,6 +6,10 @@
 - [ ] :red_circle: task to do, with high priority
 - [x] completed task
 
+## Camera Management
+- [ ] **M** :red_circle: Results of picture size in pixels are wrong. Formulas I wrote should be apply *in extenso*
+- [ ] **Idea** :red_circle: During the rendering, each time we change the camera, is it possible to hit the button "Apply to Scene"?
+
 ## Developments about layers
 ### C1, color
 - [ ] :large_blue_circle: : Image decorrelation
@@ -16,8 +20,8 @@
 - [ ] **M** :yellow_circle: **user interaction** : integrate the control of spacing in the side bar
 
 ### R3, deviation map
-- [ ] **M** :yellow_circle: **ex. plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We don't need to show him, just compute the distance
-- [ ] **M** :red_circle: **ex. plugin** : in the DM plugin, how to name correctly output (for instance ,"DM2" instead of "DM.001")
+- [ ] **M** :yellow_circle: **external plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We don't need to show him, just compute the distance
+- [ ] **M** :red_circle: **external plugin** : in the DM plugin, how to name correctly output (for instance ,"DM2" instead of "DM.001")
 - [ ] **V** :red_circle: **material** : add control on median value in the material node
 - [ ] **V** :red_circle: **material** : add out of range value (blue colored vertices) in the mask layer
 - [ ] **M** :red_circle: **render script** : how to affect the output name with the extreme and median values? The idea is to achieve an output file name like 'cam##_R3_DM`a`-`b`-`c`-`d`mm' where `a` is the ID of the deviation map computation ; `b` is the minimum value ; `c` is the median value ; `d` is the maximum value.
