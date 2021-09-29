@@ -7,24 +7,30 @@
 - [x] completed task
 
 ## Camera Management
-- [ ] **M** :red_circle: Results of picture size in pixels are wrong. Formulas I wrote should be apply *in extenso*
-- [ ] **Idea** :red_circle: During the rendering, each time we change the camera, is it possible to hit the button "Apply to Scene"?
+- [ ] **M** :red_circle: How to manage more than 6 cameras?
+- [ ] **M** :red_circle: when previewing a camera, we should look through this camera and select this camera
+- [ ] **M** :red_circle: Fix the dimensions (H and V) of the camera
+- [ ] **M** :red_circle: Compute in real time H and V value of the camera, depending on the size of the "framing box", the scale of documentation, and the spatial resolution
+  - Would it be possible to get the size in pixel later in the paradata file?
+- [ ] **M** :red_circle: Rename the editable value "resolution" into "spatial resolution"
+- [ ] **M** :red_circle: show as uneditable values the resolution (in ppi) and the printed size of rendered pictures (in cm)
 
 ## Developments about layers
 ### C1, color
 - [ ] :large_blue_circle: : Image decorrelation
 
 ### R2, contour lines
-- [ ] **M** :red_circle: **render script** : we have a weird effect if rotation is different of 0, and scale different of 1. We should warn the user to apply rotation and scale (`ctrl` + `A`) or propose to apply it for him.
+- [ ] **M** :red_circle: **render script** : we have a weird effect if rotation is different of 0, and scale different of 1. We should warn the user to apply rotation and scale (`ctrl` + `A`) or propose to apply it for him. -> add a warning about orientation and scale
 - [ ] **M** :red_circle: **render script** : how to affect the output name with the spacing value? The idea is to achieve an output file name like 'cam##_R2_CL-xmm'
 - [ ] **M** :yellow_circle: **user interaction** : integrate the control of spacing in the side bar
+-
 
 ### R3, deviation map
 - [ ] **M** :yellow_circle: **external plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We don't need to show him, just compute the distance
-- [ ] **M** :red_circle: **external plugin** : in the DM plugin, how to name correctly output (for instance ,"DM2" instead of "DM.001")
+- [ ] **M** :red_circle: **external plugin** : in the DM plugin, how to name correctly output (for instance ,"DM1" instead of "DM", "DM2" instead of "DM.001")
 - [ ] **V** :red_circle: **material** : add control on median value in the material node
 - [ ] **V** :red_circle: **material** : add out of range value (blue colored vertices) in the mask layer
-- [ ] **M** :red_circle: **render script** : how to affect the output name with the extreme and median values? The idea is to achieve an output file name like 'cam##_R3_DM`a`-`b`-`c`-`d`mm' where `a` is the ID of the deviation map computation ; `b` is the minimum value ; `c` is the median value ; `d` is the maximum value.
+- [ ] **M** :yellow_circle: **render script** : how to affect the output name with the extreme and median values? The idea is to achieve an output file name like 'cam##_R3_DM`a`-`b`-`c`-`d`mm' where `a` is the ID of the deviation map computation ; `b` is the minimum value ; `c` is the median value ; `d` is the maximum value.
 - [ ] **M** :large_blue_circle: **render script** when rendering, if R3 is selected, check if one `DM` vertex color at least is present on the selected mesh
 - [ ] **M** :large_blue_circle: **render script** if there is several `DM` vertex color, create a loop to render each one
 - [ ] **M** :large_blue_circle: **user interaction** : interact in the side panel with median and extreme values
@@ -33,12 +39,12 @@
 - user can produce several `DM` layer. How to document them? In a sense of which parameters were used to produce the comparison mesh, and for which purpose?
 
 ### Generic task
-- [ ] **M** :red_circle: **render script** finish to write action's scripts
+- [ ] **M** :red_circle: **render script:** help to finish to write action's scripts
   - [ ] how to remove a link?
   - [ ] how to apply (and not rename) a matrial to a selected object, and a specific object?
   - [ ] how to hit "produce documentation"?
   - [ ] how to mute and unmute a node?
-- **generic question** about compositing nodes, is it really better to name them?
+- [ ] **M** :red_circle: How to rename a node?
 
 ## User interface, general interactions
 - [ ] **M** :yellow_circle: complete the integration of cameras manager
