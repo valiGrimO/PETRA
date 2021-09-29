@@ -1,10 +1,9 @@
 # Image decorrelation
 
 ## Infos about Image Decorrelation
-- Image decorrelation
-   - [Image Decorrelation with DStrecth, for archaeologists](http://www.dstretch.com/))
-   - [Image Decorrelation with Python](https://github.com/Dan-in-CA/decorrstretch)
-   - [Image Decorrelation explanations](https://dhanushkadangampola.blogspot.com/2015/02/decorrelation-stretching.html)
+- [Image Decorrelation with DStrecth, for archaeologists](http://www.dstretch.com/)
+- [Image Decorrelation with Python](https://github.com/Dan-in-CA/decorrstretch)
+- [Image Decorrelation explanations](https://dhanushkadangampola.blogspot.com/2015/02/decorrelation-stretching.html)
 
 ## Default settings in DStretch:
 
