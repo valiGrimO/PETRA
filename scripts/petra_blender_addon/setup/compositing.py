@@ -1350,9 +1350,15 @@ nodeR2z.base_path = "//tmp"
 nodeR2z.format.file_format = "JPEG"
 nodeR2z.format.color_mode = "BW"
 nodeR2z.format.quality = 100
-nodeR2z.file_slots[0].path = "Cam-##_R2_CDN1"
-nodeR2z.file_slots.new("Cam-##_R2_CDN2")
-nodeR2z.file_slots.new("Cam-##_R2_CDN3")
+r2_value = round(bpy.data.materials['r2_contourline'].node_tree.nodes["Value"].outputs[0].default_value)
+# NOTE: this `pattern` also needs to be set in "renderLayers/layer_R2_ContourLines.py"
+# Once Blender introduces variables, this might be solved easier; see:
+# - https://blender.community/c/rightclickselect/q8fbbc/
+# - https://devtalk.blender.org/t/filepath-template-proposal/11926
+pattern = f"Cam-##_R2_CDN%s-{r2_value}mm"
+nodeR2z.file_slots[0].path = pattern % 1
+nodeR2z.file_slots.new(pattern % 2)
+nodeR2z.file_slots.new(pattern % 3)
 
 # connections
 nodetree.links.new(node2.outputs[2], nodeR2.inputs[0]) # to change during the rendering

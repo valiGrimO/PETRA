@@ -21,10 +21,9 @@
 - [ ] :large_blue_circle: : Image decorrelation
 
 ### R2, contour lines
-- [ ] **M** :red_circle: **render script** : we have a weird effect if rotation is different of 0, and scale different of 1. We should warn the user to apply rotation and scale (`ctrl` + `A`) or propose to apply it for him. -> add a warning about orientation and scale
-- [ ] **M** :red_circle: **render script** : how to affect the output name with the spacing value? The idea is to achieve an output file name like 'cam##_R2_CL-xmm'
+- [x] **M** :red_circle: **render script** : we have a weird effect if rotation is different of 0, and scale different of 1. We should warn the user to apply rotation and scale (`ctrl` + `A`) or propose to apply it for him. -> add a warning about orientation and scale
+- [x] **M** :red_circle: **render script** : how to affect the output name with the spacing value? The idea is to achieve an output file name like 'cam##_R2_CL-xmm'
 - [ ] **M** :yellow_circle: **user interaction** : integrate the control of spacing in the side bar
--
 
 ### R3, deviation map
 - [ ] **M** :yellow_circle: **external plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We don't need to show him, just compute the distance

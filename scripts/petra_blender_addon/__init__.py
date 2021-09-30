@@ -262,7 +262,7 @@ class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
         col.prop(context.scene.petra, "documentation_scale", text="Scale")
         col.prop(context.scene.petra, "spatial_resolution", text="Spatial resolution")
         col.operator(PETRA_OT_apply_render_parameters_to_scene.bl_idname)
-        ppi = round(25.4 / context.scene.petra.spatial_resolution, 2)
+        ppi = round(25.4 / context.scene.petra.spatial_resolution)
         col.label(text=f"Resolution: {ppi} ppi", icon="INFO")
 
         layout.label(text="Camera manager:")
@@ -315,7 +315,7 @@ class PETRA_PT_camera_setup_settings(PetraPanelMixin, Panel):
 
 class PETRA_PT_material_setup(PetraPanelMixin, Panel):
 
-    bl_label = "Material setup"
+    bl_label = "Layer of information setup"
     bl_options = {"DEFAULT_CLOSED"}
 
     @classmethod
