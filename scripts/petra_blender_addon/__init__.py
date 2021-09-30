@@ -174,12 +174,17 @@ class PETRA_OT_activate_and_preview_scene_camera(Operator):
 
     bl_idname = "petra.activate_and_preview_scene_camera"
     bl_label = "Preview Camera"
-    bl_description = "Activate and preview camera."
+    bl_description = "Activate and preview camera"
 
     def invoke(self, context, event):
+        # Apply the selected camera to the X- and Y-resolution of the scene dimensions.
+        bpy.ops.petra.apply_render_parameters_to_scene()
+
+        chosen_camera = context.active_object
+
         # Adjust current timeline marker
         for marker in context.scene.timeline_markers:
-            if marker.camera == context.active_object:
+            if marker.camera == chosen_camera:
                 context.scene.frame_current = marker.frame
 
         # Adjust the 3D-view perspective (other options: "PERSP", "ORTHO")
@@ -255,8 +260,10 @@ class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
         col = layout.column(align=True)
         col.label(text="Printed documentation:")
         col.prop(context.scene.petra, "documentation_scale", text="Scale")
-        col.prop(context.scene.petra, "spatial_resolution", text="Resolution")
+        col.prop(context.scene.petra, "spatial_resolution", text="Spatial resolution")
         col.operator(PETRA_OT_apply_render_parameters_to_scene.bl_idname)
+        ppi = round(25.4 / context.scene.petra.spatial_resolution, 2)
+        col.label(text=f"Resolution: {ppi} ppi", icon="INFO")
 
         layout.label(text="Camera manager:")
         for camera in cameras:
@@ -287,15 +294,15 @@ class PETRA_PT_camera_setup_settings(PetraPanelMixin, Panel):
         render_settings = context.scene.render
         row.prop(render_settings, "resolution_x", text="H")
         row.prop(render_settings, "resolution_y", text="V")
+        row.enabled = False
         self.layout.prop(render_settings, "resolution_percentage", text="")
         self.layout.prop(
             render_settings, "use_border", text="Render Region", icon="SHADING_BBOX"
         )
 
-        selected_object = bpy.context.object.data
-        if not isinstance(selected_object, bpy.types.Camera):
+        selected_camera = bpy.context.scene.camera.data
+        if not isinstance(selected_camera, bpy.types.Camera):
             return
-        selected_camera = selected_object
 
         row = self.layout.row(align=True)
         row.prop(selected_camera, "shift_x", text="Shift H")
