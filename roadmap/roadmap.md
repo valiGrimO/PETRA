@@ -8,12 +8,13 @@
 
 ## Camera Management
 - [ ] **M** :red_circle: How to manage more than 6 cameras?
-- [ ] **M** :red_circle: when previewing a camera, we should look through this camera and select this camera
+- [x] **M** :red_circle: when previewing a camera, we should look through this camera and select this camera
 - [ ] **M** :red_circle: Fix the dimensions (H and V) of the camera
 - [ ] **M** :red_circle: Compute in real time H and V value of the camera, depending on the size of the "framing box", the scale of documentation, and the spatial resolution
   - Would it be possible to get the size in pixel later in the paradata file?
-- [ ] **M** :red_circle: Rename the editable value "resolution" into "spatial resolution"
-- [ ] **M** :red_circle: show as uneditable values the resolution (in ppi) and the printed size of rendered pictures (in cm)
+- [x] **M** :red_circle: Rename the editable value "resolution" into "spatial resolution"
+- [x] **M** :red_circle: show uneditable resolution (in ppi)
+- [ ] **M** :red_circle: show uneditable printed size of rendered pictures (in cm)
 
 ## Developments about layers
 ### C1, color
@@ -27,7 +28,7 @@
 
 ### R3, deviation map
 - [ ] **M** :yellow_circle: **external plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We don't need to show him, just compute the distance
-- [ ] **M** :red_circle: **external plugin** : in the DM plugin, how to name correctly output (for instance ,"DM1" instead of "DM", "DM2" instead of "DM.001")
+- [x] **M** :red_circle: **external plugin** : in the DM plugin, how to name correctly output (for instance ,"DM1" instead of "DM", "DM2" instead of "DM.001")
 - [ ] **V** :red_circle: **material** : add control on median value in the material node
 - [ ] **V** :red_circle: **material** : add out of range value (blue colored vertices) in the mask layer
 - [ ] **M** :yellow_circle: **render script** : how to affect the output name with the extreme and median values? The idea is to achieve an output file name like 'cam##_R3_DM`a`-`b`-`c`-`d`mm' where `a` is the ID of the deviation map computation ; `b` is the minimum value ; `c` is the median value ; `d` is the maximum value.
@@ -39,12 +40,12 @@
 - user can produce several `DM` layer. How to document them? In a sense of which parameters were used to produce the comparison mesh, and for which purpose?
 
 ### Generic task
-- [ ] **M** :red_circle: **render script:** help to finish to write action's scripts
-  - [ ] how to remove a link?
-  - [ ] how to apply (and not rename) a matrial to a selected object, and a specific object?
-  - [ ] how to hit "produce documentation"?
-  - [ ] how to mute and unmute a node?
-- [ ] **M** :red_circle: How to rename a node?
+- [x] **M** :red_circle: **render script:** help to finish to write action's scripts
+  - [x] how to remove a link?
+  - [x] how to apply (and not rename) a matrial to a selected object, and a specific object?
+  - [x] how to hit "produce documentation"?
+  - [x] how to mute and unmute a node?
+- [x] **M** :red_circle: How to rename a node?
 
 ## User interface, general interactions
 - [ ] **M** :yellow_circle: complete the integration of cameras manager
