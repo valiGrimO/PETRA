@@ -6,23 +6,19 @@ D = bpy.data
 S = D.scenes["Scene"]
 nodetree = bpy.context.scene.node_tree
 
-node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
-node2 = S.node_tree.nodes["Group"] # This is "Hub"
-nodeC1 = S.node_tree.nodes["Group.001"]# This is "C1: Color"
+nodeRL = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
+nodeHub = S.node_tree.nodes["Hub"] # This is "Hub"
+nodeC1 = S.node_tree.nodes["C1_color"]# This is "C1: Color"
 
 # Material
     # Material should be configured first by user
 
 # Select render Engine
-C.scene.render.engine = 'BLENDER_EEVEE'
+C.scene.render.engine = "BLENDER_EEVEE"
 
 # Configure Compositor
-nodetree.links.new(node1.outputs[0], node2.inputs[0])
-nodetree.links.new(node2.outputs[0], nodeC1.inputs[0])
+nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[0])
+nodetree.links.new(nodeHub.outputs[0], nodeC1.inputs[0])
 
 # Produce Documentation
     # hit "produce documentation" in the PETrA Pannel (Rendering)
-
-# Set Compositor in its initial state
-nodetree.links.remove(node1.outputs[0], node2.inputs[0])
-nodetree.links.remove(node2.outputs[0], nodeC1.inputs[0])

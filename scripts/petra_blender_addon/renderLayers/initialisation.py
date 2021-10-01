@@ -28,47 +28,42 @@ bpy.data.objects["Framing Box"].hide_render = True
 # Configure Compositor
 
 # Get reference
-node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
-node2 = S.node_tree.nodes["Group"] # This is "Hub"
-nodeC1 = S.node_tree.nodes["Group.001"]# This is "C1: Color"
-nodeH = S.node_tree.nodes["Group"].node_tree.nodes["Group"] # This is "H: Covering"
-nodeL1 = S.node_tree.nodes["Group"].node_tree.nodes["Group.001"]# This is "L1: Ambient Occlusion"
-nodeR1 = S.node_tree.nodes["Group.002"]# This is "R1: Shading"
-nodeR2 = S.node_tree.nodes["Group.003"]# This is "Contour Lines"
-nodeR3 = S.node_tree.nodes["Group.004"]# This is "Distance Map"
-nodeR4 = S.node_tree.nodes["Group.005"]# This is "Pointiness"
-nodeR5 = S.node_tree.nodes["Group.006"]# This is Aspect
-nodeR6 = S.node_tree.nodes["Group"].node_tree.nodes["Group.002"] # This is "R6: Slope"
+nodeRL = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
+nodeHub = S.node_tree.nodes["Hub"] # This is "Hub"
+nodeC1 = S.node_tree.nodes["C1_color"]# This is "C1: Color"
+nodeH = S.node_tree.nodes["Hub"].node_tree.nodes["H_covering"] # This is "H: Covering"
+nodeL1 = S.node_tree.nodes["Hub"].node_tree.nodes["L1_AO"]# This is "L1: Ambient Occlusion"
+nodeR1 = S.node_tree.nodes["R1_shading"]# This is "R1: Shading"
+nodeR2 = S.node_tree.nodes["R2_contourLine"]# This is "Contour Lines"
+nodeR3 = S.node_tree.nodes["R3_distanceMap"]# This is "Distance Map"
+nodeR4 = S.node_tree.nodes["R4_pointiness"]# This is "Pointiness"
+nodeR5 = S.node_tree.nodes["R5_aspect"]# This is Aspect
+nodeR6 = S.node_tree.nodes["Hub"].node_tree.nodes["R6_slope"] # This is "R6: Slope"
 
 # Remove links from "Render Layers" to "Hub"
-# nodetree.links.remove(node1.outputs[0], node2.inputs[0])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[1])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[2])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[3])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[4])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[5])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[6])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[7])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[8])
-# nodetree.links.remove(node1.outputs[0], node2.inputs[9])
+def remove_link(socket_out, socket_in):
+    for link in socket_out.links:
+        if link.to_socket == socket_in:
+            nodetree.links.remove(link)
 
-# Remove links from "Hub" to "C1: Color"
-# nodetree.links.remove(node2.outputs[0], nodeC1.inputs[0])
-# nodetree.links.remove(node2.outputs[0], nodeC1.inputs[1])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[0])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[1])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[2])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[3])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[4])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[5])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[6])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[7])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[8])
+remove_link(nodeRL.outputs[0], nodeHub.inputs[9])
 
-# Remove links from "Hub" to "R2: Contour Lines"
-# nodetree.links.remove(node2.outputs[2], nodeR2.inputs[0])
-# nodetree.links.remove(node2.outputs[2], nodeR2.inputs[1])
-# nodetree.links.remove(node2.outputs[2], nodeR2.inputs[2])
+remove_link(nodeHub.outputs[0], nodeC1.inputs[0])
+remove_link(nodeHub.outputs[0], nodeC1.inputs[1])
 
-# Remove links from "Hub" to "R4: Pointiness"
-# nodetree.links.remove(node2.outputs[4], nodeR4.inputs[0])
-# nodetree.links.remove(node2.outputs[4], nodeR4.inputs[1])
-# nodetree.links.remove(node2.outputs[4], nodeR4.inputs[2])
+remove_link(nodeHub.outputs[4], nodeR4.inputs[1])
+remove_link(nodeHub.outputs[4], nodeR4.inputs[2])
 
-# Remove links from "Hub" to "R5: Aspect"
-# nodetree.links.remove(node2.outputs[5], nodeR5.inputs[0])
-# nodetree.links.remove(node2.outputs[5], nodeR5.inputs[1])
-# nodetree.links.remove(node2.outputs[5], nodeR5.inputs[2])
+remove_link(nodeHub.outputs[5], nodeR5.inputs[1])
+remove_link(nodeHub.outputs[5], nodeR5.inputs[2])
 
 # Render Display Type: Keep User Interface

@@ -6,35 +6,27 @@ D = bpy.data
 S = D.scenes["Scene"]
 nodetree = bpy.context.scene.node_tree
 
-node1 = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
-node2 = S.node_tree.nodes["Group"] # This is "Hub"
-nodeR5 = S.node_tree.nodes["Group.006"]# This is Aspect
+nodeRL = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
+nodeHub = S.node_tree.nodes["Hub"] # This is "Hub"
+nodeR5 = S.node_tree.nodes["R5_aspect"]# This is Aspect
 
 # Select render Engine
-C.scene.render.engine = 'BLENDER_EEVEE'
+C.scene.render.engine = "BLENDER_EEVEE"
 
 # Apply material
-C.object.active_material.name = "r5_aspect"
-D.objects["Reference Sphere"].active_material.name = "r5_aspect" # bug
+material = bpy.data.materials["r5_aspect"]
+selected_object = C.selected_objects[0]
+selected_object.material_slots[0].material = material
+
+refSphere = bpy.data.objects["Reference Sphere"]
+refSphere.material_slots[0].material = material
         
 # Configure Compositor
-nodetree.links.new(node1.outputs[0], node2.inputs[8])
-nodetree.links.new(node2.outputs[5], nodeR5.inputs[0])
+nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[8])
+nodetree.links.new(nodeHub.outputs[5], nodeR5.inputs[0])
 
 # Render `Reference Sphere`
 D.objects["Reference Sphere"].hide_render = False
 
 # Produce Documentation
     # hit "produce documentation" in the PETrA Pannel (Rendering)
-
-# Set Compositor in its initial state
-nodetree.links.remove(node1.outputs[0], node2.inputs[8]) # bug
-nodetree.links.remove(nodeR5.outputs[5], node2.inputs[0]) # bug
-
-# Set `Reference Sphere` in its initial state
-D.objects["Reference Sphere"].hide_render = True
-
-
-# /////////////////////////////////////////
-# NOTE: We have to define if it's necessary to create different LOD (100%; 25% 10%)
-# Rendering a mesh with a decimation modifyer is really time consuming
