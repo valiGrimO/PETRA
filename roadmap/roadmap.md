@@ -16,6 +16,7 @@
 - [ ] **M** :red_circle: Compute in real time H and V value of the camera, depending on the size of the "framing box", the scale of documentation, and the spatial resolution
   - Would it be still possible to get the size in pixel later in the paradata file?
 - [ ] **M** :red_circle: show in real time uneditable printed size of rendered pictures (in cm)
+- [ ] **M** :yellow_circle: Add a chack box to each camera in order to select the ones to be rendered (sometimes, we don't need a layer of information for every point of view)
 
 ## Developments about materials
 ### C1, color
@@ -28,9 +29,10 @@
 
 ### R3, deviation map
 - [x] **M** :green_circle: **external plugin** : in the DM plugin, how to name correctly output (for instance ,"DM1" instead of "DM", "DM2" instead of "DM.001")
-- [ ] **M** :yellow_circle: **external plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We don't need to show him, just compute the distance
 - [ ] **V** :red_circle: **material** : add control on median value in the material node
 - [ ] **V** :red_circle: **material** : add out of range value (blue colored vertices) in the mask layer
+- [ ] **V** :red_circle: clear the compositor nodes in order to have only one output
+- [ ] **M** :yellow_circle: **external plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We don't need to show him, just compute the distance
 - [ ] **M** :yellow_circle: **render script** : how to affect the output name with the extreme and median values? The idea is to achieve an output file name like 'cam##_R3_DM`a`-`b`-`c`-`d`mm' where `a` is the ID of the deviation map computation ; `b` is the minimum value ; `c` is the median value ; `d` is the maximum value.
 - [ ] **M** :large_blue_circle: **render script** when rendering, if R3 is selected, check if one `DM` vertex color at least is present on the selected mesh
 - [ ] **M** :large_blue_circle: **render script** if there is several `DM` vertex color, create a loop to render each one
@@ -39,6 +41,9 @@
 **_Open questions_**
 - user can produce several `DM` layer. How to document them? In a sense of which parameters were used to produce the comparison mesh, and for which purpose?
 
+### R5, Aspect
+- [ ] **V** :red_circle: clear the compositor nodes in order to have only one output
+
 ## Layer of information Setup
 - [x] **M** :green_circle: **render script:** help to finish to write action's scripts
   - [x] how to remove a link?
@@ -46,7 +51,20 @@
   - [x] how to hit "produce documentation"?
   - [x] how to mute and unmute a node?
 - [x] **M** :green_circle: How to rename a node?
-- [ ] **V** :red_circle: Finish to write each layer
+- [ ] **V** :green_circle: Finish to write each layer
+  - [x] `init.py`
+  - [x] `layer_C1_PRT.py`
+  - [x] `layer_C1_PRV.py`
+  - [x] `layer_H1_Masks.py`
+  - [x] `layer_H2_OBN.py`
+  - [x] `layer_L1_AmbientOcclusion.py`
+  - [x] `layer_R1_Shading.py`
+  - [x] `layer_R2_ContourLines.py`
+  - [x] `layer_R3_DeviationMap.py`
+  - [x] `layer_R4_Pointiness.py`
+  - [x] `layer_R5_Aspect.py`
+  - [x] `layer_R6_Slope.py`
+- [ ] **M** + **V** :red_circle: Need to discuss how to go from one script to an other (what is behind "Produce documentation"? Is it possible to add some lines after the render?)
 - [ ] **M** :yellow_circle: Integrate scripts in the user interface
 
 ## User interface, general interactions
@@ -55,8 +73,9 @@
 - [ ] **V** :yellow_circle: rewrite the whole documentation, but in English this time
 - [ ] **M** or **V** :yellow_circle: How to remove the `modelling` tab present by default in Blender? In this tab, we enter directly in edit mode, and since we are working with huge meshes, it is time consumming to wait until everything is loaded as we don't need to interact...
 
-## Other
+## Sandbox
 - Need feedback about paradata and automatic layout
+- The possibility to add several framing box is new? or did i miss it? :smile:
 
 # Roadmap for the development of ICEO
 - Coming after PETrA will be completed!
