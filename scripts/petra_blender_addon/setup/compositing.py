@@ -35,6 +35,7 @@ node1.location = (-300, -260)
 # adding nodegroup, node 2
 node2 = nodetree.nodes.new("CompositorNodeGroup")
 node2.location = (0, 0)
+node2.name = "Hub"
 
 # subtree description
 node2.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="Hub")
@@ -81,6 +82,7 @@ for node2_output in node2_nodetree.inputs:
 # adding nodegroup, node H
 nodeH = node2_nodetree.nodes.new("CompositorNodeGroup")
 nodeH.location = (240, 260)
+nodeH.name = "H_covering"
 
 # subtree description
 nodeH.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="H: Covering")
@@ -234,6 +236,7 @@ nodeH_nodetree.links.new(nodeH3e.outputs[0], nodeH2z.inputs[1])
 # adding nodegroup, node L1
 nodeL1 = node2_nodetree.nodes.new("CompositorNodeGroup")
 nodeL1.location = (240, 120)
+nodeL1.name = "L1_AO"
 
 # subtree description
 nodeL1.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="L1: Ambient Occlusion")
@@ -268,6 +271,7 @@ nodeL1_nodetree.links.new(nodeL1a.outputs[0], nodeL1b.inputs[0])
 # adding nodegroup, node R6
 nodeR6 = node2_nodetree.nodes.new("CompositorNodeGroup")
 nodeR6.location = (240, -200)
+nodeR6.name = "R6_slope"
 
 # subtree description
 nodeR6.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R6: Slope")
@@ -317,6 +321,7 @@ node2_nodetree.links.new(node2_in.outputs["R6: Slope"], nodeR6.inputs["Cam-##_R6
 # adding nodegroup, node C1
 nodeC1 = nodetree.nodes.new("CompositorNodeGroup")
 nodeC1.location = (400, 280)
+nodeC1.name = "C1_color"
 
 # subtree description
 nodeC1.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="C1: Color")
@@ -361,6 +366,7 @@ nodeC1_nodetree.links.new(nodeC1b.outputs[0], nodeC1z.inputs[1])
 # adding nodegroup, node R1
 nodeR1 = nodetree.nodes.new("CompositorNodeGroup")
 nodeR1.location = (400, 160)
+nodeR1.name = "R1_shading"
 
 # subtree description
 nodeR1.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R1: Shading")
@@ -1292,6 +1298,7 @@ nodeY2g_nodetree.links.new(nodeY2d.outputs[0], nodeY2g_out.inputs[0])
 # adding nodegroup, node R1
 nodeR2 = nodetree.nodes.new("CompositorNodeGroup")
 nodeR2.location = (400, 40)
+nodeR2.name = "R2_contourLine"
 
 # subtree description
 nodeR2.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R2: Contour Lines")
@@ -1300,52 +1307,27 @@ nodeR2_nodetree = nodeR2.node_tree  # shortcut; akin to `nodetree`
 # create input
 nodeR2_in = nodeR2_nodetree.nodes.new("NodeGroupInput")
 nodeR2_in.location = (0, 0)
-nodeR2_nodetree.inputs.new("NodeSocketColor", "Cam-##_R2_CDN1")
-nodeR2_nodetree.inputs.new("NodeSocketColor", "Cam-##_R2_CDN2")
-nodeR2_nodetree.inputs.new("NodeSocketColor", "Cam-##_R2_CDN3")
+nodeR2_nodetree.inputs.new("NodeSocketColor", "Cam-##_R2_CL")
 
 # hide input values
 for nodeR2_input in nodeR2_nodetree.inputs:
     nodeR2_input.hide_value = True
 
 # inside the group
-nodeR2Aa = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR2Aa.location = (180, 260)
-nodeR2Aa.inputs[2].default_value = 100
+nodeR2a = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeR2a.location = (180, 0)
+nodeR2a.inputs[2].default_value = 100
 
-
-nodeR2Ba = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR2Ba.location = (180, 40)
-nodeR2Ba.inputs[2].default_value = 100
-
-nodeR2Ca = nodeR2_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR2Ca.location = (180, -180)
-nodeR2Ca.inputs[2].default_value = 100
-
-nodeR2Ab = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR2Ab.location = (360, 420)
-nodeR2Ab.color_ramp.interpolation = "CONSTANT"
-nodeR2Ab.color_ramp.elements[1].position = 0.5
-nodeR2Ab.color_ramp.elements[0].color = (0, 0, 0, 1)
-nodeR2Ab.color_ramp.elements[1].color = (1, 1, 1, 1)
-
-nodeR2Bb = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR2Bb.location = (360, 200)
-nodeR2Bb.color_ramp.interpolation = "CONSTANT"
-nodeR2Bb.color_ramp.elements[1].position = 0.5
-nodeR2Bb.color_ramp.elements[0].color = (0, 0, 0, 1)
-nodeR2Bb.color_ramp.elements[1].color = (1, 1, 1, 1)
-
-nodeR2Cb = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
-nodeR2Cb.location = (360, -20)
-nodeR2Cb.color_ramp.interpolation = "CONSTANT"
-nodeR2Cb.color_ramp.elements[1].position = 0.5
-nodeR2Cb.color_ramp.elements[0].color = (0, 0, 0, 1)
-nodeR2Cb.color_ramp.elements[1].color = (1, 1, 1, 1)
+nodeR2b = nodeR2_nodetree.nodes.new("CompositorNodeValToRGB")
+nodeR2b.location = (360, 0)
+nodeR2b.color_ramp.interpolation = "CONSTANT"
+nodeR2b.color_ramp.elements[1].position = 0.5
+nodeR2b.color_ramp.elements[0].color = (0, 0, 0, 1)
+nodeR2b.color_ramp.elements[1].color = (1, 1, 1, 1)
 
 ## File Output
 nodeR2z = nodeR2_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR2z.location = (640, 280)
+nodeR2z.location = (640, 0)
 nodeR2z.base_path = "//tmp"
 nodeR2z.format.file_format = "JPEG"
 nodeR2z.format.color_mode = "BW"
@@ -1355,25 +1337,17 @@ r2_value = round(bpy.data.materials['r2_contourline'].node_tree.nodes["Value"].o
 # Once Blender introduces variables, this might be solved easier; see:
 # - https://blender.community/c/rightclickselect/q8fbbc/
 # - https://devtalk.blender.org/t/filepath-template-proposal/11926
-pattern = f"Cam-##_R2_CDN%s-{r2_value}mm"
+pattern = f"Cam-##_R2_CL%s-{r2_value}mm"
 nodeR2z.file_slots[0].path = pattern % 1
 nodeR2z.file_slots.new(pattern % 2)
 nodeR2z.file_slots.new(pattern % 3)
 
 # connections
-nodetree.links.new(node2.outputs[2], nodeR2.inputs[0]) # to change during the rendering
+nodetree.links.new(node2.outputs[2], nodeR2.inputs[0])
 
-nodeR2_nodetree.links.new(nodeR2_in.outputs[0], nodeR2Aa.inputs[0])
-nodeR2_nodetree.links.new(nodeR2_in.outputs[1], nodeR2Ba.inputs[0])
-nodeR2_nodetree.links.new(nodeR2_in.outputs[2], nodeR2Ca.inputs[0])
-
-nodeR2_nodetree.links.new(nodeR2Aa.outputs[0], nodeR2Ab.inputs[0])
-nodeR2_nodetree.links.new(nodeR2Ba.outputs[0], nodeR2Bb.inputs[0])
-nodeR2_nodetree.links.new(nodeR2Ca.outputs[0], nodeR2Cb.inputs[0])
-
-nodeR2_nodetree.links.new(nodeR2Ab.outputs[0], nodeR2z.inputs[0])
-nodeR2_nodetree.links.new(nodeR2Bb.outputs[0], nodeR2z.inputs[1])
-nodeR2_nodetree.links.new(nodeR2Cb.outputs[0], nodeR2z.inputs[2])
+nodeR2_nodetree.links.new(nodeR2_in.outputs[0], nodeR2a.inputs[0])
+nodeR2_nodetree.links.new(nodeR2a.outputs[0], nodeR2b.inputs[0])
+nodeR2_nodetree.links.new(nodeR2b.outputs[0], nodeR2z.inputs[0])
 
 
 # ------------------------------------------------------------------
@@ -1382,6 +1356,7 @@ nodeR2_nodetree.links.new(nodeR2Cb.outputs[0], nodeR2z.inputs[2])
 # adding nodegroup, node R1
 nodeR3 = nodetree.nodes.new("CompositorNodeGroup")
 nodeR3.location = (400, -100)
+nodeR3.name = "R3_distanceMap"
 
 # subtree description
 nodeR3.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R3: Distance Map")
@@ -1588,6 +1563,7 @@ nodeR3_nodetree.links.new(nodeR3dmF.outputs[0], nodeR3dm2_out.inputs[5])
 # adding nodegroup, node R4
 nodeR4 = nodetree.nodes.new("CompositorNodeGroup")
 nodeR4.location = (400, -220)
+nodeR4.name = "R4_pointiness"
 
 # subtree description
 nodeR4.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R4: Pointiness")
@@ -1640,6 +1616,7 @@ nodeR4_nodetree.links.new(nodeR4c.outputs[0], nodeR4z.inputs[2])
 # adding nodegroup, node R4
 nodeR5 = nodetree.nodes.new("CompositorNodeGroup")
 nodeR5.location = (400, -360)
+nodeR5.name = "R5_aspect"
 
 # subtree description
 nodeR5.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R5: Aspect")
