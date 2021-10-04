@@ -23,6 +23,8 @@ C.scene.view_settings.view_transform = 'Standard'
 bpy.data.objects["Reference Sphere"].hide_render = True
 bpy.data.objects["Framing Box"].hide_render = True
 
+# Deactivate Ambient Occlusion
+bpy.context.scene.eevee.use_gtao = False
 
 #/////////////////////
 # Configure Compositor

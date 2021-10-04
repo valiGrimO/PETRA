@@ -20,10 +20,6 @@ material = bpy.data.materials["r2_contourline"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
-# Configure Compositor
-nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[5])
-nodetree.links.new(nodeHub.outputs[2], nodeR2.inputs[0])
-
 # Adjust Output filenames (end with -Xmm)
 r2_value = round(
     bpy.data.materials["r2_contourline"]
@@ -51,22 +47,9 @@ for selected_object in C.selected_objects:
 # CONTOUR LINES 1
 ## Configure Material
 D.materials["r2_contourline"].node_tree.nodes["Math"].mute = False
-D.materials["r2_contourline"].node_tree.nodes["Math.001"].mute = True
-D.materials["r2_contourline"].node_tree.nodes["Math.002"].mute = True
-
-## Produce Documentation
-# hit "produce documentation" in the PETrA Pannel (Rendering)
-
-# CONTOUR LINES 2
-## Configure Material
 D.materials["r2_contourline"].node_tree.nodes["Math.001"].mute = False
-
-## Produce Documentation
-# hit "produce documentation" in the PETrA Pannel (Rendering)
-
-# CONTOUR LINES 3
-## Configure Material
 D.materials["r2_contourline"].node_tree.nodes["Math.002"].mute = False
 
-## Produce Documentation
-# hit "produce documentation" in the PETrA Pannel (Rendering)
+# Configure Compositor
+nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[5])
+nodetree.links.new(nodeHub.outputs[2], nodeR2.inputs[0])

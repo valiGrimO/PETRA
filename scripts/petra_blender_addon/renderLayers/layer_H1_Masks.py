@@ -19,6 +19,3 @@ selected_object.material_slots[0].material = material
 
 # Configure Compositor
 nodetree.links.new(nodeRL.outputs[0], node2.inputs[1])
-
-# Produce Documentation
-    # hit "produce documentation" in the PETrA Pannel (Rendering)

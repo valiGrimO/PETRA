@@ -27,6 +27,3 @@ nodetree.links.new(nodeHub.outputs[5], nodeR5.inputs[0])
 
 # Render `Reference Sphere`
 D.objects["Reference Sphere"].hide_render = False
-
-# Produce Documentation
-    # hit "produce documentation" in the PETrA Pannel (Rendering)

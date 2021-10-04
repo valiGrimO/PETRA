@@ -25,9 +25,3 @@ D.objects["Reference Sphere"].hide_render = False
 
 # Configure Compositor
 nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[4])
-
-# Produce Documentation
-    # hit "produce documentation" in the PETrA Pannel (Rendering)
-
-# Set `Reference Sphere` in its initial state
-D.objects["Reference Sphere"].hide_render = True

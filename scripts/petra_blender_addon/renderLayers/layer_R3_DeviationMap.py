@@ -23,6 +23,4 @@ nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[6])
 # Change vertex color in the material
 D.materials["r3_deviation_map"].node_tree.nodes["Vertex Color"].layer_name = "DM1"
 
-# hit "produce documentation" in the PETrA Pannel (Rendering)
-
 # Note: Since several Vertex Color Indexes beginning with `DM` might exist (max = 7), then a loop have to render everyone, and the output name should be incremented (`DM1`, `DM2`, etc.)

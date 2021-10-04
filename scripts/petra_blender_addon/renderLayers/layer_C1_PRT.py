@@ -19,6 +19,3 @@ C.scene.render.engine = "BLENDER_EEVEE"
 # Configure Compositor
 nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[0])
 nodetree.links.new(nodeHub.outputs[0], nodeC1.inputs[0])
-
-# Produce Documentation
-    # hit "produce documentation" in the PETrA Pannel (Rendering)

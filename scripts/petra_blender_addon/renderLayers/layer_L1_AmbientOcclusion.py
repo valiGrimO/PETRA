@@ -28,9 +28,3 @@ selected_object.material_slots[0].material = material
 
 # Configure Compositor
 nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[3])
-
-# Produce Documentation
-    # hit "produce documentation" in the PETrA Pannel (Rendering)
-
-# Deactivate Ambient Occlusion
-bpy.context.scene.eevee.use_gtao = False

@@ -22,6 +22,3 @@ D.materials["c1_prv"].node_tree.nodes["Vertex Color"].layer_name = "Col"
 # Configure Compositor
 nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[0])
 nodetree.links.new(nodeHub.outputs[0], nodeC1.inputs[1])
-
-# Produce Documentation
-    # hit "produce documentation" in the PETrA Pannel (Rendering)
