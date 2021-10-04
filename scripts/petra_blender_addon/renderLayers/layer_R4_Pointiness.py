@@ -28,14 +28,10 @@ remove_link(nodeHub.outputs[4], nodeR4.inputs[0])
 remove_link(nodeHub.outputs[4], nodeR4.inputs[1])
 remove_link(nodeHub.outputs[4], nodeR4.inputs[2])
 
-# 25% #################################################
-## Delete DECIMATE modifyer on selected object
-bpy.ops.object.modifier_remove(modifier="Decimate")
-
 # Decimate Selected mesh
 bpy.ops.object.modifier_add(type='DECIMATE')
-C.object.modifiers["Decimate"].ratio = 0.25
+C.object.modifiers["Decimate"].ratio = # value definied by users
 
-## Configure Compositor
-remove_link(nodeHub.outputs[4], nodeR4.inputs[0]) # Remove link
-nodetree.links.new(nodeHub.outputs[4], nodeR4.inputs[1]) # Create link
+# Create link
+nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[7])
+nodetree.links.new(nodeHub.outputs[4], nodeR4.inputs[0])
