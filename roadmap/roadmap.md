@@ -16,7 +16,7 @@
 - [ ] **M** :red_circle: Compute in real time H and V value of the camera, depending on the size of the "framing box", the scale of documentation, and the spatial resolution
   - Would it be still possible to get the size in pixel later in the paradata file?
 - [ ] **M** :red_circle: show in real time uneditable printed size of rendered pictures (in cm)
-- [ ] **M** :yellow_circle: Add a chack box to each camera in order to select the ones to be rendered (sometimes, we don't need a layer of information for every point of view)
+- [ ] **M** :yellow_circle: Add a check box to each camera in order to select the ones to be rendered (sometimes, we don't need every layer of information for some point of view)
 
 ## Developments about materials
 ### C1, color
@@ -64,8 +64,7 @@
   - [x] `layer_R4_Pointiness.py`
   - [x] `layer_R5_Aspect.py`
   - [x] `layer_R6_Slope.py`
-- [ ] **M** + **V** :red_circle: Need to discuss how to go from one script to an other (what is behind "Produce documentation"? Is it possible to add some lines after the render?)
-- [ ] **M** :yellow_circle: Integrate scripts in the user interface
+- [ ] **M** :red_circle: Integrate scripts in the user interface
 
 ## User interface, general interactions
 - [ ] **M** :yellow_circle: load action's scripts and add a player to execute them (layer renderer), when every script will work fine
