@@ -25,13 +25,13 @@
      inkscape:document-units="mm"
      showgrid="false"
      showborder="true"
-     inkscape:zoom="1.3435707"
-     inkscape:cx="1134.663"
-     inkscape:cy="332.3234"
-     inkscape:window-width="1552"
-     inkscape:window-height="836"
-     inkscape:window-x="1968"
-     inkscape:window-y="27"
+     inkscape:zoom="1.9000959"
+     inkscape:cx="1235.9902"
+     inkscape:cy="421.55767"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer2" />
   <defs
@@ -198,7 +198,8 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     style="display:inline">
     <image
        width="52.652084"
        height="146.31459"
@@ -220,6 +221,14 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Calque 2">
+    <rect
+       style="opacity:0.999;fill:none;stroke:#808080;stroke-width:0.211824;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
+       id="rect1126"
+       width="38.474998"
+       height="11.799"
+       x="272.423"
+       y="104.925"
+       ry="0.45351338" />
     <g
        id="g52907"
        transform="matrix(0.7516838,0,0,0.7516838,77.839025,31.816711)">
@@ -317,14 +326,14 @@
        transform="translate(-35.306237,-8.3569991)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85215">Is it possible to remove this button?
+         id="tspan24884">Is it possible to remove this button?
 </tspan><tspan
          x="159.48245"
          y="52.683833"
-         id="tspan85217">So each time the scale or resolution </tspan><tspan
+         id="tspan24886">So each time the scale or resolution </tspan><tspan
          x="159.48245"
          y="56.211619"
-         id="tspan85219">change, each value would be updated?</tspan></text>
+         id="tspan24888">change, each value would be updated?</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.82223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
@@ -334,22 +343,17 @@
        transform="translate(-35.306237,6.3313184)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85221">Uneditable values, but useful values to </tspan><tspan
+         id="tspan24890">Uneditable values, but useful values to </tspan><tspan
          x="159.48245"
          y="52.683833"
-         id="tspan85223">choose the right scale or spatial </tspan><tspan
+         id="tspan24892">choose the right scale or spatial </tspan><tspan
          x="159.48245"
          y="56.211619"
-         id="tspan85225">resolution</tspan></text>
+         id="tspan24894">resolution</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
        d="m 115.2934,46.242163 h 2.41096 l 2.41096,-5.904383 h 2.41095"
        id="path41553"
-       sodipodi:nodetypes="cccc" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
-       d="m 311.27629,28.993135 h 6.42806 2.41096 2.41095"
-       id="path41553-5"
        sodipodi:nodetypes="cccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
@@ -480,10 +484,10 @@
        transform="translate(-35.306237,37.386746)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85227">If we add a 7th camera for instance, </tspan><tspan
+         id="tspan24896">If we add a 7th camera for instance, </tspan><tspan
          x="159.48245"
          y="52.683833"
-         id="tspan85229">this button is not working</tspan></text>
+         id="tspan24898">this button is not working</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.82223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
@@ -493,16 +497,16 @@
        transform="translate(-35.306237,66.937806)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85231">This section sum up parameters of </tspan><tspan
+         id="tspan24900">This section sum up parameters of </tspan><tspan
          x="159.48245"
          y="52.683833"
-         id="tspan85233">each camera. For the moment, when </tspan><tspan
+         id="tspan24902">each camera. For the moment, when </tspan><tspan
          x="159.48245"
          y="56.211619"
-         id="tspan85235">we change one value, it affects every </tspan><tspan
+         id="tspan24904">we change one value, it affects every </tspan><tspan
          x="159.48245"
          y="59.739406"
-         id="tspan85237">camera</tspan></text>
+         id="tspan24906">camera</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
        d="m 64.028662,115.10901 h 53.675698 2.41096 2.41095"
@@ -513,19 +517,6 @@
        d="m 63.893262,145.4602 v -30.35119 -3.31252"
        id="path45604"
        sodipodi:nodetypes="ccc" />
-    <text
-       xml:space="preserve"
-       style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
-       x="159.48245"
-       y="49.156048"
-       id="text46908"
-       transform="translate(164.69377,-19.378995)"><tspan
-         x="159.48245"
-         y="49.156048"
-         id="tspan85239">&quot;Material setup&quot; should be rename &quot;Layer of </tspan><tspan
-         x="159.48245"
-         y="51.801884"
-         id="tspan85241">information setup&quot;</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.82223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
@@ -561,16 +552,16 @@
        transform="translate(-35.306237,21.423101)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85243">Need a check box, so we can select </tspan><tspan
+         id="tspan24908">Need a check box, so we can select </tspan><tspan
          x="159.48245"
          y="52.683833"
-         id="tspan85245">cameras to be rendered (for some </tspan><tspan
+         id="tspan24910">cameras to be rendered (for some </tspan><tspan
          x="159.48245"
          y="56.211619"
-         id="tspan85247">point of view, we don't need every </tspan><tspan
+         id="tspan24912">point of view, we don't need every </tspan><tspan
          x="159.48245"
          y="59.739406"
-         id="tspan85249">layer of information)</tspan></text>
+         id="tspan24914">layer of information)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.82223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
@@ -658,7 +649,7 @@
          id="tspan84682"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:ubuntu;-inkscape-font-specification:ubuntu;stroke-width:0.264583"
          x="273.22314"
-         y="103.7691">R3: Distance map</tspan></text>
+         y="103.7691">R3: Deviation map</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.82223px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;stroke-width:0.264583"
@@ -760,7 +751,7 @@
        transform="translate(164.69377,105.43555)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85251">Select the layer to be rendered</tspan></text>
+         id="tspan24916">Select the layer to be rendered</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 311.27629,36.928527 h 6.42806 2.41096 2.41095"
@@ -775,14 +766,14 @@
        transform="translate(164.69377,-11.443602)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85253">These layers are scripted in the &quot;renderLayers&quot; </tspan><tspan
+         id="tspan24918">These layers are scripted in the &quot;renderLayers&quot; </tspan><tspan
          x="159.48245"
          y="51.801884"
-         id="tspan85255">folder.
+         id="tspan24920">folder.
 </tspan><tspan
          x="159.48245"
          y="54.447719"
-         id="tspan85257">Some of them need some configuration</tspan></text>
+         id="tspan24922">Some of them need some configuration</tspan></text>
     <image
        width="37.315125"
        height="17.015696"
@@ -863,7 +854,7 @@
        transform="translate(164.69377,109.07185)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85259">Preview of the layer (should execute the script)</tspan></text>
+         id="tspan24924">Preview of the layer (should execute the script)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
@@ -873,9 +864,9 @@
        transform="translate(1.4724083,11.398265)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85263"><tspan
+         id="tspan24928"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85261">Spacing 1</tspan></tspan></text>
+           id="tspan24926">Spacing 1</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
@@ -885,9 +876,9 @@
        transform="translate(13.794557,11.398265)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85267"><tspan
+         id="tspan24932"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85265">Spacing 2</tspan></tspan></text>
+           id="tspan24930">Spacing 2</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
@@ -897,9 +888,9 @@
        transform="translate(26.372826,11.398265)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85271"><tspan
+         id="tspan24936"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85269">Spacing 3</tspan></tspan></text>
+           id="tspan24934">Spacing 3</tspan></tspan></text>
     <rect
        style="opacity:0.999;fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
        id="rect139243"
@@ -917,19 +908,19 @@
        transform="translate(1.0583333,25.6948)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85275"><tspan
+         id="tspan24940"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85273">Normalization value</tspan></tspan></text>
+           id="tspan24938">Normalization value</tspan></tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
-       x="273.22314"
+       style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
+       x="275.74133"
        y="85.43573"
        id="text139346-5"
-       transform="rotate(-90,286.18225,100.88427)"><tspan
-         x="273.22314"
+       transform="rotate(-90,284.93166,101.75032)"><tspan
+         x="275.74133"
          y="85.43573"
-         id="tspan85277">1 DM</tspan></text>
+         id="tspan24942">1 sublayer</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
@@ -939,9 +930,9 @@
        transform="translate(30.297979,25.6948)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85281"><tspan
+         id="tspan24946"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85279">2 mm</tspan></tspan></text>
+           id="tspan24944">2 mm</tspan></tspan></text>
     <rect
        style="opacity:0.999;fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
        id="rect139352"
@@ -959,9 +950,9 @@
        transform="translate(6.2761235,35.567521)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85285"><tspan
+         id="tspan24950"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85283">Add a new Deviation Map</tspan></tspan></text>
+           id="tspan24948">Add a new Deviation Map</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
@@ -971,10 +962,10 @@
        transform="translate(164.69377,68.295212)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85287">Hitting this button runs the distance map add-on </tspan><tspan
+         id="tspan24952">Hitting this button runs the distance map add-on </tspan><tspan
          x="159.48245"
          y="51.801884"
-         id="tspan85289">(already configured).</tspan></text>
+         id="tspan24954">(already configured).</tspan></text>
     <rect
        style="opacity:0.999;fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
        id="rect140177"
@@ -992,9 +983,9 @@
        transform="translate(5.9543898,29.737221)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85293"><tspan
+         id="tspan24958"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85291">Generate a Deviation Map</tspan></tspan></text>
+           id="tspan24956">Generate a Deviation Map</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:0;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
@@ -1004,12 +995,12 @@
        transform="translate(7.655067,21.711885)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85297"><tspan
+         id="tspan24962"><tspan
            style="line-height:1.25;font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85295">DM1</tspan></tspan></text>
+           id="tspan24960">DM1</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 272.58852,105.15396 h -1.10667 v 11.87853 h 1.10667"
+       d="m 271.36466,104.925 h -1.10667 v 11.799 h 1.10667"
        id="path165160"
        sodipodi:nodetypes="cccc" />
     <path
@@ -1031,10 +1022,10 @@
        transform="translate(164.69377,62.557384)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85299">Don't know how to determine this value without </tspan><tspan
+         id="tspan24964">This value has to be used in the file's name (as for </tspan><tspan
          x="159.48245"
          y="51.801884"
-         id="tspan85301">CloudCompare...</tspan></text>
+         id="tspan24966">Contour Line)</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 286.93462,106.60405 h 11.68749 l 3.74999,-4.0172 h 20.15416"
@@ -1049,10 +1040,10 @@
        transform="translate(164.69377,54.144081)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85303">Name of the Layer. This value will be used as input </tspan><tspan
+         id="tspan24968">Name of the Layer. This value will be used as input </tspan><tspan
          x="159.48245"
          y="51.801884"
-         id="tspan85305">in the material `r3_deviationmap`</tspan></text>
+         id="tspan24970">in the material `r3_deviationmap`</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
@@ -1062,7 +1053,7 @@
        transform="translate(164.69377,73.995833)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85307">Create a new DM</tspan></text>
+         id="tspan24972">Create a new DM</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 271.34483,149.67252 v 1.68861 l 2.64654,2.64652 h 48.39853"
@@ -1110,7 +1101,7 @@
        transform="translate(1.0583333,7.1739568)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85309">Minimum Spacing</tspan></text>
+         id="tspan24974">Minimum Spacing</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
@@ -1120,9 +1111,9 @@
        transform="translate(30.297979,7.1739568)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85313"><tspan
+         id="tspan24978"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85311">2 mm</tspan></tspan></text>
+           id="tspan24976">2 mm</tspan></tspan></text>
     <rect
        style="opacity:0.999;fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
        id="rect4424"
@@ -1148,7 +1139,7 @@
        transform="translate(164.69377,43.559424)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85315">This value is the one we can edit in the material</tspan></text>
+         id="tspan24980">This value is the one we can edit in the material</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
@@ -1158,7 +1149,7 @@
        transform="translate(164.69377,47.681928)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85317">Those buttons are for previewing</tspan></text>
+         id="tspan24982">Those buttons are for previewing</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 311.27629,96.254031 h 6.42806 2.41096 2.41095"
@@ -1178,7 +1169,7 @@
        transform="translate(164.69377,59.875708)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85319">To remove a DM</tspan></text>
+         id="tspan24984">To remove a DM</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 311.27629,106.6523 h 3.74999 l 3.74999,1.58751 h 3.74999"
@@ -1227,19 +1218,19 @@
        transform="translate(222.02005,68.416135)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85321">Hitting this button runs the distance map add-on </tspan><tspan
+         id="tspan24986">Hitting this button runs the distance map add-on </tspan><tspan
          x="159.48245"
          y="51.801884"
-         id="tspan85323">(already configured). User should select </tspan><tspan
+         id="tspan24988">(already configured). User should select </tspan><tspan
          x="159.48245"
          y="54.447719"
-         id="tspan85325">respectively the reference mesh and the compared </tspan><tspan
+         id="tspan24990">respectively the reference mesh and the compared </tspan><tspan
          x="159.48245"
          y="57.093555"
-         id="tspan85327">mesh (who will receive the result as vertex color </tspan><tspan
+         id="tspan24992">mesh (who will receive the result as vertex color </tspan><tspan
          x="159.48245"
          y="59.739391"
-         id="tspan85329">and rendered)</tspan></text>
+         id="tspan24994">and rendered)</tspan></text>
     <rect
        style="opacity:0.999;fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
        id="rect65044"
@@ -1257,7 +1248,7 @@
        transform="translate(1.0583333,46.86148)"><tspan
          x="273.22314"
          y="85.43573"
-         id="tspan85331">Ratio</tspan></text>
+         id="tspan24996">Ratio</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;white-space:pre;inline-size:37.9796;stroke-width:0.264583"
@@ -1267,7 +1258,7 @@
        transform="translate(27.681418,46.86148)"><tspan
          x="278.90964"
          y="85.43573"
-         id="tspan85333">1.000</tspan></text>
+         id="tspan24998">1.000</tspan></text>
     <rect
        style="opacity:0.999;fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"
        id="rect70090"
@@ -1285,9 +1276,9 @@
        transform="translate(6.2950068,50.913364)"><tspan
          x="285.36752"
          y="85.43573"
-         id="tspan85337"><tspan
+         id="tspan25002"><tspan
            style="font-family:ubuntu;-inkscape-font-specification:ubuntu"
-           id="tspan85335">Add a new sublayer</tspan></tspan></text>
+           id="tspan25000">Add a new sublayer</tspan></tspan></text>
     <g
        id="g70102"
        transform="matrix(0.7516838,0,0,0.7516838,77.839025,57.01746)">
@@ -1316,7 +1307,7 @@
        transform="translate(164.69377,83.041778)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85339">To remove a sublayer</tspan></text>
+         id="tspan25004">To remove a sublayer</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 311.27629,131.61392 h 6.42806 2.41096 2.41095"
@@ -1331,10 +1322,14 @@
        transform="translate(164.69377,87.093602)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85341">To add a sublayer. From my exp, suitable values are </tspan><tspan
+         id="tspan25006">To add a sublayer. From my experience, 3 values </tspan><tspan
          x="159.48245"
          y="51.801884"
-         id="tspan85343">100%, 25% and 10%.</tspan></text>
+         id="tspan25008">are insteresting: 100%, 25% and 10%.
+</tspan><tspan
+         x="159.48245"
+         y="54.447719"
+         id="tspan25010">1 line is 1 sublayer</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 311.27629,135.66575 h 6.42806 2.41096 2.41095"
@@ -1349,11 +1344,59 @@
        transform="translate(164.69377,79.337609)"><tspan
          x="159.48245"
          y="49.156048"
-         id="tspan85345">To name the sublayer (1.0 = 100%)</tspan></text>
+         id="tspan25012">To name the sublayer (1.0 = 100%)</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 304.39712,130.0264 2.19473,-2.11667 h 13.52346 2.41095"
        id="path77973"
        sodipodi:nodetypes="cccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
+       x="159.48245"
+       y="49.156048"
+       id="text4298"
+       transform="translate(222.16757,62.557384)"><tspan
+         x="159.48245"
+         y="49.156048"
+         id="tspan25014">Don't know how to get this value without </tspan><tspan
+         x="159.48245"
+         y="51.801884"
+         id="tspan25016">CloudCompare for the moment</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
+       x="209.07021"
+       y="49.156048"
+       id="text4298-3"
+       transform="translate(50.427322,67.087801)"><tspan
+         x="209.07021"
+         y="49.156048"
+         id="tspan25018">Structure of the file name: Cam-##_R3_DM1-2mm</tspan></text>
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 265.93136,110.1781 -8.85472,0 v 3.64189"
+       id="path15119"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 265.93136,106.13606 h -14.91804 v 7.68393"
+       id="path15121"
+       sodipodi:nodetypes="ccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:2.11667px;line-height:1.25;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;white-space:pre;inline-size:55.5961;stroke-width:0.264583"
+       x="209.07021"
+       y="49.156048"
+       id="text20305"
+       transform="translate(50.427322,87.064065)"><tspan
+         x="209.07021"
+         y="49.156048"
+         id="tspan25020">Structure of the file name: Cam-##_R4_POI-100</tspan></text>
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="m 271.75219,131.56784 h -14.67555 v 2.58356"
+       id="path20307"
+       sodipodi:nodetypes="ccc" />
   </g>
 </svg>
