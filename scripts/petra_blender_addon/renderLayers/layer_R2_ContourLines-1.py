@@ -28,7 +28,7 @@ r2_value = round(
     .default_value
 )
 nodeR2z = nodeR2.node_tree.nodes["File Output"]
-pattern = f"Cam-##_R2_CDN%s-{r2_value}mm"
+pattern = f"Cam-##_R2_CL%s-{r2_value}mm"
 nodeR2z.file_slots[0].path = pattern % 1
 nodeR2z.file_slots[1].path = pattern % 2
 nodeR2z.file_slots[2].path = pattern % 3

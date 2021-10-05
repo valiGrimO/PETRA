@@ -21,14 +21,19 @@ material = bpy.data.materials["r4_pointiness"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
-
 remove_link(nodeHubInput.outputs[4], nodeR4.inputs[0])
 # remove_link(nodeHubInput.outputs[4], nodeR4.inputs[1])
 # remove_link(nodeHubInput.outputs[4], nodeR4.inputs[2])
 
 # Decimate Selected mesh
-# bpy.ops.object.modifier_add(type="DECIMATE")
-# C.object.modifiers["Decimate"].ratio = # value definied by users
+modifier = selected_object.modifiers.new(name="Decimate", type="DECIMATE")
+modifier.ratio = 0.5  # value definied by users
+ratio_as_percent = round(modifier.ratio * 100)
+
+# Adjust Output filenames (end with -[ratio])
+nodeR4Output = nodeR4.node_tree.nodes["File Output"]
+pattern = f"Cam-##_R4_POI-{ratio_as_percent}"
+nodeR4Output.file_slots[0].path = pattern
 
 # Create link
 nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[7])

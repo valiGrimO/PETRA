@@ -45,7 +45,7 @@
 - **V:** user can produce several `DM` layer. How to document them? In a sense of which parameters were used to produce the comparison mesh, and for which purpose?
 
 ### R4, Pointiness
-- [ ] **M** :red_circle: Modify the output file name with the ratio choosen. Output should be like "Cam-##_R4_POI-[ratio]"
+- [x] **M** :red_circle: Modify the output file name with the ratio choosen. Output should be like "Cam-##_R4_POI-[ratio]"
 
 ### R5, Aspect
 - [ ] **V** :green_circle: clear the compositor nodes in order to have only one output
