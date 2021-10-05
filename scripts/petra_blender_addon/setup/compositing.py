@@ -17,15 +17,13 @@ for node in nodetree.nodes:
     nodetree.nodes.remove(node)
 
 
-
 # ------------------------------------------------------------------
 # Render Layers - NODE 1
 # ------------------------------------------------------------------
 
 # adding Render Layers, node 1
 node1 = nodetree.nodes.new("CompositorNodeRLayers")
-node1.location = (-300, -260)
-
+node1.location = (0, 0)
 
 
 # ------------------------------------------------------------------
@@ -34,7 +32,7 @@ node1.location = (-300, -260)
 
 # adding nodegroup, node 2
 node2 = nodetree.nodes.new("CompositorNodeGroup")
-node2.location = (0, 0)
+node2.location = (400, 120)
 node2.name = "Hub"
 
 # subtree description
@@ -59,29 +57,65 @@ node2_nodetree.inputs.new("NodeSocketColor", "R6: Slope")
 for node2_input in node2_nodetree.inputs:
     node2_input.hide_value = True
 
-# create outputs
-node2_out = node2_nodetree.nodes.new("NodeGroupOutput")
-node2_out.location = (240, 0)
-node2_nodetree.outputs.new("NodeSocketColor", "C1")
-node2_nodetree.outputs.new("NodeSocketColor", "R1")
-node2_nodetree.outputs.new("NodeSocketColor", "R2")
-node2_nodetree.outputs.new("NodeSocketColor", "R3")
-node2_nodetree.outputs.new("NodeSocketColor", "R4")
-node2_nodetree.outputs.new("NodeSocketColor", "R5")
-
 # hide output values
 for node2_output in node2_nodetree.inputs:
     node2_output.hide_value = True
 
 
+# ------------------------------------------------------------------
+# C1: COLOR
+# ------------------------------------------------------------------
 
-    # --------------------------------------------------------------
-    # H: Covering - NODE H
-    # --------------------------------------------------------------
+# adding nodegroup, node C1
+nodeC1 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeC1.location = (400, 360)
+nodeC1.name = "C1_color"
+
+# subtree description
+nodeC1.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="C1: Color")
+nodeC1_nodetree = nodeC1.node_tree  # shortcut; akin to `nodetree`
+
+# create input
+nodeC1_in = nodeC1_nodetree.nodes.new("NodeGroupInput")
+nodeC1_in.location = (0, 0)
+nodeC1_nodetree.inputs.new("NodeSocketColor", "Cam-##_C1_PRTexture")
+nodeC1_nodetree.inputs.new("NodeSocketColor", "Cam-##_C1_PRVertex")
+
+# hide input values
+for nodeC1_input in nodeC1_nodetree.inputs:
+    nodeC1_input.hide_value = True
+
+# inside the group
+nodeC1a = nodeC1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeC1a.location = (180, 160)
+
+nodeC1b = nodeC1_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeC1b.location = (180, 0)
+
+## File Output
+nodeC1z = nodeC1_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeC1z.location = (360, 60)
+nodeC1z.base_path = "//tmp"
+nodeC1z.format.file_format = "PNG"
+nodeC1z.format.color_mode = "RGBA"
+nodeC1z.format.compression = 0
+nodeC1z.file_slots[0].path = "Cam-##_C1_PRT"
+nodeC1z.file_slots.new("Cam-##_C1_PRV")
+
+# connections
+nodeC1_nodetree.links.new(nodeC1_in.outputs[0], nodeC1a.inputs[0])
+nodeC1_nodetree.links.new(nodeC1_in.outputs[1], nodeC1b.inputs[0])
+nodeC1_nodetree.links.new(nodeC1a.outputs[0], nodeC1z.inputs[0])
+nodeC1_nodetree.links.new(nodeC1b.outputs[0], nodeC1z.inputs[1])
+
+
+# --------------------------------------------------------------
+# H: Covering - NODE H
+# --------------------------------------------------------------
 
 # adding nodegroup, node H
 nodeH = node2_nodetree.nodes.new("CompositorNodeGroup")
-nodeH.location = (240, 260)
+nodeH.location = (400, 240)
 nodeH.name = "H_covering"
 
 # subtree description
@@ -159,7 +193,6 @@ nodeH2d = nodeH_nodetree.nodes.new("CompositorNodeGamma")
 nodeH2d.location = (1000, 0)
 nodeH2d.inputs[1].default_value = 10
 
-
 ## H3 - Details
 nodeH3a = nodeH_nodetree.nodes.new("CompositorNodeFilter")
 nodeH3a.location = (180, -240)
@@ -222,20 +255,21 @@ nodeH_nodetree.links.new(nodeH2b.outputs[0], nodeH2c.inputs[1])
 nodeH_nodetree.links.new(nodeH2c.outputs[0], nodeH2d.inputs[0])
 nodeH_nodetree.links.new(nodeH2d.outputs[0], nodeH2z.inputs[0])
 ## H3
-nodeH_nodetree.links.new(nodeH_in.outputs[2], nodeH3a.inputs[0])
+nodeH_nodetree.links.new(nodeH_in.outputs[2], nodeH3a.inputs[1])
 nodeH_nodetree.links.new(nodeH3a.outputs[0], nodeH3b.inputs[0])
 nodeH_nodetree.links.new(nodeH3b.outputs[0], nodeH3c.inputs[0])
 nodeH_nodetree.links.new(nodeH3c.outputs[0], nodeH3d.inputs[0])
 nodeH_nodetree.links.new(nodeH3d.outputs[0], nodeH3e.inputs[1])
 nodeH_nodetree.links.new(nodeH3e.outputs[0], nodeH2z.inputs[1])
 
-    # --------------------------------------------------------------
-    # L1: Ambient Occlusion - NODE L1
-    # --------------------------------------------------------------
+
+# --------------------------------------------------------------
+# L1: Ambient Occlusion - NODE L1
+# --------------------------------------------------------------
 
 # adding nodegroup, node L1
 nodeL1 = node2_nodetree.nodes.new("CompositorNodeGroup")
-nodeL1.location = (240, 120)
+nodeL1.location = (400, 100)
 nodeL1.name = "L1_AO"
 
 # subtree description
@@ -264,108 +298,13 @@ nodeL1_nodetree.links.new(nodeL1_in.outputs["Cam-##_L1_AO"], nodeL1a.inputs["Ima
 nodeL1_nodetree.links.new(nodeL1a.outputs[0], nodeL1b.inputs[0])
 
 
-    # --------------------------------------------------------------
-    # R6: Slope - NODE R6
-    # --------------------------------------------------------------
-
-# adding nodegroup, node R6
-nodeR6 = node2_nodetree.nodes.new("CompositorNodeGroup")
-nodeR6.location = (240, -200)
-nodeR6.name = "R6_slope"
-
-# subtree description
-nodeR6.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R6: Slope")
-nodeR6_nodetree = nodeR6.node_tree  # shortcut; akin to `nodetree`
-
-# create inputs
-nodeR6_in = nodeR6_nodetree.nodes.new("NodeGroupInput")
-nodeR6_in.location = (0, 0)
-nodeR6_nodetree.inputs.new("NodeSocketColor", "Cam-##_R6_Slope")
-
-nodeR6a = nodeR6_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR6a.location = (200, 0)
-
-## File Output
-nodeR6b = nodeR6_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR6b.location = (400, 0)
-nodeR6b.base_path = "//tmp"
-nodeR6b.format.file_format = "JPEG"
-nodeR6b.format.color_mode = "BW"
-nodeR6b.format.quality = 100
-nodeR6b.file_slots[0].path = "Cam-##_R6_Slope"
-
-# connections
-nodeR6_nodetree.links.new(nodeR6_in.outputs[0], nodeR6a.inputs[0])
-nodeR6_nodetree.links.new(nodeR6a.outputs[0], nodeR6b.inputs[0])
-
-
-# ------------------------------------------------------------------
-# connections
-
-node2_nodetree.links.new(node2_in.outputs["C1: Color"], node2_out.inputs["C1"])
-node2_nodetree.links.new(node2_in.outputs["R1: Shading"], node2_out.inputs["R1"])
-node2_nodetree.links.new(node2_in.outputs["R2: Contour Lines"], node2_out.inputs["R2"])
-node2_nodetree.links.new(node2_in.outputs["R3: Distance Map"], node2_out.inputs["R3"])
-node2_nodetree.links.new(node2_in.outputs["R4: Pointiness"], node2_out.inputs["R4"])
-node2_nodetree.links.new(node2_in.outputs["R5: Aspect"], node2_out.inputs["R5"])
-node2_nodetree.links.new(node2_in.outputs["H1: Masks"], nodeH.inputs["Cam-##_H1_Masks"])
-node2_nodetree.links.new(node2_in.outputs["H2: Outline By Normal"], nodeH.inputs["Cam-##_H2_Outline By Normal"])
-node2_nodetree.links.new(node2_in.outputs["R1: Shading"], nodeH.inputs["Cam-##_H3_Details"])
-node2_nodetree.links.new(node2_in.outputs["L1: Ambient Occlusion"], nodeL1.inputs["Cam-##_L1_AO"])
-node2_nodetree.links.new(node2_in.outputs["R6: Slope"], nodeR6.inputs["Cam-##_R6_Slope"])
-
-
-# ------------------------------------------------------------------
-# C1: COLOR
-# ------------------------------------------------------------------
-# adding nodegroup, node C1
-nodeC1 = nodetree.nodes.new("CompositorNodeGroup")
-nodeC1.location = (400, 280)
-nodeC1.name = "C1_color"
-
-# subtree description
-nodeC1.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="C1: Color")
-nodeC1_nodetree = nodeC1.node_tree  # shortcut; akin to `nodetree`
-
-# create input
-nodeC1_in = nodeC1_nodetree.nodes.new("NodeGroupInput")
-nodeC1_in.location = (0, 0)
-nodeC1_nodetree.inputs.new("NodeSocketColor", "Cam-##_C1_PRTexture")
-nodeC1_nodetree.inputs.new("NodeSocketColor", "Cam-##_C1_PRVertex")
-
-# hide input values
-for nodeC1_input in nodeC1_nodetree.inputs:
-    nodeC1_input.hide_value = True
-
-# inside the group
-nodeC1a = nodeC1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeC1a.location = (180, 160)
-
-nodeC1b = nodeC1_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeC1b.location = (180, 0)
-
-## File Output
-nodeC1z = nodeC1_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeC1z.location = (360, 60)
-nodeC1z.base_path = "//tmp"
-nodeC1z.format.file_format = "PNG"
-nodeC1z.format.color_mode = "RGBA"
-nodeC1z.format.compression = 0
-nodeC1z.file_slots[0].path = "Cam-##_C1_PRT"
-nodeC1z.file_slots.new("Cam-##_C1_PRV")
-
-# connections
-nodeC1_nodetree.links.new(nodeC1_in.outputs[0], nodeC1a.inputs[0])
-nodeC1_nodetree.links.new(nodeC1_in.outputs[1], nodeC1b.inputs[0])
-nodeC1_nodetree.links.new(nodeC1a.outputs[0], nodeC1z.inputs[0])
-nodeC1_nodetree.links.new(nodeC1b.outputs[0], nodeC1z.inputs[1])
-
 # ------------------------------------------------------------------
 # R1: SHADING
 # ------------------------------------------------------------------
+
 # adding nodegroup, node R1
-nodeR1 = nodetree.nodes.new("CompositorNodeGroup")
-nodeR1.location = (400, 160)
+nodeR1 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR1.location = (400, 0)
 nodeR1.name = "R1_shading"
 
 # subtree description
@@ -399,7 +338,6 @@ nodeR1zA.format.compression = 0
 nodeR1zA.file_slots[0].path = "Cam-##_R1_NMC"
 
 # connections
-nodetree.links.new(node2.outputs[1], nodeR1.inputs[0])
 nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeR1a.inputs[0])
 nodeR1_nodetree.links.new(nodeR1a.outputs[0], nodeR1zA.inputs[0])
 
@@ -1291,13 +1229,13 @@ nodeY2g_nodetree.links.new(nodeY2c.outputs[0], nodeY2d.inputs[0])
 nodeY2g_nodetree.links.new(nodeY2d.outputs[0], nodeY2g_out.inputs[0])
 
 
-
 # ------------------------------------------------------------------
 # R2: CONTOUR LINES
 # ------------------------------------------------------------------
+    
 # adding nodegroup, node R1
-nodeR2 = nodetree.nodes.new("CompositorNodeGroup")
-nodeR2.location = (400, 40)
+nodeR2 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR2.location = (400, -100)
 nodeR2.name = "R2_contourLine"
 
 # subtree description
@@ -1343,8 +1281,6 @@ nodeR2z.file_slots.new(pattern % 2)
 nodeR2z.file_slots.new(pattern % 3)
 
 # connections
-nodetree.links.new(node2.outputs[2], nodeR2.inputs[0])
-
 nodeR2_nodetree.links.new(nodeR2_in.outputs[0], nodeR2a.inputs[0])
 nodeR2_nodetree.links.new(nodeR2a.outputs[0], nodeR2b.inputs[0])
 nodeR2_nodetree.links.new(nodeR2b.outputs[0], nodeR2z.inputs[0])
@@ -1353,9 +1289,10 @@ nodeR2_nodetree.links.new(nodeR2b.outputs[0], nodeR2z.inputs[0])
 # ------------------------------------------------------------------
 # R3: DISTANCE MAP
 # ------------------------------------------------------------------
-# adding nodegroup, node R1
-nodeR3 = nodetree.nodes.new("CompositorNodeGroup")
-nodeR3.location = (400, -100)
+
+# adding nodegroup, node R3
+nodeR3 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR3.location = (400, -200)
 nodeR3.name = "R3_distanceMap"
 
 # subtree description
@@ -1473,54 +1410,29 @@ nodeR3dm_VIRIDIS.color_ramp.elements[3].color = (0.11, 0.58, 0.12, 1)
 nodeR3dm_VIRIDIS.color_ramp.elements[4].color = (1, 0.9, 0, 1)
 
 ### Output DM1 - GREY
-nodeR3dm1_Gout = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_Gout.location = (1100, 660)
-nodeR3dm1_Gout.base_path = "//tmp"
-nodeR3dm1_Gout.format.file_format = "PNG"
-nodeR3dm1_Gout.format.color_mode = "BW"
-nodeR3dm1_Gout.format.compression = 0
-nodeR3dm1_Gout.file_slots[0].path = "Cam-##_R3_DM1"
-
-### Output DM2 - GREY
-nodeR3dm2_Gout = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm2_Gout.location = (1100, 540)
-nodeR3dm2_Gout.base_path = "//tmp"
-nodeR3dm2_Gout.format.file_format = "PNG"
-nodeR3dm2_Gout.format.color_mode = "BW"
-nodeR3dm2_Gout.format.quality = 0
-nodeR3dm2_Gout.file_slots[0].path = "Cam-##_R3_DM2"
+nodeR3dm_Gout = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm_Gout.location = (1100, 600)
+nodeR3dm_Gout.base_path = "//tmp"
+nodeR3dm_Gout.format.file_format = "PNG"
+nodeR3dm_Gout.format.color_mode = "BW"
+nodeR3dm_Gout.format.compression = 0
+nodeR3dm_Gout.file_slots[0].path = "Cam-##_R3_DM" # Here, we should indicate in the file name the "Normalization Value"
 
 ### Output DM1 - colored
-nodeR3dm1_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm1_out.location = (1100, 0)
-nodeR3dm1_out.base_path = "//tmp"
-nodeR3dm1_out.format.file_format = "JPEG"
-nodeR3dm1_out.format.color_mode = "RGB"
-nodeR3dm1_out.format.quality = 100
-nodeR3dm1_out.file_slots[0].path = "Cam-##_R3_DM1-BBR"
-nodeR3dm1_out.file_slots.new("Cam-##_R3_DM1-BVJR")
-nodeR3dm1_out.file_slots.new("Cam-##_R3_DM1-MAGMA")
-nodeR3dm1_out.file_slots.new("Cam-##_R3_DM1-SPECTRAL")
-nodeR3dm1_out.file_slots.new("Cam-##_R3_DM1-VIRIDIS")
-nodeR3dm1_out.file_slots.new("Cam-##_H1_DM1")
-
-### Output DM2 - colored
-nodeR3dm2_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
-nodeR3dm2_out.location = (1100, -220)
-nodeR3dm2_out.base_path = "//tmp"
-nodeR3dm2_out.format.file_format = "JPEG"
-nodeR3dm2_out.format.color_mode = "RGB"
-nodeR3dm2_out.format.quality = 100
-nodeR3dm2_out.file_slots[0].path = "Cam-##_R3_DM2-BBR"
-nodeR3dm2_out.file_slots.new("Cam-##_R3_DM2-BVJR")
-nodeR3dm2_out.file_slots.new("Cam-##_R3_DM2-MAGMA")
-nodeR3dm2_out.file_slots.new("Cam-##_R3_DM2-SPECTRAL")
-nodeR3dm2_out.file_slots.new("Cam-##_R3_DM2-VIRIDIS")
-nodeR3dm2_out.file_slots.new("Cam-##_H1_DM2")
-
+nodeR3dm_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR3dm_out.location = (1100, 0)
+nodeR3dm_out.base_path = "//tmp"
+nodeR3dm_out.format.file_format = "JPEG"
+nodeR3dm_out.format.color_mode = "RGB"
+nodeR3dm_out.format.quality = 100
+nodeR3dm_out.file_slots[0].path = "Cam-##_R3_DM1-BBR"
+nodeR3dm_out.file_slots.new("Cam-##_R3_DM1-BVJR")
+nodeR3dm_out.file_slots.new("Cam-##_R3_DM1-MAGMA")
+nodeR3dm_out.file_slots.new("Cam-##_R3_DM1-SPECTRAL")
+nodeR3dm_out.file_slots.new("Cam-##_R3_DM1-VIRIDIS")
+nodeR3dm_out.file_slots.new("Cam-##_H1_DM1")
 
 # connections
-nodetree.links.new(node2.outputs[3], nodeR3.inputs[0])
 nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dmA.inputs[0])
 nodeR3_nodetree.links.new(nodeR3dmA.outputs[0], nodeR3dmB.inputs[0])
 nodeR3_nodetree.links.new(nodeR3dmB.outputs[0], nodeR3dmA_GREY.inputs[0])
@@ -1538,31 +1450,24 @@ nodeR3_nodetree.links.new(nodeR3dmB.outputs[0], nodeR3dm_VIRIDIS.inputs[0])
 ## connections for DM - grey
 nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dmA_GREY.inputs[0])
 
-nodeR3_nodetree.links.new(nodeR3dmB_GREY.outputs[0], nodeR3dm1_Gout.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dmB_GREY.outputs[0], nodeR3dm2_Gout.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dmB_GREY.outputs[0], nodeR3dm_Gout.inputs[0])
 
-## connections for DM1 - colored
-nodeR3_nodetree.links.new(nodeR3dm_BBR.outputs[0], nodeR3dm1_out.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm_BVJR.outputs[0], nodeR3dm1_out.inputs[1])
-nodeR3_nodetree.links.new(nodeR3dm_MAGMA.outputs[0], nodeR3dm1_out.inputs[2])
-nodeR3_nodetree.links.new(nodeR3dm_SPECTRAL.outputs[0], nodeR3dm1_out.inputs[3])
-nodeR3_nodetree.links.new(nodeR3dm_VIRIDIS.outputs[0], nodeR3dm1_out.inputs[4])
-nodeR3_nodetree.links.new(nodeR3dmF.outputs[0], nodeR3dm1_out.inputs[5])
+## connections for DM - colored
+nodeR3_nodetree.links.new(nodeR3dm_BBR.outputs[0], nodeR3dm_out.inputs[0])
+nodeR3_nodetree.links.new(nodeR3dm_BVJR.outputs[0], nodeR3dm_out.inputs[1])
+nodeR3_nodetree.links.new(nodeR3dm_MAGMA.outputs[0], nodeR3dm_out.inputs[2])
+nodeR3_nodetree.links.new(nodeR3dm_SPECTRAL.outputs[0], nodeR3dm_out.inputs[3])
+nodeR3_nodetree.links.new(nodeR3dm_VIRIDIS.outputs[0], nodeR3dm_out.inputs[4])
+nodeR3_nodetree.links.new(nodeR3dmF.outputs[0], nodeR3dm_out.inputs[5])
 
-## connections for DM2 - colored
-nodeR3_nodetree.links.new(nodeR3dm_BBR.outputs[0], nodeR3dm2_out.inputs[0])
-nodeR3_nodetree.links.new(nodeR3dm_BVJR.outputs[0], nodeR3dm2_out.inputs[1])
-nodeR3_nodetree.links.new(nodeR3dm_MAGMA.outputs[0], nodeR3dm2_out.inputs[2])
-nodeR3_nodetree.links.new(nodeR3dm_SPECTRAL.outputs[0], nodeR3dm2_out.inputs[3])
-nodeR3_nodetree.links.new(nodeR3dm_VIRIDIS.outputs[0], nodeR3dm2_out.inputs[4])
-nodeR3_nodetree.links.new(nodeR3dmF.outputs[0], nodeR3dm2_out.inputs[5])
+
 
 # ------------------------------------------------------------------
 # R4: POINTINESS
 # ------------------------------------------------------------------
 # adding nodegroup, node R4
-nodeR4 = nodetree.nodes.new("CompositorNodeGroup")
-nodeR4.location = (400, -220)
+nodeR4 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR4.location = (400, -300)
 nodeR4.name = "R4_pointiness"
 
 # subtree description
@@ -1572,9 +1477,7 @@ nodeR4_nodetree = nodeR4.node_tree  # shortcut; akin to `nodetree`
 # create input
 nodeR4_in = nodeR4_nodetree.nodes.new("NodeGroupInput")
 nodeR4_in.location = (0, 0)
-nodeR4_nodetree.inputs.new("NodeSocketColor", "Cam-##_R4_POI-100%")
-nodeR4_nodetree.inputs.new("NodeSocketColor", "Cam-##_R4_POI-25%")
-nodeR4_nodetree.inputs.new("NodeSocketColor", "Cam-##_R4_POI-10%")
+nodeR4_nodetree.inputs.new("NodeSocketColor", "Cam-##_R4_POI")
 
 # hide input values
 for nodeR4_input in nodeR4_nodetree.inputs:
@@ -1597,25 +1500,20 @@ nodeR4z.base_path = "//tmp"
 nodeR4z.format.file_format = "JPEG"
 nodeR4z.format.color_mode = "BW"
 nodeR4z.format.quality = 100
-nodeR4z.file_slots[0].path = "Cam-##_R4_POI-100pc"
-nodeR4z.file_slots.new("Cam-##_R4_POI-25pc")
-nodeR4z.file_slots.new("Cam-##_R4_POI-10pc")
+nodeR4z.file_slots[0].path = "Cam-##_R4_POI" # Complete the output file name with ration value
 
 # connections
-nodetree.links.new(node2.outputs[4], nodeR4.inputs[0])
 nodeR4_nodetree.links.new(nodeR4_in.outputs[0], nodeR4a.inputs[0])
-nodeR4_nodetree.links.new(nodeR4_in.outputs[1], nodeR4b.inputs[0])
-nodeR4_nodetree.links.new(nodeR4_in.outputs[2], nodeR4c.inputs[0])
 nodeR4_nodetree.links.new(nodeR4a.outputs[0], nodeR4z.inputs[0])
-nodeR4_nodetree.links.new(nodeR4b.outputs[0], nodeR4z.inputs[1])
-nodeR4_nodetree.links.new(nodeR4c.outputs[0], nodeR4z.inputs[2])
+
 
 # ------------------------------------------------------------------
 # R5: ASPECT
 # ------------------------------------------------------------------
-# adding nodegroup, node R4
-nodeR5 = nodetree.nodes.new("CompositorNodeGroup")
-nodeR5.location = (400, -360)
+    
+# adding nodegroup, node R5
+nodeR5 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR5.location = (400, -400)
 nodeR5.name = "R5_aspect"
 
 # subtree description
@@ -1625,9 +1523,7 @@ nodeR5_nodetree = nodeR5.node_tree  # shortcut; akin to `nodetree`
 # create inputs
 nodeR5_in = nodeR5_nodetree.nodes.new("NodeGroupInput")
 nodeR5_in.location = (0, 0)
-nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R5_ASP-100%")
-nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R5_ASP-25%")
-nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R5_ASP-10%")
+nodeR5_nodetree.inputs.new("NodeSocketColor", "Cam-##_R5_ASP")
 
 # hide input values
 for nodeR5_input in nodeR5_nodetree.inputs:
@@ -1635,13 +1531,7 @@ for nodeR5_input in nodeR5_nodetree.inputs:
 
 # inside the group
 nodeR5a = nodeR5_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR5a.location = (180, 180)
-
-nodeR5b = nodeR5_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR5b.location = (180, 0)
-
-nodeR5c = nodeR5_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR5c.location = (180, -180)
+nodeR5a.location = (180, 0)
 
 ## File Output
 nodeR5z = nodeR5_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -1650,15 +1540,61 @@ nodeR5z.base_path = "//tmp"
 nodeR5z.format.file_format = "JPEG"
 nodeR5z.format.color_mode = "RGB"
 nodeR5z.format.quality = 100
-nodeR5z.file_slots[0].path = "Cam-##_R5_ASP-100pc"
-nodeR5z.file_slots.new("Cam-##_R5_ASP-25pc")
-nodeR5z.file_slots.new("Cam-##_R5_ASP-10pc")
+nodeR5z.file_slots[0].path = "Cam-##_R5_ASP"
 
 # connections
-nodetree.links.new(node2.outputs[5], nodeR5.inputs[0])
 nodeR5_nodetree.links.new(nodeR5_in.outputs[0], nodeR5a.inputs[0])
-nodeR5_nodetree.links.new(nodeR5_in.outputs[1], nodeR5b.inputs[0])
-nodeR5_nodetree.links.new(nodeR5_in.outputs[2], nodeR5c.inputs[0])
 nodeR5_nodetree.links.new(nodeR5a.outputs[0], nodeR5z.inputs[0])
-nodeR5_nodetree.links.new(nodeR5b.outputs[0], nodeR5z.inputs[1])
-nodeR5_nodetree.links.new(nodeR5c.outputs[0], nodeR5z.inputs[2])
+
+
+# --------------------------------------------------------------
+# R6: Slope - NODE R6
+# --------------------------------------------------------------
+
+# adding nodegroup, node R6
+nodeR6 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR6.location = (400, -500)
+nodeR6.name = "R6_slope"
+
+# subtree description
+nodeR6.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R6: Slope")
+nodeR6_nodetree = nodeR6.node_tree  # shortcut; akin to `nodetree`
+
+# create inputs
+nodeR6_in = nodeR6_nodetree.nodes.new("NodeGroupInput")
+nodeR6_in.location = (0, 0)
+nodeR6_nodetree.inputs.new("NodeSocketColor", "Cam-##_R6_Slope")
+
+# inside the group
+nodeR6a = nodeR6_nodetree.nodes.new("CompositorNodeBrightContrast")
+nodeR6a.location = (200, 0)
+
+## File Output
+nodeR6b = nodeR6_nodetree.nodes.new("CompositorNodeOutputFile")
+nodeR6b.location = (400, 0)
+nodeR6b.base_path = "//tmp"
+nodeR6b.format.file_format = "JPEG"
+nodeR6b.format.color_mode = "BW"
+nodeR6b.format.quality = 100
+nodeR6b.file_slots[0].path = "Cam-##_R6_Slope"
+
+# connections
+nodeR6_nodetree.links.new(nodeR6_in.outputs[0], nodeR6a.inputs[0])
+nodeR6_nodetree.links.new(nodeR6a.outputs[0], nodeR6b.inputs[0])
+
+
+# ------------------------------------------------------------------
+# CONNECTIONS
+# ------------------------------------------------------------------
+
+node2_nodetree.links.new(node2_in.outputs["C1: Color"], nodeC1.inputs["Cam-##_C1_PRVertex"])
+node2_nodetree.links.new(node2_in.outputs["H1: Masks"], nodeH.inputs["Cam-##_H1_Masks"])
+node2_nodetree.links.new(node2_in.outputs["H2: Outline By Normal"], nodeH.inputs["Cam-##_H2_Outline By Normal"])
+node2_nodetree.links.new(node2_in.outputs["R1: Shading"], nodeH.inputs["Cam-##_H3_Details"])
+node2_nodetree.links.new(node2_in.outputs["R1: Shading"], nodeR1.inputs["Cam-##_R1"])
+node2_nodetree.links.new(node2_in.outputs["L1: Ambient Occlusion"], nodeL1.inputs["Cam-##_L1_AO"])
+node2_nodetree.links.new(node2_in.outputs["R2: Contour Lines"], nodeR2.inputs["Cam-##_R2_CL"])
+node2_nodetree.links.new(node2_in.outputs["R3: Distance Map"], nodeR3.inputs["Cam-##_R3_DM"])
+node2_nodetree.links.new(node2_in.outputs["R4: Pointiness"], nodeR4.inputs["Cam-##_R4_POI"])
+node2_nodetree.links.new(node2_in.outputs["R5: Aspect"], nodeR5.inputs["Cam-##_R5_ASP"])
+node2_nodetree.links.new(node2_in.outputs["R6: Slope"], nodeR6.inputs["Cam-##_R6_Slope"])
