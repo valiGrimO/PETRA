@@ -27,12 +27,12 @@ def make_camera_parameters(context):
 
     # Compute
     # --------------------------------------------------
-    # size of the scaled down framing cube (in millimeters!)
+    # size of the scaled down framing cube in millimeters
     U2 = round(U1 * DS * 1000, 2)
     V2 = round(V1 * DS * 1000, 2)
     W2 = round(W1 * DS * 1000, 2)
 
-    # size in pixels
+    # size of the scaled down framing cube in pixels
     U3 = round(U2 / 25.4 * RI)
     V3 = round(V2 / 25.4 * RI)
     W3 = round(W2 / 25.4 * RI)

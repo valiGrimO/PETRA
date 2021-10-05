@@ -37,9 +37,13 @@ bl_info = {
 
 import importlib
 from pathlib import Path
+import re
 
 import bpy
 from bpy.types import Operator, Panel
+
+
+PATTERN_CAMERA_NAME = re.compile(r"Cam-0([1-6])")
 
 
 if "setup" not in locals():
@@ -53,6 +57,8 @@ else:
 # --------------------------------------------------
 # Properties
 # --------------------------------------------------
+
+
 class PetraPropertyGroup(bpy.types.PropertyGroup):
 
     documentation_scale: bpy.props.FloatProperty(
@@ -60,15 +66,17 @@ class PetraPropertyGroup(bpy.types.PropertyGroup):
         description="The scale of the printed image",
         unit="NONE",
         default=0.05,
+        update=lambda self, context: bpy.ops.petra.apply_render_parameters_to_scene(),
     )
 
     spatial_resolution: bpy.props.FloatProperty(
         name="Spatial resolution",
-        description="Size of 1 pixel in mm. Equivalent to 25.4 / PPI",
+        description="Unscaled size of 1 pixel in mm. Equivalent to 25.4 / unscaled PPI",
         # This sets the unit to 'mm'. See: https://git.io/J4cZe
         unit="CAMERA",
         subtype="DISTANCE_CAMERA",
         default=1,
+        update=lambda self, context: bpy.ops.petra.apply_render_parameters_to_scene(),
     )
 
 
@@ -99,13 +107,9 @@ class PETRA_OT_apply_render_parameters_to_scene(Operator):
     )
 
     def execute(self, context):
-        chosen_camera = bpy.context.space_data.camera
+        camera_params = extract_chosen_camera_parameters(context)
+        camera_resolution = camera_params["px"]
 
-        camera_params = layout_information.make_camera_parameters(context)
-        camera_number = int(chosen_camera.name[-2:])
-        camera_index = camera_number - 1
-
-        camera_resolution = camera_params[camera_index]["px"]
         render_settings = context.scene.render
         render_settings.resolution_x = camera_resolution[0]
         render_settings.resolution_y = camera_resolution[1]
@@ -177,9 +181,6 @@ class PETRA_OT_activate_and_preview_scene_camera(Operator):
     bl_description = "Activate and preview camera"
 
     def invoke(self, context, event):
-        # Apply the selected camera to the X- and Y-resolution of the scene dimensions.
-        bpy.ops.petra.apply_render_parameters_to_scene()
-
         chosen_camera = context.active_object
 
         # Adjust current timeline marker
@@ -189,6 +190,10 @@ class PETRA_OT_activate_and_preview_scene_camera(Operator):
 
         # Adjust the 3D-view perspective (other options: "PERSP", "ORTHO")
         context.area.spaces[0].region_3d.view_perspective = "CAMERA"
+
+        # Apply the selected camera to the X- and Y-resolution of the scene dimensions.
+        context.space_data.camera = chosen_camera  # needed to ensure call below works
+        bpy.ops.petra.apply_render_parameters_to_scene()
 
         return {"FINISHED"}
 
@@ -261,12 +266,16 @@ class PETRA_PT_camera_setup(PetraPanelMixin, Panel):
         col.label(text="Printed documentation:")
         col.prop(context.scene.petra, "documentation_scale", text="Scale")
         col.prop(context.scene.petra, "spatial_resolution", text="Spatial resolution")
-        col.operator(PETRA_OT_apply_render_parameters_to_scene.bl_idname)
-        ppi = round(25.4 / context.scene.petra.spatial_resolution)
+        # col.operator(PETRA_OT_apply_render_parameters_to_scene.bl_idname)
+        ppi = paradata.BlenderData(context).resolution_of_image
         col.label(text=f"Resolution: {ppi} ppi", icon="INFO")
+        printed_size = extract_chosen_camera_dimensions(context)
+        col.label(text=f"Printed size: {printed_size}", icon="INFO")
 
         layout.label(text="Camera manager:")
         for camera in cameras:
+            if not is_valid_framing_box_camera(camera):
+                continue
             row = layout.row(align=True)
             row.context_pointer_set("active_object", camera)
             is_chosen_camera = camera == chosen_camera
@@ -419,6 +428,38 @@ def popup(text="", title="Information", icon="INFO"):
             self.layout.label(text=line)
 
     bpy.context.window_manager.popup_menu(draw, title=title, icon=icon)
+
+
+def extract_chosen_camera_parameters(context):
+    chosen_camera = context.space_data.camera
+
+    camera_params = layout_information.make_camera_parameters(bpy.context)
+    camera_number = PATTERN_CAMERA_NAME.match(chosen_camera.name)[1]
+    camera_index = int(camera_number) - 1
+
+    return camera_params[camera_index]
+
+
+def is_valid_framing_box_camera(camera):
+    return bool(PATTERN_CAMERA_NAME.match(camera.name) and camera.data.animation_data)
+
+
+def extract_chosen_camera_dimensions(context):
+    """
+    Returns dimensions of chosen camera in cm as string.
+
+    Example
+    -------
+    >>> extract_chosen_camera_dimensions(bpy.context)
+    '10.0 cm x 10.0 cm'
+    """
+    camera_params = extract_chosen_camera_parameters(context)
+
+    # convert width and height from mm to cm
+    width = round(camera_params["width"] / 10, 1)
+    height = round(camera_params["height"] / 10, 1)
+
+    return f"{width} cm x {height} cm"
 
 
 if __name__ == "__main__":

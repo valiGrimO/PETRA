@@ -50,11 +50,13 @@ class BlenderData:
             round(Fraction(params.documentation_scale), 7)
         )
 
-        # Note: this is in millimetres per pixel.
+        # Note: this is unscaled and in millimetres per pixel.
         self.spatial_resolution = params.spatial_resolution
 
-        # Note: this is in pixels per inch.
-        self.resolution_of_image = round(25.4 / self.spatial_resolution)
+        # Note: this is scaled and in pixels per inch.
+        self.resolution_of_image = round(
+            25.4 / (self.documentation_scale * self.spatial_resolution)
+        )
 
 
 def generate_yaml(context, filepath):
@@ -109,22 +111,22 @@ def generate_yaml(context, filepath):
 
     # cameras
     # select cameras in 'PETRA' collection
-    for obj in bpy.data.collections['PETRA'].all_objects:
+    for obj in bpy.data.collections["PETRA"].all_objects:
         if obj.type == "CAMERA":
-            file.write('\n'+obj.name+':''\n')
-            #file.write('    orthographicScale: f"{} x {} m''\n')
-            #file.write('    dimensions (cm): f"{} x {} m''\n')
-            #file.write('    dimensions (px): f"{} x {} m''\n')
-            file.write('    clippingStart: f"{bpy.data.cameras.clip_start} m''\n')
-            file.write('    clippingEnd: f"{bpy.data.cameras.clip_End} m''\n')
-            file.write('    shiftX: f"{bpy.data.cameras.shift_x} m''\n')
-            file.write('    shiftY: f"{bpy.data.cameras.shift_y} m''\n')
-            file.write('    relativeLocationX: '+str(obj.location.x)+' m''\n')
-            file.write('    relativeLocationY: '+str(obj.location.y)+' m''\n')
-            file.write('    relativeLocationZ: '+str(obj.location.z)+' m''\n')
-            file.write('    relativeRotationX: '+str(obj.rotation.x)+' m''\n')
-            file.write('    relativeRotationY: '+str(obj.rotation.y)+' m''\n')
-            file.write('    relativeRotationZ: '+str(obj.rotation.z)+' m''\n')
+            file.write("\n" + obj.name + ":" "\n")
+            # file.write('    orthographicScale: f"{} x {} m''\n')
+            # file.write('    dimensions (cm): f"{} x {} m''\n')
+            # file.write('    dimensions (px): f"{} x {} m''\n')
+            file.write('    clippingStart: f"{bpy.data.cameras.clip_start} m' "\n")
+            file.write('    clippingEnd: f"{bpy.data.cameras.clip_End} m' "\n")
+            file.write('    shiftX: f"{bpy.data.cameras.shift_x} m' "\n")
+            file.write('    shiftY: f"{bpy.data.cameras.shift_y} m' "\n")
+            file.write("    relativeLocationX: " + str(obj.location.x) + " m" "\n")
+            file.write("    relativeLocationY: " + str(obj.location.y) + " m" "\n")
+            file.write("    relativeLocationZ: " + str(obj.location.z) + " m" "\n")
+            file.write("    relativeRotationX: " + str(obj.rotation.x) + " m" "\n")
+            file.write("    relativeRotationY: " + str(obj.rotation.y) + " m" "\n")
+            file.write("    relativeRotationZ: " + str(obj.rotation.z) + " m" "\n")
 
     # end of yaml file
 

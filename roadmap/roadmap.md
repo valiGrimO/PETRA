@@ -11,11 +11,11 @@
 - [x] **M** :green_circle: when previewing a camera, we should look through this camera and select this camera
 - [x] **M** :green_circle: Rename the editable value "resolution" into "spatial resolution"
 - [x] **M** :green_circle: show uneditable resolution (in ppi)
-- [ ] **M** :red_circle: How to manage more than 6 cameras?
-- [ ] **M** :red_circle: Fix the dimensions (H and V) of the camera. The resolution is wrong too... :confused: Results should be the same as what we get with `PETrA/roadmap/renderSize.ods`
-- [ ] **M** :red_circle: Compute in real time H and V value of the camera, depending on the size of the "framing box", the scale of documentation, and the spatial resolution
+- [x] **M** :red_circle: How to manage more than 6 cameras?
+- [x] **M** :red_circle: Fix the dimensions (H and V) of the camera. The resolution is wrong too... :confused: Results should be the same as what we get with `PETrA/roadmap/renderSize.ods`
+- [x] **M** :red_circle: Compute in real time H and V value of the camera, depending on the size of the "framing box", the scale of documentation, and the spatial resolution
   - Would it be still possible to get the size in pixel later in the paradata file?
-- [ ] **M** :red_circle: show in real time uneditable printed size of rendered pictures (in cm)
+- [x] **M** :red_circle: show in real time uneditable printed size of rendered pictures (in cm)
 - [ ] **M** :yellow_circle: Add a check box to each camera in order to select the ones to be rendered (sometimes, we don't need every layer of information for some point of view)
 
 ## Layer of information in details
