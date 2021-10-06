@@ -1,11 +1,14 @@
 # List of tasks for the development of PETrA
 
 **Legend:**
-- [ ] **M** :large_blue_circle: task to do, dedicated to **Michael**, with low priority
-- [ ] **V** :yellow_circle: task to do, dedicated to **Valentin**, with medium priority
-- [ ] :red_circle: task to do, with high priority
+- [ ] task to do
 - [x] completed task
-- [x] :green_circle: validated task
+- **M** task dedicated to Michael
+- **V** task dedicated to Valentin
+- :large_blue_circle: low priority
+- :yellow_circle: medium priority
+- :red_circle: high priority
+- :green_circle: validated task
 
 ## Camera Management
 - [x] **M** :green_circle: when previewing a camera, we should look through this camera and select this camera
