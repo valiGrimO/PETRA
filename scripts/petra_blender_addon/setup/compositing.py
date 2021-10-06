@@ -27,39 +27,39 @@ node1.location = (0, 0)
 
 
 # ------------------------------------------------------------------
-# HUB - NODE 2
+# PETrA NODE
 # ------------------------------------------------------------------
 
 # adding nodegroup, node 2
-node2 = nodetree.nodes.new("CompositorNodeGroup")
-node2.location = (400, 120)
-node2.name = "Hub"
+node_PETrA = nodetree.nodes.new("CompositorNodeGroup")
+node_PETrA.location = (400, 120)
+node_PETrA.name = "PETrA"
 
 # subtree description
-node2.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="Hub")
-node2_nodetree = node2.node_tree  # shortcut; akin to `nodetree`
+node_PETrA.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="PETrA")
+node_PETrA_nodetree = node_PETrA.node_tree  # shortcut; akin to `nodetree`
 
 # create input
-node2_in = node2_nodetree.nodes.new("NodeGroupInput")
-node2_in.location = (0, 0)
-node2_nodetree.inputs.new("NodeSocketColor", "C1: Color")
-node2_nodetree.inputs.new("NodeSocketColor", "H1: Masks")
-node2_nodetree.inputs.new("NodeSocketColor", "H2: Outline By Normal")
-node2_nodetree.inputs.new("NodeSocketColor", "L1: Ambient Occlusion")
-node2_nodetree.inputs.new("NodeSocketColor", "R1: Shading")
-node2_nodetree.inputs.new("NodeSocketColor", "R2: Contour Lines")
-node2_nodetree.inputs.new("NodeSocketColor", "R3: Distance Map")
-node2_nodetree.inputs.new("NodeSocketColor", "R4: Pointiness")
-node2_nodetree.inputs.new("NodeSocketColor", "R5: Aspect")
-node2_nodetree.inputs.new("NodeSocketColor", "R6: Slope")
+node_PETrA_in = node_PETrA_nodetree.nodes.new("NodeGroupInput")
+node_PETrA_in.location = (0, 0)
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "C1: Color")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "H1: Masks")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "H2: Outline By Normal")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "L1: Ambient Occlusion")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "R1: Shading")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "R2: Contour Lines")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "R3: Distance Map")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "R4: Pointiness")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "R5: Aspect")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "R6: Slope")
 
 # hide input values
-for node2_input in node2_nodetree.inputs:
-    node2_input.hide_value = True
+for node_PETrA_input in node_PETrA_nodetree.inputs:
+    node_PETrA_input.hide_value = True
 
 # hide output values
-for node2_output in node2_nodetree.inputs:
-    node2_output.hide_value = True
+for node_PETrA_output in node_PETrA_nodetree.inputs:
+    node_PETrA_output.hide_value = True
 
 
 # ------------------------------------------------------------------
@@ -67,7 +67,7 @@ for node2_output in node2_nodetree.inputs:
 # ------------------------------------------------------------------
 
 # adding nodegroup, node C1
-nodeC1 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeC1 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeC1.location = (400, 360)
 nodeC1.name = "C1_color"
 
@@ -114,7 +114,7 @@ nodeC1_nodetree.links.new(nodeC1b.outputs[0], nodeC1z.inputs[1])
 # --------------------------------------------------------------
 
 # adding nodegroup, node H
-nodeH = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeH = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeH.location = (400, 240)
 nodeH.name = "H_covering"
 
@@ -268,7 +268,7 @@ nodeH_nodetree.links.new(nodeH3e.outputs[0], nodeH2z.inputs[1])
 # --------------------------------------------------------------
 
 # adding nodegroup, node L1
-nodeL1 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeL1 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeL1.location = (400, 100)
 nodeL1.name = "L1_AO"
 
@@ -303,7 +303,7 @@ nodeL1_nodetree.links.new(nodeL1a.outputs[0], nodeL1b.inputs[0])
 # ------------------------------------------------------------------
 
 # adding nodegroup, node R1
-nodeR1 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR1 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeR1.location = (400, 0)
 nodeR1.name = "R1_shading"
 
@@ -323,7 +323,6 @@ for nodeR1_input in nodeR1_nodetree.inputs:
 
 ## ---------------------
 ## NMC source
-## ---------------------
 
 nodeR1a = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeR1a.location = (1000, 1340)
@@ -343,7 +342,7 @@ nodeR1_nodetree.links.new(nodeR1a.outputs[0], nodeR1zA.inputs[0])
 
 ## ---------------------
 ## B1
-## ---------------------
+
 # adding nodegroup
 nodeB1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeB1g.location = (1000, 1180)
@@ -391,7 +390,7 @@ nodeB1g_nodetree.links.new(nodeB1b.outputs[0], nodeB1g_out.inputs[0])
 
 ## ---------------------
 ## B2
-## ---------------------
+
 # adding nodegroup
 nodeB2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeB2g.location = (1000, 1060)
@@ -435,7 +434,7 @@ nodeB2g_nodetree.links.new(nodeB2c.outputs[0], nodeB2g_out.inputs[0])
 
 ## ---------------------
 ## Cb1
-## ---------------------
+
 # adding nodegroup
 nodeCb1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeCb1g.location = (1000, 940)
@@ -483,7 +482,7 @@ nodeCb1g_nodetree.links.new(nodeCb1b.outputs[0], nodeCb1g_out.inputs[0])
 
 ## ---------------------
 ## Cb2
-## ---------------------
+
 # adding nodegroup
 nodeCb2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeCb2g.location = (1000, 820)
@@ -528,7 +527,7 @@ nodeCb2g_nodetree.links.new(nodeCb2c.outputs[0], nodeCb2g_out.inputs[0])
 
 ## ---------------------
 ## Cr1
-## ---------------------
+
 # adding nodegroup
 nodeCr1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeCr1g.location = (1000, 700)
@@ -584,7 +583,7 @@ nodeCr1g_nodetree.links.new(nodeCr1b.outputs[0], nodeCr1g_out.inputs[0])
 
 ## ---------------------
 ## Cr2
-## ---------------------
+
 # adding nodegroup
 nodeCr2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeCr2g.location = (1000, 540)
@@ -636,7 +635,7 @@ nodeCr2g_nodetree.links.new(nodeCr2c.outputs[0], nodeCr2g_out.inputs[0])
 
 ## ---------------------
 ## G1
-## ---------------------
+
 # adding nodegroup
 nodeG1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeG1g.location = (1000, 380)
@@ -685,7 +684,7 @@ nodeG1g_nodetree.links.new(nodeG1a.outputs[1], nodeG1g_out.inputs[0])
 
 ## ---------------------
 ## G2
-## ---------------------
+
 # adding nodegroup
 nodeG2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeG2g.location = (1000, 220)
@@ -731,7 +730,7 @@ nodeG2g_nodetree.links.new(nodeG2b.outputs[0], nodeG2g_out.inputs[0])
 
 ## ---------------------
 ## Red1
-## ---------------------
+
 # adding nodegroup
 nodeRed1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeRed1g.location = (1000, 60)
@@ -780,7 +779,7 @@ nodeRed1g_nodetree.links.new(nodeRed1a.outputs[0], nodeRed1g_out.inputs[0])
 
 ## ---------------------
 ## Red2
-## ---------------------
+
 # adding nodegroup
 nodeRed2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeRed2g.location = (1000, -100)
@@ -826,7 +825,7 @@ nodeRed2g_nodetree.links.new(nodeRed2b.outputs[0], nodeRed2g_out.inputs[0])
 
 ## ---------------------
 ## S1
-## ---------------------
+
 # adding nodegroup
 nodeS1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeS1g.location = (1000, -260)
@@ -880,7 +879,7 @@ nodeS1g_nodetree.links.new(nodeS1b.outputs[0], nodeS1g_out.inputs[0])
 
 ## ---------------------
 ## S2
-## ---------------------
+
 # adding nodegroup
 nodeS2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeS2g.location = (1000, -420)
@@ -929,7 +928,7 @@ nodeS2g_nodetree.links.new(nodeS2c.outputs[0], nodeS2g_out.inputs[0])
 
 ## ---------------------
 ## U1
-## ---------------------
+
 # adding nodegroup
 nodeU1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeU1g.location = (1000, -580)
@@ -982,7 +981,7 @@ nodeU1g_nodetree.links.new(nodeU1c.outputs[0], nodeU1g_out.inputs[0])
 
 ## ---------------------
 ## U2
-## ---------------------
+
 # adding nodegroup
 nodeU2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeU2g.location = (1000, -700)
@@ -1024,8 +1023,7 @@ nodeU2g_nodetree.links.new(nodeU2c.outputs[0], nodeU2g_out.inputs[0])
 
 ## ---------------------
 ## V1
-## ---------------------
-# adding nodegroup
+
 # adding nodegroup
 nodeV1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeV1g.location = (1000, -820)
@@ -1072,7 +1070,7 @@ nodeV1g_nodetree.links.new(nodeV1b.outputs[0], nodeV1g_out.inputs[0])
 
 ## ---------------------
 ## V2
-## ---------------------
+
 # adding nodegroup
 nodeV2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeV2g.location = (1000, -940)
@@ -1116,7 +1114,7 @@ nodeV2g_nodetree.links.new(nodeV2c.outputs[0], nodeV2g_out.inputs[0])
 
 ## ---------------------
 ## Y1
-## ---------------------
+
 # adding nodegroup
 nodeY1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeY1g.location = (1000, -1060)
@@ -1172,7 +1170,7 @@ nodeY1g_nodetree.links.new(nodeY1b.outputs[0], nodeY1g_out.inputs[0])
 
 ## ---------------------
 ## Y2
-## ---------------------
+
 # adding nodegroup
 nodeY2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
 nodeY2g.location = (1000, -1220)
@@ -1232,9 +1230,9 @@ nodeY2g_nodetree.links.new(nodeY2d.outputs[0], nodeY2g_out.inputs[0])
 # ------------------------------------------------------------------
 # R2: CONTOUR LINES
 # ------------------------------------------------------------------
-    
+
 # adding nodegroup, node R1
-nodeR2 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR2 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeR2.location = (400, -100)
 nodeR2.name = "R2_contourLine"
 
@@ -1291,7 +1289,7 @@ nodeR2_nodetree.links.new(nodeR2b.outputs[0], nodeR2z.inputs[0])
 # ------------------------------------------------------------------
 
 # adding nodegroup, node R3
-nodeR3 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR3 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeR3.location = (400, -200)
 nodeR3.name = "R3_distanceMap"
 
@@ -1461,12 +1459,12 @@ nodeR3_nodetree.links.new(nodeR3dm_VIRIDIS.outputs[0], nodeR3dm_out.inputs[4])
 nodeR3_nodetree.links.new(nodeR3dmF.outputs[0], nodeR3dm_out.inputs[5])
 
 
-
 # ------------------------------------------------------------------
 # R4: POINTINESS
 # ------------------------------------------------------------------
+
 # adding nodegroup, node R4
-nodeR4 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR4 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeR4.location = (400, -300)
 nodeR4.name = "R4_pointiness"
 
@@ -1510,9 +1508,9 @@ nodeR4_nodetree.links.new(nodeR4a.outputs[0], nodeR4z.inputs[0])
 # ------------------------------------------------------------------
 # R5: ASPECT
 # ------------------------------------------------------------------
-    
+
 # adding nodegroup, node R5
-nodeR5 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR5 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeR5.location = (400, -400)
 nodeR5.name = "R5_aspect"
 
@@ -1552,7 +1550,7 @@ nodeR5_nodetree.links.new(nodeR5a.outputs[0], nodeR5z.inputs[0])
 # --------------------------------------------------------------
 
 # adding nodegroup, node R6
-nodeR6 = node2_nodetree.nodes.new("CompositorNodeGroup")
+nodeR6 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeR6.location = (400, -500)
 nodeR6.name = "R6_slope"
 
@@ -1587,14 +1585,14 @@ nodeR6_nodetree.links.new(nodeR6a.outputs[0], nodeR6b.inputs[0])
 # CONNECTIONS
 # ------------------------------------------------------------------
 
-node2_nodetree.links.new(node2_in.outputs["C1: Color"], nodeC1.inputs["Cam-##_C1_PRVertex"])
-node2_nodetree.links.new(node2_in.outputs["H1: Masks"], nodeH.inputs["Cam-##_H1_Masks"])
-node2_nodetree.links.new(node2_in.outputs["H2: Outline By Normal"], nodeH.inputs["Cam-##_H2_Outline By Normal"])
-node2_nodetree.links.new(node2_in.outputs["R1: Shading"], nodeH.inputs["Cam-##_H3_Details"])
-node2_nodetree.links.new(node2_in.outputs["R1: Shading"], nodeR1.inputs["Cam-##_R1"])
-node2_nodetree.links.new(node2_in.outputs["L1: Ambient Occlusion"], nodeL1.inputs["Cam-##_L1_AO"])
-node2_nodetree.links.new(node2_in.outputs["R2: Contour Lines"], nodeR2.inputs["Cam-##_R2_CL"])
-node2_nodetree.links.new(node2_in.outputs["R3: Distance Map"], nodeR3.inputs["Cam-##_R3_DM"])
-node2_nodetree.links.new(node2_in.outputs["R4: Pointiness"], nodeR4.inputs["Cam-##_R4_POI"])
-node2_nodetree.links.new(node2_in.outputs["R5: Aspect"], nodeR5.inputs["Cam-##_R5_ASP"])
-node2_nodetree.links.new(node2_in.outputs["R6: Slope"], nodeR6.inputs["Cam-##_R6_Slope"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["C1: Color"], nodeC1.inputs["Cam-##_C1_PRVertex"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["H1: Masks"], nodeH.inputs["Cam-##_H1_Masks"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["H2: Outline By Normal"], nodeH.inputs["Cam-##_H2_Outline By Normal"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R1: Shading"], nodeH.inputs["Cam-##_H3_Details"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R1: Shading"], nodeR1.inputs["Cam-##_R1"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["L1: Ambient Occlusion"], nodeL1.inputs["Cam-##_L1_AO"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R2: Contour Lines"], nodeR2.inputs["Cam-##_R2_CL"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R3: Distance Map"], nodeR3.inputs["Cam-##_R3_DM"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R4: Pointiness"], nodeR4.inputs["Cam-##_R4_POI"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R5: Aspect"], nodeR5.inputs["Cam-##_R5_ASP"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R6: Slope"], nodeR6.inputs["Cam-##_R6_Slope"])
