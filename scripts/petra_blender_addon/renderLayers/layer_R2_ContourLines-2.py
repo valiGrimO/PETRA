@@ -8,9 +8,9 @@ D = bpy.data
 S = D.scenes["Scene"]
 nodetree = C.scene.node_tree
 
-node_RL = S.node_tree.nodes["Render Layers"]  # This is "Render Layer"
-node_PETrA = S.node_tree.nodes["PETrA"]  # This is "Hub"
-node_R2 = node_PETrA.node_tree.nodes["R2_contourLine"]  # This is "Contour Lines"
+node_RL = S.node_tree.nodes["Render Layers"]
+node_PETrA = S.node_tree.nodes["PETrA"]
+node_R2 = node_PETrA.node_tree.nodes["R2_contourLine"]
 
 # Select render Engine
 C.scene.render.engine = "BLENDER_EEVEE"

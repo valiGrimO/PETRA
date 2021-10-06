@@ -8,10 +8,10 @@ D = bpy.data
 S = D.scenes["Scene"]
 nodetree = S.node_tree
 
-node_RL = nodetree.nodes["Render Layers"]  # This is "Render Layer"
-node_PETrA = nodetree.nodes["PETrA"]  # This is "Hub"
+node_RL = nodetree.nodes["Render Layers"]
+node_PETrA = nodetree.nodes["PETrA"]
 node_PETrA_Input = node_PETrA.node_tree.nodes["Group Input"]
-node_R4 = node_PETrA.node_tree.nodes["R4_pointiness"]  # This is "Pointiness"
+node_R4 = node_PETrA.node_tree.nodes["R4_pointiness"]
 
 # Select render Engine
 C.scene.render.engine = "CYCLES"

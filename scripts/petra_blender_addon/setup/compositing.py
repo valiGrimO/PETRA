@@ -1483,13 +1483,7 @@ for nodeR4_input in nodeR4_nodetree.inputs:
 
 # inside the group
 nodeR4a = nodeR4_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR4a.location = (180, 160)
-
-nodeR4b = nodeR4_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR4b.location = (180, 0)
-
-nodeR4c = nodeR4_nodetree.nodes.new("CompositorNodeBrightContrast")
-nodeR4c.location = (180, -160)
+nodeR4a.location = (180, 0)
 
 ## File Output
 nodeR4z = nodeR4_nodetree.nodes.new("CompositorNodeOutputFile")

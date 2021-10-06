@@ -6,9 +6,8 @@ D = bpy.data
 S = D.scenes["Scene"]
 nodetree = C.scene.node_tree
 
-nodeRL = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
-nodeHub = S.node_tree.nodes["Hub"] # This is "Hub"
-nodeR5 = S.node_tree.nodes["R5_aspect"]# This is Aspect
+node_RL = S.node_tree.nodes["Render Layers"]
+node_PETrA = S.node_tree.nodes["PETrA"]
 
 # Select render Engine
 C.scene.render.engine = "BLENDER_EEVEE"
@@ -22,8 +21,7 @@ refSphere = D.objects["Reference Sphere"]
 refSphere.material_slots[0].material = material
 
 # Configure Compositor
-nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[8])
-nodetree.links.new(nodeHub.outputs[5], nodeR5.inputs[0])
+nodetree.links.new(node_RL.outputs[0], node_PETrA.inputs[8])
 
 # Render `Reference Sphere`
 D.objects["Reference Sphere"].hide_render = False
