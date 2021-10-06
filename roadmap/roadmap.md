@@ -22,6 +22,9 @@
 - [ ] **M** :yellow_circle: Add a check box to each camera in order to select the ones to be rendered (sometimes, we don't need every layer of information for some point of view)
 
 ## Layer of information in details
+### Initialisation
+- [ ] **M** :red_circle: Need to manage slot creation and filling (see [issue 9](https://github.com/valiGrimO/PETrA/issues/9))
+
 ### C1, Color
 - [ ] :large_blue_circle: : Image decorrelation
 
