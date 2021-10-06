@@ -10,10 +10,10 @@ from petra_blender_addon.blendertools import remove_link
 C = bpy.context
 D = bpy.data
 S = D.scenes["Scene"]
-nodetree = bpy.context.scene.node_tree
+nodetree = C.scene.node_tree
 
 # Don't render `Reference Sphere`
-bpy.data.objects["Reference Sphere"].hide_render = True
+D.objects["Reference Sphere"].hide_render = True
 
 ## Render transparent background
 C.scene.render.film_transparent = True
@@ -22,37 +22,37 @@ C.scene.render.film_transparent = True
 C.scene.view_settings.view_transform = "Standard"
 
 # Hide in render
-bpy.data.objects["Reference Sphere"].hide_render = True
-bpy.data.objects["Framing Box"].hide_render = True
+D.objects["Reference Sphere"].hide_render = True
+D.objects["Framing Box"].hide_render = True
 
 # Deactivate Ambient Occlusion
-bpy.context.scene.eevee.use_gtao = False
+C.scene.eevee.use_gtao = False
+
+# Remove "Decimate" modifier
+bpy.ops.object.modifier_remove(modifier="Decimate")
+
 
 # /////////////////////
 # Configure Compositor
 
 # Get reference
-nodeRL = nodetree.nodes["Render Layers"]  # This is "Render Layer"
-nodeHub = nodetree.nodes["Hub"]  # This is "Hub"
-nodeHubInput = nodeHub.node_tree.nodes["Group Input"]
-nodeC1 = nodeHub.node_tree.nodes["C1_color"]  # This is "C1: Color"
-nodeH = nodeHub.node_tree.nodes["H_covering"]  # This is "H: Covering"
-nodeL1 = nodeHub.node_tree.nodes["L1_AO"]  # This is "L1: Ambient Occlusion"
-nodeR1 = nodeHub.node_tree.nodes["R1_shading"]  # This is "R1: Shading"
-nodeR2 = nodeHub.node_tree.nodes["R2_contourLine"]  # This is "Contour Lines"
-nodeR3 = nodeHub.node_tree.nodes["R3_distanceMap"]  # This is "Distance Map"
-nodeR4 = nodeHub.node_tree.nodes["R4_pointiness"]  # This is "Pointiness"
-nodeR5 = nodeHub.node_tree.nodes["R5_aspect"]  # This is Aspect
-nodeR6 = nodeHub.node_tree.nodes["R6_slope"]  # This is "R6: Slope"
+node_RL = nodetree.nodes["Render Layers"]
+node_PETrA = nodetree.nodes["PETrA"]
+node_PETrA_Input = node_PETrA.node_tree.nodes["Group Input"]
+node_C1 = node_PETrA.node_tree.nodes["C1_color"]
+node_H = node_PETrA.node_tree.nodes["H_covering"]
+node_L1 = node_PETrA.node_tree.nodes["L1_AO"]
+node_R1 = node_PETrA.node_tree.nodes["R1_shading"]
+node_R2 = node_PETrA.node_tree.nodes["R2_contourLine"]
+node_R3 = node_PETrA.node_tree.nodes["R3_distanceMap"]
+node_R4 = node_PETrA.node_tree.nodes["R4_pointiness"]
+node_R5 = node_PETrA.node_tree.nodes["R5_aspect"]
+node_R6 = node_PETrA.node_tree.nodes["R6_slope"]
 
 for i in range(10):  # loops through "i = 0 ... 9".
-    remove_link(nodeRL.outputs[0], nodeHub.inputs[i])
+    remove_link(node_RL.outputs[0], node_PETrA.inputs[i])
 
-remove_link(nodeHubInput.outputs[0], nodeC1.inputs[0])
-remove_link(nodeHubInput.outputs[0], nodeC1.inputs[1])
-
-remove_link(nodeHubInput.outputs[4], nodeR4.inputs[0])
-
-remove_link(nodeHubInput.outputs[5], nodeR5.inputs[0])
+remove_link(node_PETrA_Input.outputs[0], node_C1.inputs[0])
+remove_link(node_PETrA_Input.outputs[0], node_C1.inputs[1])
 
 # Render Display Type: Keep User Interface
