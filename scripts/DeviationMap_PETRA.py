@@ -1,3 +1,5 @@
+# Original plugin written by Niels Klop, distributed here: https://www.blendermarket.com/products/distance-map
+
 bl_info = {
     "name": "Deviation Map",
     "author": "Niels Klop",
@@ -17,8 +19,6 @@ import copy
 import random
 import os
 from bpy_extras import view3d_utils
-
-#future release: use empty [] for unselected vertex (convert to -10**9 for custom property)
 
 #callback function for plotting text map
 def drawTextCallback(context, dummy):
@@ -155,19 +155,6 @@ class OBJECT_OT_distanceMap_operator(bpy.types.Operator):
         #random seed for map ID
         seed = random.randint(0,100000)
 
-        #include target object, raycast mode and maximum value in map name
-        # mapID = 'DM' + targetObject.name + '_' + bpy.context.scene.raycastMode + '_max:' + str(round(maxDistance,2)) + '_ID=' + str(seed)
-        number_of_vertex_colors = len(baseObject.data.vertex_colors)
-        mapID = f'DM{number_of_vertex_colors + 1}'
-
-        #add lookup table to custom properties of object
-        lookupTableCustomProp = copy.deepcopy(lookupTable)
-        for count, item in enumerate(lookupTableCustomProp):
-            if item is None:
-                lookupTableCustomProp[count] = 10**9 #replace None with 10**9; only float, int or dict allowed in custom properties, but dict is very slow, float and int do not allow None
-            #future release: elif item is []: lookupTableCustomProp[count] = -10**9
-        baseObject[mapID] = lookupTableCustomProp
-
         #lookup table normalization
         if bpy.context.scene.normValue == 0:
             normValue = maxDistance
@@ -182,6 +169,19 @@ class OBJECT_OT_distanceMap_operator(bpy.types.Operator):
                     lookupTableNorm[count] = 1.0
                 elif lookupTableNorm[count] < -1.0: #clip values below -1.0
                     lookupTableNorm[count] = -1.0
+
+        #include target object, raycast mode and maximum value in map name
+        # mapID = 'DM' + targetObject.name + '_' + bpy.context.scene.raycastMode + '_max:' + str(round(maxDistance,2)) + '_ID=' + str(seed)
+        number_of_vertex_colors = len(baseObject.data.vertex_colors)
+        mapID = f'DM{number_of_vertex_colors + 1}' + '_normVal-' + str(round(normValue,4)) + 'm'
+
+        #add lookup table to custom properties of object
+        lookupTableCustomProp = copy.deepcopy(lookupTable)
+        for count, item in enumerate(lookupTableCustomProp):
+            if item is None:
+                lookupTableCustomProp[count] = 10**9 #replace None with 10**9; only float, int or dict allowed in custom properties, but dict is very slow, float and int do not allow None
+            #future release: elif item is []: lookupTableCustomProp[count] = -10**9
+        baseObject[mapID] = lookupTableCustomProp
 
         #color assignment, sRGB to RGB (gamma correction of 2.2)
         positiveColorRGB = np.power(bpy.context.scene.positiveColor, 1 / 2.2)
