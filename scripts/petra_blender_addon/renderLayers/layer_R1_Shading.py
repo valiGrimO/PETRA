@@ -20,6 +20,9 @@ selected_object.material_slots[0].material = material
 refSphere = D.objects["Reference Sphere"]
 refSphere.material_slots[0].material = material
 
+# Apply material to every selected object
+bpy.ops.object.make_links_data(type='MATERIAL')
+
 # Render `Reference Sphere`
 D.objects["Reference Sphere"].hide_render = False
 

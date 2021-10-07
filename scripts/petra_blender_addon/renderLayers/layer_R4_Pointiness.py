@@ -21,10 +21,16 @@ material = D.materials["r4_pointiness"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
+# Apply material to every selected object
+bpy.ops.object.make_links_data(type='MATERIAL')
+
 # Decimate Selected mesh
 modifier = selected_object.modifiers.new(name="Decimate", type="DECIMATE")
 modifier.ratio = 1.0  # value definied by users
 ratio_as_percent = round(modifier.ratio * 100)
+
+# Apply modifier to every selected object
+bpy.ops.object.make_links_data(type='MODIFIERS')
 
 # Adjust Output filenames (end with -[ratio])
 node_R4_Output = node_R4.node_tree.nodes["File Output"]

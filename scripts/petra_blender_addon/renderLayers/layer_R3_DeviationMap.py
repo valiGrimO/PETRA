@@ -18,6 +18,9 @@ material = D.materials["r3_deviation_map"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
+# Apply material to every selected object
+bpy.ops.object.make_links_data(type='MATERIAL')
+
 # Configure Compositor
 nodetree.links.new(node_RL.outputs[0], node_PETrA.inputs[6])
 

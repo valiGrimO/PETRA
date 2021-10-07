@@ -20,6 +20,9 @@ material = D.materials["r2_contourline"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
+# Apply material to every selected object
+bpy.ops.object.make_links_data(type='MATERIAL')
+
 # Adjust Output filenames (end with -Xmm)
 r2_value = round(
     D.materials["r2_contourline"]
