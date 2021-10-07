@@ -48,7 +48,7 @@ node_PETrA_nodetree.inputs.new("NodeSocketColor", "H2: Outline By Normal")
 node_PETrA_nodetree.inputs.new("NodeSocketColor", "L1: Ambient Occlusion")
 node_PETrA_nodetree.inputs.new("NodeSocketColor", "R1: Shading")
 node_PETrA_nodetree.inputs.new("NodeSocketColor", "R2: Contour Lines")
-node_PETrA_nodetree.inputs.new("NodeSocketColor", "R3: Distance Map")
+node_PETrA_nodetree.inputs.new("NodeSocketColor", "R3: Deviation Map")
 node_PETrA_nodetree.inputs.new("NodeSocketColor", "R4: Pointiness")
 node_PETrA_nodetree.inputs.new("NodeSocketColor", "R5: Aspect")
 node_PETrA_nodetree.inputs.new("NodeSocketColor", "R6: Slope")
@@ -322,7 +322,7 @@ for nodeR1_input in nodeR1_nodetree.inputs:
 
 
 ## ---------------------
-## NMC source
+## R1_NMC
 
 nodeR1a = nodeR1_nodetree.nodes.new("CompositorNodeBrightContrast")
 nodeR1a.location = (1000, 1340)
@@ -341,7 +341,7 @@ nodeR1_nodetree.links.new(nodeR1_in.outputs[0], nodeR1a.inputs[0])
 nodeR1_nodetree.links.new(nodeR1a.outputs[0], nodeR1zA.inputs[0])
 
 ## ---------------------
-## B1
+## R1_NMC_B1
 
 # adding nodegroup
 nodeB1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -389,7 +389,7 @@ nodeB1g_nodetree.links.new(nodeB1b.outputs[0], nodeB1g_out.inputs[0])
 
 
 ## ---------------------
-## B2
+## R1_NMC_B2
 
 # adding nodegroup
 nodeB2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -433,7 +433,7 @@ nodeB2g_nodetree.links.new(nodeB2b.outputs[0], nodeB2c.inputs[1])
 nodeB2g_nodetree.links.new(nodeB2c.outputs[0], nodeB2g_out.inputs[0])
 
 ## ---------------------
-## Cb1
+## R1_NMC_Cb1
 
 # adding nodegroup
 nodeCb1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -481,7 +481,7 @@ nodeCb1g_nodetree.links.new(nodeCb1a.outputs[1], nodeCb1b.inputs[0])
 nodeCb1g_nodetree.links.new(nodeCb1b.outputs[0], nodeCb1g_out.inputs[0])
 
 ## ---------------------
-## Cb2
+## R1_NMC_Cb2
 
 # adding nodegroup
 nodeCb2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -526,7 +526,7 @@ nodeCb2g_nodetree.links.new(nodeCb2b.outputs[0], nodeCb2c.inputs[1])
 nodeCb2g_nodetree.links.new(nodeCb2c.outputs[0], nodeCb2g_out.inputs[0])
 
 ## ---------------------
-## Cr1
+## R1_NMC_Cr1
 
 # adding nodegroup
 nodeCr1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -582,7 +582,7 @@ nodeCr1g_nodetree.links.new(nodeCr1a.outputs[2], nodeCr1b.inputs[0])
 nodeCr1g_nodetree.links.new(nodeCr1b.outputs[0], nodeCr1g_out.inputs[0])
 
 ## ---------------------
-## Cr2
+## R1_NMC_Cr2
 
 # adding nodegroup
 nodeCr2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -634,7 +634,7 @@ nodeCr2g_nodetree.links.new(nodeCr2b.outputs[0], nodeCr2c.inputs[1])
 nodeCr2g_nodetree.links.new(nodeCr2c.outputs[0], nodeCr2g_out.inputs[0])
 
 ## ---------------------
-## G1
+## R1_NMC_G1
 
 # adding nodegroup
 nodeG1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -683,7 +683,7 @@ nodeG1g_nodetree.links.new(nodeG1g_in.outputs[0], nodeG1a.inputs[0])
 nodeG1g_nodetree.links.new(nodeG1a.outputs[1], nodeG1g_out.inputs[0])
 
 ## ---------------------
-## G2
+## R1_NMC_G2
 
 # adding nodegroup
 nodeG2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -729,7 +729,7 @@ nodeG2g_nodetree.links.new(nodeG2a.outputs[1], nodeG2b.inputs[1])
 nodeG2g_nodetree.links.new(nodeG2b.outputs[0], nodeG2g_out.inputs[0])
 
 ## ---------------------
-## Red1
+## R1_NMC_R1
 
 # adding nodegroup
 nodeRed1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -778,7 +778,7 @@ nodeRed1g_nodetree.links.new(nodeRed1g_in.outputs[0], nodeRed1a.inputs[0])
 nodeRed1g_nodetree.links.new(nodeRed1a.outputs[0], nodeRed1g_out.inputs[0])
 
 ## ---------------------
-## Red2
+## R1_NMC_R2
 
 # adding nodegroup
 nodeRed2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -824,7 +824,7 @@ nodeRed2g_nodetree.links.new(nodeRed2a.outputs[0], nodeRed2b.inputs[1])
 nodeRed2g_nodetree.links.new(nodeRed2b.outputs[0], nodeRed2g_out.inputs[0])
 
 ## ---------------------
-## S1
+## R1_NMC_S1
 
 # adding nodegroup
 nodeS1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -878,7 +878,7 @@ nodeS1g_nodetree.links.new(nodeS1a.outputs[1], nodeS1b.inputs[0])
 nodeS1g_nodetree.links.new(nodeS1b.outputs[0], nodeS1g_out.inputs[0])
 
 ## ---------------------
-## S2
+## R1_NMC_S2
 
 # adding nodegroup
 nodeS2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -927,7 +927,7 @@ nodeS2g_nodetree.links.new(nodeS2b.outputs[0], nodeS2c.inputs[1])
 nodeS2g_nodetree.links.new(nodeS2c.outputs[0], nodeS2g_out.inputs[0])
 
 ## ---------------------
-## U1
+## R1_NMC_U1
 
 # adding nodegroup
 nodeU1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -980,7 +980,7 @@ nodeU1g_nodetree.links.new(nodeU1b.outputs[0], nodeU1c.inputs[0])
 nodeU1g_nodetree.links.new(nodeU1c.outputs[0], nodeU1g_out.inputs[0])
 
 ## ---------------------
-## U2
+## R1_NMC_U2
 
 # adding nodegroup
 nodeU2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -1022,7 +1022,7 @@ nodeU2g_nodetree.links.new(nodeU2b.outputs[0], nodeU2c.inputs[1])
 nodeU2g_nodetree.links.new(nodeU2c.outputs[0], nodeU2g_out.inputs[0])
 
 ## ---------------------
-## V1
+## R1_NMC_V1
 
 # adding nodegroup
 nodeV1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -1069,7 +1069,7 @@ nodeV1g_nodetree.links.new(nodeV1a.outputs[2], nodeV1b.inputs[0])
 nodeV1g_nodetree.links.new(nodeV1b.outputs[0], nodeV1g_out.inputs[0])
 
 ## ---------------------
-## V2
+## R1_NMC_V2
 
 # adding nodegroup
 nodeV2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -1113,7 +1113,7 @@ nodeV2g_nodetree.links.new(nodeV2b.outputs[0], nodeV2c.inputs[1])
 nodeV2g_nodetree.links.new(nodeV2c.outputs[0], nodeV2g_out.inputs[0])
 
 ## ---------------------
-## Y1
+## R1_NMC_Y1
 
 # adding nodegroup
 nodeY1g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -1169,7 +1169,7 @@ nodeY1g_nodetree.links.new(nodeY1a.outputs[0], nodeY1b.inputs[0])
 nodeY1g_nodetree.links.new(nodeY1b.outputs[0], nodeY1g_out.inputs[0])
 
 ## ---------------------
-## Y2
+## R1_NMC_Y2
 
 # adding nodegroup
 nodeY2g = nodeR1_nodetree.nodes.new("CompositorNodeGroup")
@@ -1285,16 +1285,16 @@ nodeR2_nodetree.links.new(nodeR2b.outputs[0], nodeR2z.inputs[0])
 
 
 # ------------------------------------------------------------------
-# R3: DISTANCE MAP
+# R3: DEVIATION MAP
 # ------------------------------------------------------------------
 
 # adding nodegroup, node R3
 nodeR3 = node_PETrA_nodetree.nodes.new("CompositorNodeGroup")
 nodeR3.location = (400, -200)
-nodeR3.name = "R3_distanceMap"
+nodeR3.name = "R3_deviationMap"
 
 # subtree description
-nodeR3.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R3: Distance Map")
+nodeR3.node_tree = bpy.data.node_groups.new(type="CompositorNodeTree", name="R3: Deviation Map")
 nodeR3_nodetree = nodeR3.node_tree  # shortcut; akin to `nodetree`
 
 # create inputs
@@ -1414,7 +1414,13 @@ nodeR3dm_Gout.base_path = "//tmp"
 nodeR3dm_Gout.format.file_format = "PNG"
 nodeR3dm_Gout.format.color_mode = "BW"
 nodeR3dm_Gout.format.compression = 0
-nodeR3dm_Gout.file_slots[0].path = "Cam-##_R3_DM" # Here, we should indicate in the file name the "Normalization Value"
+R3_normValue = LoopColors.active_index
+# NOTE: this `pattern` also needs to be set in "renderLayers/layer_R3_DeviationMap.py"
+# Once Blender introduces variables, this might be solved easier; see:
+# - https://blender.community/c/rightclickselect/q8fbbc/
+# - https://devtalk.blender.org/t/filepath-template-proposal/11926
+pattern = f"Cam-##_R3_{R3_normValue}"
+nodeR3dm_Gout.file_slots[0].path = pattern
 
 ### Output DM1 - colored
 nodeR3dm_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -1423,12 +1429,12 @@ nodeR3dm_out.base_path = "//tmp"
 nodeR3dm_out.format.file_format = "JPEG"
 nodeR3dm_out.format.color_mode = "RGB"
 nodeR3dm_out.format.quality = 100
-nodeR3dm_out.file_slots[0].path = "Cam-##_R3_DM1-BBR"
-nodeR3dm_out.file_slots.new("Cam-##_R3_DM1-BVJR")
-nodeR3dm_out.file_slots.new("Cam-##_R3_DM1-MAGMA")
-nodeR3dm_out.file_slots.new("Cam-##_R3_DM1-SPECTRAL")
-nodeR3dm_out.file_slots.new("Cam-##_R3_DM1-VIRIDIS")
-nodeR3dm_out.file_slots.new("Cam-##_H1_DM1")
+nodeR3dm_out.file_slots[0].path = pattern + "-BBR"
+nodeR3dm_out.file_slots.new(pattern + "-BVJR")
+nodeR3dm_out.file_slots.new(pattern + "-MAGMA")
+nodeR3dm_out.file_slots.new(pattern + "-SPECTRAL")
+nodeR3dm_out.file_slots.new(pattern + "-VIRIDIS")
+nodeR3dm_out.file_slots.new(f"Cam-##_H1_{R3_normValue}")
 
 # connections
 nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dmA.inputs[0])
@@ -1586,7 +1592,7 @@ node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R1: Shading"], nodeH.inputs
 node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R1: Shading"], nodeR1.inputs["Cam-##_R1"])
 node_PETrA_nodetree.links.new(node_PETrA_in.outputs["L1: Ambient Occlusion"], nodeL1.inputs["Cam-##_L1_AO"])
 node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R2: Contour Lines"], nodeR2.inputs["Cam-##_R2_CL"])
-node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R3: Distance Map"], nodeR3.inputs["Cam-##_R3_DM"])
+node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R3: Deviation Map"], nodeR3.inputs["Cam-##_R3_DM"])
 node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R4: Pointiness"], nodeR4.inputs["Cam-##_R4_POI"])
 node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R5: Aspect"], nodeR5.inputs["Cam-##_R5_ASP"])
 node_PETrA_nodetree.links.new(node_PETrA_in.outputs["R6: Slope"], nodeR6.inputs["Cam-##_R6_Slope"])
