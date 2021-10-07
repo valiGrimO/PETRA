@@ -39,11 +39,11 @@
 ### R3, Deviation map
 - [x] **M** :green_circle: **external plugin** : in the DM plugin, how to name correctly output (for instance ,"DM1" instead of "DM", "DM2" instead of "DM.001")
 - [X] **V** :green_circle: clear the compositor nodes in order to have only one output
-- [ ] **M** :red_circle: **render script** : Modify the output file name with the "Normalization Value" choosen. Output should be like "Cam-##_R3_DM-[normalization value]"
+- [X] **V** :green_circle: **render script** : Modify the output file name with the "Normalization Value" choosen. Output should be like "Cam-##_R3_DM-[normalization value]"
 - [ ] **M** :red_circle: **render script** if there is several `DM` vertex color, create a loop to render each one
 - [ ] **M** :yellow_circle: **external plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We need to show only "normalization value", and to compute the distance
 - [ ] **M** :large_blue_circle: **render script** when rendering, if R3 is selected, check if one `DM` vertex color at least is present on the selected mesh
-- [ ] **M** :yellow_circle: **user interaction** : interact in the side panel with median and extreme values
+- [ ] **M** :yellow_circle: **user interaction** : interact in the side panel with normalization value
 - [ ] **V** :large_blue_circle: **material** : add out of range value (blue colored vertices) in the mask layer
 
 **_Open questions_**
