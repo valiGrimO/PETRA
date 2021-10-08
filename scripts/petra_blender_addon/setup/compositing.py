@@ -3,10 +3,11 @@ import bpy
 # https://docs.blender.org/api/current/bpy.types.CompositorNode.html
 
 
-
 # ------------------------------------------------------------------
 # INITIAL SETUP
 # ------------------------------------------------------------------
+
+print("[PETRA] Setup: Compositing")
 
 # switch on nodes and get reference
 bpy.context.scene.use_nodes = True
