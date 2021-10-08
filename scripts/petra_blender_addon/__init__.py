@@ -40,6 +40,7 @@ from pathlib import Path
 import re
 
 import bpy
+from bpy.props import BoolProperty, FloatProperty, StringProperty
 from bpy.types import Operator, Panel
 
 
@@ -47,10 +48,11 @@ PATTERN_CAMERA_NAME = re.compile(r"Cam-0([1-6])")
 
 
 if "setup" not in locals():
-    from . import layout_information, paradata, setup
+    from . import layout_information, paradata, render_layers, setup
 else:
     importlib.reload(layout_information)
     importlib.reload(paradata)
+    importlib.reload(render_layers)
     importlib.reload(setup)
 
 
@@ -61,15 +63,14 @@ else:
 
 class PetraPropertyGroup(bpy.types.PropertyGroup):
 
-    documentation_scale: bpy.props.FloatProperty(
+    documentation_scale: FloatProperty(
         name="Documentation scale",
         description="The scale of the printed image",
         unit="NONE",
         default=0.05,
         update=lambda self, context: bpy.ops.petra.apply_render_parameters_to_scene(),
     )
-
-    spatial_resolution: bpy.props.FloatProperty(
+    spatial_resolution: FloatProperty(
         name="Spatial resolution",
         description="Unscaled size of 1 pixel in mm. Equivalent to 25.4 / unscaled PPI",
         # This sets the unit to 'mm'. See: https://git.io/J4cZe
@@ -78,6 +79,17 @@ class PetraPropertyGroup(bpy.types.PropertyGroup):
         default=1,
         update=lambda self, context: bpy.ops.petra.apply_render_parameters_to_scene(),
     )
+    layer_C1_PRT: BoolProperty(name="C1: Color (from texture)", default=True)
+    layer_C1_PRV: BoolProperty(name="C1: Color (from vertex color)", default=True)
+    layer_H1_Masks: BoolProperty(name="H1: Masks", default=True)
+    layer_H2_OBN: BoolProperty(name="H2: Outline by normals", default=True)
+    layer_L1_AmbientOcclusion: BoolProperty(name="L1: Ambient occlusion", default=True)
+    layer_R1_Shading: BoolProperty(name="R1: Shading", default=True)
+    layer_R2_ContourLines: BoolProperty(name="R2: Contour lines", default=True)
+    layer_R3_DeviationMap: BoolProperty(name="R3: Distance map", default=True)
+    layer_R4_Pointiness: BoolProperty(name="R4: Pointiness", default=True)
+    layer_R5_Aspect: BoolProperty(name="R5: Aspect", default=True)
+    layer_R6_Slope: BoolProperty(name="R6: Slope", default=True)
 
 
 # --------------------------------------------------
@@ -124,7 +136,12 @@ class PETRA_OT_produce_documentation(Operator):
     bl_description = "Produce the PETRA Documentation."
 
     def execute(self, context):
-        popup("Not implemented yet.")
+        for layer in layers_iterator():
+            # skip layers which aren't selected
+            if not getattr(context.scene.petra, layer):
+                continue
+            render_layers.render(layer)
+
         return {"FINISHED"}
 
 
@@ -194,6 +211,20 @@ class PETRA_OT_activate_and_preview_scene_camera(Operator):
         # Apply the selected camera to the X- and Y-resolution of the scene dimensions.
         context.space_data.camera = chosen_camera  # needed to ensure call below works
         bpy.ops.petra.apply_render_parameters_to_scene()
+
+        return {"FINISHED"}
+
+
+class PETRA_OT_preview_layer(Operator):
+
+    bl_idname = "petra.preview_layer"
+    bl_label = "Preview Layer"
+    bl_description = "Show what rendered layer looks like without creating a file"
+
+    active_layer: StringProperty()
+
+    def invoke(self, context, event):
+        render_layers.preview(self.active_layer)
 
         return {"FINISHED"}
 
@@ -333,37 +364,16 @@ class PETRA_PT_material_setup(PetraPanelMixin, Panel):
         return bpy.data.collections.get("PETRA")
 
     def draw(self, context):
-        self.layout.label(text="Not implemented yet.", icon="INFO")
-
-
-class PETRA_PT_material_setup_general_settings(PetraPanelMixin, Panel):
-
-    bl_label = "General Settings"
-    bl_parent_id = "PETRA_PT_material_setup"
-    bl_options = {"DEFAULT_CLOSED"}
-
-    def draw(self, context):
-        self.layout.label(text="Not implemented yet.", icon="INFO")
-
-
-class PETRA_PT_material_setup_contour_lines_settings(PetraPanelMixin, Panel):
-
-    bl_label = "Contour Lines Settings"
-    bl_parent_id = "PETRA_PT_material_setup"
-    bl_options = {"DEFAULT_CLOSED"}
-
-    def draw(self, context):
-        self.layout.label(text="Not implemented yet.", icon="INFO")
-
-
-class PETRA_PT_material_setup_deviation_map_settings(PetraPanelMixin, Panel):
-
-    bl_label = "Deviation Map Settings"
-    bl_parent_id = "PETRA_PT_material_setup"
-    bl_options = {"DEFAULT_CLOSED"}
-
-    def draw(self, context):
-        self.layout.label(text="Not implemented yet.", icon="INFO")
+        self.layout.label(text="List of layers:")
+        for layer in layers_iterator():
+            row = self.layout.row(align=True)
+            operator = row.operator(
+                "petra.preview_layer",
+                text="",
+                icon="RESTRICT_VIEW_ON",
+            )
+            operator.active_layer = layer
+            row.prop(context.scene.petra, layer)
 
 
 class PETRA_PT_rendering(PetraPanelMixin, Panel):
@@ -391,14 +401,12 @@ classes = (
     PETRA_OT_build_initial_setup,
     PETRA_OT_export_layout_information,
     PETRA_OT_export_scene_paradata,
+    PETRA_OT_preview_layer,
     PETRA_OT_produce_documentation,
     PETRA_PT_initial_setup,
     PETRA_PT_camera_setup,
     PETRA_PT_camera_setup_settings,
     PETRA_PT_material_setup,
-    PETRA_PT_material_setup_general_settings,
-    PETRA_PT_material_setup_contour_lines_settings,
-    PETRA_PT_material_setup_deviation_map_settings,
     PETRA_PT_rendering,
 )
 
@@ -460,6 +468,14 @@ def extract_chosen_camera_dimensions(context):
     height = round(camera_params["height"] / 10, 1)
 
     return f"{width} cm x {height} cm"
+
+
+def layers_iterator():
+    # layer_name = layer_property.keywords["name"]
+    for identifier in PetraPropertyGroup.__annotations__.keys():
+        if not identifier.startswith("layer_"):
+            continue
+        yield identifier
 
 
 if __name__ == "__main__":
