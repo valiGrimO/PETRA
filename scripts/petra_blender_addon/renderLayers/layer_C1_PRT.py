@@ -4,18 +4,20 @@ import bpy
 C = bpy.context
 D = bpy.data
 S = D.scenes["Scene"]
-nodetree = bpy.context.scene.node_tree
+nodetree = C.scene.node_tree
 
-nodeRL = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
-nodeHub = S.node_tree.nodes["Hub"] # This is "Hub"
-nodeC1 = S.node_tree.nodes["C1_color"]# This is "C1: Color"
+node_RL = S.node_tree.nodes["Render Layers"]
+node_PETrA = S.node_tree.nodes["PETrA"]
+node_PETrA_Input = node_PETrA.node_tree.nodes["Group Input"]
+node_PETrA_nodetree = node_PETrA.node_tree
+node_C1 = node_PETrA.node_tree.nodes["C1_color"]
 
-# Material
+# Materials
     # Material should be configured first by user
 
 # Select render Engine
 C.scene.render.engine = "BLENDER_EEVEE"
 
 # Configure Compositor
-nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[0])
-nodetree.links.new(nodeHub.outputs[0], nodeC1.inputs[0])
+nodetree.links.new(node_RL.outputs[0], node_PETrA.inputs[0])
+node_PETrA_nodetree.links.new(node_PETrA_Input.outputs[0], node_C1.inputs[0]) # not working

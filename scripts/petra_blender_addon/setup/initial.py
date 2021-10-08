@@ -59,8 +59,11 @@ bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
 bpy.ops.mesh.primitive_ico_sphere_add(
     radius=0.05, location=(0.4, 0.4, 0.4), scale=(1, 1, 1)
 )
+
 so = C.selected_objects[0]
 so.name = "Reference Sphere"
+
+bpy.ops.object.material_slot_add()
 
 bpy.ops.object.modifier_add(type="SUBSURF")
 C.object.modifiers["Subdivision"].levels = 2

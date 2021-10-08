@@ -4,21 +4,26 @@ import bpy
 C = bpy.context
 D = bpy.data
 S = D.scenes["Scene"]
-nodetree = bpy.context.scene.node_tree
+nodetree = C.scene.node_tree
 
-nodeRL = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
-nodeHub = S.node_tree.nodes["Hub"] # This is "Hub"
-nodeC1 = S.node_tree.nodes["C1_color"]# This is "C1: Color"
+node_RL = nodetree.nodes["Render Layers"]
+node_PETrA = nodetree.nodes["PETrA"]
+node_PETrA_Input = node_PETrA.node_tree.nodes["Group Input"]
+node_PETrA_nodetree = node_PETrA.node_tree
+node_C1 = node_PETrA.node_tree.nodes["C1_color"]
 
 # Select render Engine
 C.scene.render.engine = "BLENDER_EEVEE"
 
 # Apply material
-material = bpy.data.materials["c1_prv"]
+material = D.materials["c1_prv"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 D.materials["c1_prv"].node_tree.nodes["Vertex Color"].layer_name = "Col"
 
+# Apply material to every selected object
+bpy.ops.object.make_links_data(type='MATERIAL')
+
 # Configure Compositor
-nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[0])
-nodetree.links.new(nodeHub.outputs[0], nodeC1.inputs[1])
+nodetree.links.new(node_RL.outputs[0], node_PETrA.inputs[0])
+node_PETrA_nodetree.links.new(node_PETrA_Input.outputs[0], node_C1.inputs[1]) # not working

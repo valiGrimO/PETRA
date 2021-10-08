@@ -4,27 +4,30 @@ import bpy
 C = bpy.context
 D = bpy.data
 S = D.scenes["Scene"]
-nodetree = bpy.context.scene.node_tree
+nodetree = C.scene.node_tree
 
-nodeRL = S.node_tree.nodes["Render Layers"] # This is "Render Layer"
-nodeHub = S.node_tree.nodes["Group"] # This is "Hub"
+node_RL = S.node_tree.nodes["Render Layers"]
+node_PETrA = S.node_tree.nodes["PETrA"]
 
 # Select render Engine
 C.scene.render.engine = "BLENDER_EEVEE"
 
 # Activate Ambient Occlusion
-bpy.context.scene.eevee.use_gtao = True
+C.scene.eevee.use_gtao = True
 
 # Ambient Occlusion Distance
-bpy.context.scene.eevee.gtao_distance = 5
+C.scene.eevee.gtao_distance = 5
 
 # Ambient Occlusion Quality
-bpy.context.scene.eevee.gtao_quality = 1
+C.scene.eevee.gtao_quality = 1
 
 # Apply material to selected objects
-material = bpy.data.materials["l1_ao"]
+material = D.materials["l1_ao"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
+# Apply material to every selected object
+bpy.ops.object.make_links_data(type='MATERIAL')
+
 # Configure Compositor
-nodetree.links.new(nodeRL.outputs[0], nodeHub.inputs[3])
+nodetree.links.new(node_RL.outputs[0], node_PETrA.inputs[3])
