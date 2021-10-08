@@ -1414,7 +1414,7 @@ nodeR3dm_Gout.base_path = "//tmp"
 nodeR3dm_Gout.format.file_format = "PNG"
 nodeR3dm_Gout.format.color_mode = "BW"
 nodeR3dm_Gout.format.compression = 0
-R3_normValue = LoopColors.active_index
+R3_normValue = bpy.data.scenes["Scene"].normValue
 # NOTE: this `pattern` also needs to be set in "renderLayers/layer_R3_DeviationMap.py"
 # Once Blender introduces variables, this might be solved easier; see:
 # - https://blender.community/c/rightclickselect/q8fbbc/
