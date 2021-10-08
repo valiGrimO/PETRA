@@ -37,13 +37,6 @@ def render_next():
 
     print(f"[PETRA] Render Layer: {identifier}")
 
-    # breakpoint()
-
-    # # check if render popup visible; if so, remove to get correct context
-    # if bpy.context.area.type == "IMAGE_EDITOR":
-    #     bpy.context.area.type = "VIEW_3D"
-    #     # bpy.ops.wm.window_close()
-
     run_module("initialisation")
     run_module(identifier)
     run_module("layer_render")
