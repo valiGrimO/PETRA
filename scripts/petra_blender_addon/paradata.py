@@ -2,6 +2,8 @@
 Tools to extract parameter data from Blender and save it.
 """
 
+import bpy
+
 from fractions import Fraction
 from pathlib import Path
 
@@ -89,6 +91,7 @@ def generate_yaml(context, filepath):
     result["nomObjetDocumenté"] = "Fill it manually for the moment"
 
     # definition Framing Box
+    locations = blenderdata.framing_box.location
     framing_box = result["definitionBoiteEnglobante"]
     framing_box["locationX"] = f"{locations[0]} m"
     framing_box["locationY"] = f"{locations[1]} m"
@@ -99,6 +102,7 @@ def generate_yaml(context, filepath):
     framing_box["rotationY"] = f"{rotations[1]}°"
     framing_box["rotationZ"] = f"{rotations[2]}°"
 
+    scale = blenderdata.framing_box.dimensions
     framing_box["dimensionX"] = f"{scale[0]} m"
     framing_box["dimensionY"] = f"{scale[1]} m"
     framing_box["dimensionZ"] = f"{scale[2]} m"
