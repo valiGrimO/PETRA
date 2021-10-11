@@ -100,6 +100,7 @@ nodeC1z.base_path = "//tmp"
 nodeC1z.format.file_format = "PNG"
 nodeC1z.format.color_mode = "RGBA"
 nodeC1z.format.compression = 0
+nodeC1z.format.color_depth = "16"
 nodeC1z.file_slots[0].path = "Cam-##_C1_PRT"
 nodeC1z.file_slots.new("Cam-##_C1_PRV")
 
@@ -335,6 +336,7 @@ nodeR1zA.base_path = "//tmp"
 nodeR1zA.format.file_format = "PNG"
 nodeR1zA.format.color_mode = "RGBA"
 nodeR1zA.format.compression = 0
+nodeR1zA.format.color_depth = "16"
 nodeR1zA.file_slots[0].path = "Cam-##_R1_NMC"
 
 # connections
