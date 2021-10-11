@@ -1417,13 +1417,8 @@ nodeR3dm_Gout.base_path = "//tmp"
 nodeR3dm_Gout.format.file_format = "PNG"
 nodeR3dm_Gout.format.color_mode = "BW"
 nodeR3dm_Gout.format.compression = 0
-R3_normValue = bpy.data.scenes["Scene"].normValue
-# NOTE: this `pattern` also needs to be set in "renderLayers/layer_R3_DeviationMap.py"
-# Once Blender introduces variables, this might be solved easier; see:
-# - https://blender.community/c/rightclickselect/q8fbbc/
-# - https://devtalk.blender.org/t/filepath-template-proposal/11926
-pattern = f"Cam-##_R3_{R3_normValue}"
-nodeR3dm_Gout.file_slots[0].path = pattern
+nodeR3dm_Gout.format.color_depth = "16"
+nodeR3dm_Gout.file_slots[0].path = "Cam-##_R3"
 
 ### Output DM1 - colored
 nodeR3dm_out = nodeR3_nodetree.nodes.new("CompositorNodeOutputFile")
@@ -1432,12 +1427,12 @@ nodeR3dm_out.base_path = "//tmp"
 nodeR3dm_out.format.file_format = "JPEG"
 nodeR3dm_out.format.color_mode = "RGB"
 nodeR3dm_out.format.quality = 100
-nodeR3dm_out.file_slots[0].path = pattern + "-BBR"
-nodeR3dm_out.file_slots.new(pattern + "-BVJR")
-nodeR3dm_out.file_slots.new(pattern + "-MAGMA")
-nodeR3dm_out.file_slots.new(pattern + "-SPECTRAL")
-nodeR3dm_out.file_slots.new(pattern + "-VIRIDIS")
-nodeR3dm_out.file_slots.new(f"Cam-##_H1_{R3_normValue}")
+nodeR3dm_out.file_slots[0].path = "Cam-##_R3-BBR"
+nodeR3dm_out.file_slots.new("Cam-##_R3-BVJR")
+nodeR3dm_out.file_slots.new("Cam-##_R3-MAGMA")
+nodeR3dm_out.file_slots.new("Cam-##_R3-SPECTRAL")
+nodeR3dm_out.file_slots.new("Cam-##_R3-VIRIDIS")
+nodeR3dm_out.file_slots.new(f"Cam-##_H1")
 
 # connections
 nodeR3_nodetree.links.new(nodeR3_in.outputs[0], nodeR3dmA.inputs[0])
@@ -1501,7 +1496,7 @@ nodeR4z.base_path = "//tmp"
 nodeR4z.format.file_format = "JPEG"
 nodeR4z.format.color_mode = "BW"
 nodeR4z.format.quality = 100
-nodeR4z.file_slots[0].path = "Cam-##_R4_POI" # Complete the output file name with ration value
+nodeR4z.file_slots[0].path = "Cam-##_R4_POI" # Complete the output file name with ratio value
 
 # connections
 nodeR4_nodetree.links.new(nodeR4_in.outputs[0], nodeR4a.inputs[0])

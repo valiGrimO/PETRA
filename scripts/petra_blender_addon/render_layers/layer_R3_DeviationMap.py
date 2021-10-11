@@ -24,10 +24,17 @@ bpy.ops.object.make_links_data(type='MATERIAL')
 # Configure Compositor
 nodetree.links.new(node_RL.outputs[0], node_PETrA.inputs[6])
 
-# Adjust Output filenames (end with -[normValue])
-node_R3_Output = node_R3.node_tree.nodes["File Output"]
-pattern = f"Cam-##_R3_{R3_normValue}"
-node_R3_Output.file_slots[0].path = pattern
+# Adjust Output filenames
+node_R3_Output0 = node_R3.node_tree.nodes["File Output"]
+node_R3_Output1 = node_R3.node_tree.nodes["File Output.001"]
+id_DM = D.materials["r3_deviation_map"].node_tree.nodes["Vertex Color"].layer_name
+node_R3_Output0.file_slots[0].path = f"Cam-##_{id_DM}"
+node_R3_Output1.file_slots[0].path = f"Cam-##_{id_DM}_BBR"
+node_R3_Output1.file_slots[1].path = f"Cam-##_{id_DM}_BVJR"
+node_R3_Output1.file_slots[2].path = f"Cam-##_{id_DM}_MAGMA"
+node_R3_Output1.file_slots[3].path = f"Cam-##_{id_DM}_SPECTRAL"
+node_R3_Output1.file_slots[4].path = f"Cam-##_{id_DM}_VIRIDIS"
+node_R3_Output1.file_slots[5].path = f"Cam-##_H1_{id_DM}"
 
 # Change vertex color in the material
 D.materials["r3_deviation_map"].node_tree.nodes["Vertex Color"].layer_name = "DM1"
