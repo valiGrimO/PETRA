@@ -71,11 +71,12 @@
   - [x] `layer_H2_OBN.py`
   - [x] `layer_L1_AmbientOcclusion.py`
   - [x] `layer_R1_Shading.py`
-  - [x] `layer_R2_ContourLines.py`
+  - [x] `layer_R2_ContourLines.py` :red_circle: problem to reconnect between each render
   - [x] `layer_R3_DeviationMap.py`
   - [x] `layer_R4_Pointiness.py`
   - [x] `layer_R5_Aspect.py`
   - [x] `layer_R6_Slope.py`
+  - [ ] :red_circle: rendering an animation is not working, we need to hit the preview button to apply the render size
 - [ ] **M+V** :red_circle: Integrate scripts in the user interface
 
 ## User interface, general interactions
