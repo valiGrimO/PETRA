@@ -10,6 +10,7 @@ from petra_blender_addon.blendertools import remove_link
 C = bpy.context
 D = bpy.data
 S = D.scenes["Scene"]
+obj = C.object
 nodetree = C.scene.node_tree
 
 # Don't render `Reference Sphere`
@@ -30,6 +31,18 @@ C.scene.eevee.use_gtao = False
 
 # Remove "Decimate" modifier
 bpy.ops.object.modifier_remove(modifier="Decimate")
+
+# Slot management
+mat = bpy.data.materials.get("c1_prv")
+
+    # Determine whether there are slots to work with
+if len(obj.material_slots) > 0:
+    # Assign the material to each slot
+    for c, slot in enumerate(obj.material_slots):
+        obj.material_slots[c].material = mat
+else:
+    # In case there is no material, append the Demo material
+    obj.data.materials.append(mat)
 
 
 # /////////////////////
