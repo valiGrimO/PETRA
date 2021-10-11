@@ -23,7 +23,7 @@
 
 ## Layer of information in details
 ### Initialisation
-- [ ] **M** :red_circle: Need to manage slot creation and filling (see [issue 9](https://github.com/valiGrimO/PETrA/issues/9))
+- [x] **V** :green_circle: Need to manage slot creation and filling (see [issue 9](https://github.com/valiGrimO/PETrA/issues/9))
 
 ### C1, Color
 - [ ] :large_blue_circle: : Image decorrelation
@@ -71,13 +71,13 @@
   - [x] `layer_H2_OBN.py`
   - [x] `layer_L1_AmbientOcclusion.py`
   - [x] `layer_R1_Shading.py`
-  - [x] `layer_R2_ContourLines.py` :red_circle: problem to reconnect between each render
+  - [x] `layer_R2_ContourLines.py`
   - [x] `layer_R3_DeviationMap.py`
   - [x] `layer_R4_Pointiness.py`
   - [x] `layer_R5_Aspect.py`
   - [x] `layer_R6_Slope.py`
   - [ ] :red_circle: rendering an animation is not working, we need to hit the preview button to apply the render size
-- [ ] **M+V** :red_circle: Integrate scripts in the user interface
+  - [x] **M** :green_circle: Integrate scripts in the user interface
 
 ## User interface, general interactions
 - [ ] **M+V** :large_blue_circle: add "help button" in the panel, in relation with each layer and/or parameter, linking to a specific page of the documentation for R3 at least, but probably each layer
