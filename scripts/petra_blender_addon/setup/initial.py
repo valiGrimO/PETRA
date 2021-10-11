@@ -250,7 +250,7 @@ for name, m_data in markers.items():
 
 ## Set the length of the timeline
 D.scenes[0].frame_start = 1
-D.scenes[0].frame_end = 7
+D.scenes[0].frame_end = 6
 
 ####################
 # MOVE TO 3DCURSOR #
