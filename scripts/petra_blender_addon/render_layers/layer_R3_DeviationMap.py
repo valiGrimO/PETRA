@@ -37,6 +37,6 @@ node_R3_Output1.file_slots[4].path = f"Cam-##_R3_{id_DM}_VIRIDIS"
 node_R3_Output1.file_slots[5].path = f"Cam-##_H1_{id_DM}"
 
 # Change vertex color in the material
-D.materials["r3_deviation_map"].node_tree.nodes["Vertex Color"].layer_name = "DM1"
+# D.materials["r3_deviation_map"].node_tree.nodes["Vertex Color"].layer_name = "DM1"
 
 # Note: Since several Vertex Color Indexes beginning with `DM` might exist (max = 7), then a loop have to render everyone, and the output name should be incremented (`DM1`, `DM2`, etc.)
