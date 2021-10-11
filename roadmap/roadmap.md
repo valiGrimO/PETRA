@@ -76,8 +76,8 @@
   - [x] `layer_R4_Pointiness.py`
   - [x] `layer_R5_Aspect.py`
   - [x] `layer_R6_Slope.py`
-  - [ ] :red_circle: rendering an animation is not working, we need to hit the preview button to apply the render size
-  - [x] **M** :green_circle: Integrate scripts in the user interface
+- [ ] :red_circle: rendering an animation is not working, we need to hit the preview button to apply the render size
+- [x] **M** :green_circle: Integrate scripts in the user interface
 
 ## User interface, general interactions
 - [ ] **M+V** :large_blue_circle: add "help button" in the panel, in relation with each layer and/or parameter, linking to a specific page of the documentation for R3 at least, but probably each layer
