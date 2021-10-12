@@ -1,93 +1,112 @@
-nomObjetDocumenté: 
-definitionBoiteEnglobante:
-  locationX: 
-  locationY: 
-  locationZ: 
-  rotationX: 
-  rotationY: 
-  rotationZ: 
-  dimensionX: 
-  dimensionY: 
-  dimensionZ: 
-caracteristiquesImage:
-  echelleDocumentation: 
-  resolutionImage: 254 ppi
-  resolutionSpatiale: 1 pixel = 1 mm
+documentedObject:
+framingBox:
+  locationX:
+  locationY:
+  locationZ:
+  rotationX:
+  rotationY:
+  rotationZ:
+  dimensionX:
+  dimensionY:
+  dimensionZ:
+sceneSettings:
+  documentationScale:
+  spatialResolution:
+  imageResolution:
 cameras:
-- nomDeLaVue: Cam-01
-  commentaire: null
-  parametresImage:
-    orthographicScale: 1 x 1 m
-    dimensionsCm: 10 x 10 cm
-    dimensionsPixel: 1000 x 1000 px
-  parametresCamera:
-    clippingStart: 0,001m
-    clippingEnd: 1000m
-    shiftX: 
+- name: Cam-01
+  imageSettings:
+    orthographicScale:
+    printedSize_cm:
+    printedSize_px:
+  cameraSettings:
+    clippingStart:
+    clippingEnd:
+    shiftX:
     shiftY:
-    relativeLocationX: 
-    relativeLocationY: 
-    relativeLocationZ: 
-    relativeRotationX: 0°
-    relativeRotationY: 0°
-    relativeRotationZ: 0°
+    locationX:
+    locationY:
+    locationZ:
+    rotationX:
+    rotationY:
+    rotationZ:
 - nomDeLaVue: Cam-02
-  commentaire: null
-  parametresImage:
-    orthographicScale: 1 x 1 m
-    dimensionsCm: 10 x 10 cm
-    dimensionsPixel: 1000 x 1000 px
-  parametresCamera:
-    clippingStart: 0,001m
-    clippingEnd: 1000m
-    rotationX: 0°
-    rotationY: 0°
-    rotationZ: 90°
+  imageSettings:
+    orthographicScale:
+    printedSize_cm:
+    printedSize_px:
+  cameraSettings:
+    clippingStart:
+    clippingEnd:
+    shiftX:
+    shiftY:
+    locationX:
+    locationY:
+    locationZ:
+    rotationX:
+    rotationY:
+    rotationZ:
 - nomDeLaVue: Cam-03
-  commentaire: null
-  parametresImage:
-    orthographicScale: 1 x 1 m
-    dimensionsCm: 10 x 10 cm
-    dimensionsPixel: 1000 x 1000 px
-  parametresCamera:
-    clippingStart: 0,001m
-    clippingEnd: 1000m
-    rotationX: 0°
-    rotationY: 0°
-    rotationZ: 180°
+  imageSettings:
+    orthographicScale:
+    printedSize_cm:
+    printedSize_px:
+  cameraSettings:
+    clippingStart:
+    clippingEnd:
+    shiftX:
+    shiftY:
+    locationX:
+    locationY:
+    locationZ:
+    rotationX:
+    rotationY:
+    rotationZ:
 - nomDeLaVue: Cam-04
-  commentaire: null
-  parametresImage:
-    orthographicScale: 1 x 1 m
-    dimensionsCm: 10 x 10 cm
-    dimensionsPixel: 1000 x 1000 px
-  parametresCamera:
-    clippingStart: 0,001m
-    clippingEnd: 1000m
-    rotationX: 0°
-    rotationY: 0°
-    rotationZ: 270°
+  imageSettings:
+    orthographicScale:
+    printedSize_cm:
+    printedSize_px:
+  cameraSettings:
+    clippingStart:
+    clippingEnd:
+    shiftX:
+    shiftY:
+    locationX:
+    locationY:
+    locationZ:
+    rotationX:
+    rotationY:
+    rotationZ:
 - nomDeLaVue: Cam-05
-  commentaire: null
-  parametresImage:
-    orthographicScale: 1 x 1 m
-    dimensionsCm: 10 x 10 cm
-    dimensionsPixel: 1000 x 1000 px
-  parametresCamera:
-    clippingStart: 0,001m
-    clippingEnd: 1000m
-    rotationX: -90°
-    rotationY: 0°
-    rotationZ: 0°
+  imageSettings:
+    orthographicScale:
+    printedSize_cm:
+    printedSize_px:
+  cameraSettings:
+    clippingStart:
+    clippingEnd:
+    shiftX:
+    shiftY:
+    locationX:
+    locationY:
+    locationZ:
+    rotationX:
+    rotationY:
+    rotationZ:
 - nomDeLaVue: Cam-06
-  commentaire: null
-  parametresImage:
-    orthographicScale: 1 x 1 m
-    dimensionsCm: 10 x 10 cm
-    dimensionsPixel: 1000 x 1000 px
-  parametresCamera:
-    clippingStart: 0,001m
-    clippingEnd: 1000m
-    rotationX: 90°
-    rotationY: 0°
-    rotationZ: 0°
+  imageSettings:
+    orthographicScale:
+    printedSize_cm:
+    printedSize_px:
+  cameraSettings:
+    clippingStart:
+    clippingEnd:
+    shiftX:
+    shiftY:
+    locationX:
+    locationY:
+    locationZ:
+    rotationX:
+    rotationY:
+    rotationZ:

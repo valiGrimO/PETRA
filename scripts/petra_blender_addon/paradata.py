@@ -2,8 +2,6 @@
 Tools to extract parameter data from Blender and save it.
 """
 
-import bpy
-
 from fractions import Fraction
 from pathlib import Path
 
@@ -44,6 +42,11 @@ class BlenderData:
         # --------------------------------------------------
         self.framing_box = objects["Framing Box"]
         self.cam_01 = objects["Cam-01"]
+        self.cam_02 = objects["Cam-02"]
+        self.cam_03 = objects["Cam-03"]
+        self.cam_04 = objects["Cam-04"]
+        self.cam_05 = objects["Cam-05"]
+        self.cam_06 = objects["Cam-06"]
 
         self.documentation_scale = params.documentation_scale  # float
         # Experimental. Works well for 1/10 and 1/20.
@@ -80,58 +83,62 @@ def generate_yaml(context, filepath):
     """
     result = read_yaml(YAML_TEMPLATE_FILEPATH)
 
-    # begining of yaml file
+    ########################################################
+    #    VALENTIN TODO: COMPLETE CODE BETWEEN THE LINES    #
+    ########################################################
 
     # Note: if `blenderdata` misses a value,
     # then edit the BlenderData class above.
     blenderdata = BlenderData(context)
 
-    # title
-    # TODO(@Valentin): Have to find where to get the name
-    result["nomObjetDocumenté"] = "Fill it manually for the moment"
+    result["documentedObject"] = "_" # insert the name of selected meshes
 
-    # definition Framing Box
+    fB = result["framingBox"]
     locations = blenderdata.framing_box.location
-    framing_box = result["definitionBoiteEnglobante"]
-    framing_box["locationX"] = f"{locations[0]} m"
-    framing_box["locationY"] = f"{locations[1]} m"
-    framing_box["locationZ"] = f"{locations[2]} m"
+    fB["locationX"] = f"{locations[0]} m"
+    fB["locationY"] = f"{locations[1]} m"
+    fB["locationZ"] = f"{locations[2]} m"
 
-    rotations = blenderdata.framing_box.rotation_euler
-    framing_box["rotationX"] = f"{rotations[0]}°"
-    framing_box["rotationY"] = f"{rotations[1]}°"
-    framing_box["rotationZ"] = f"{rotations[2]}°"
+    rotations_fB = blenderdata.framing_box.rotation_euler
+    fB["rotationX"] = f"{rotations_fB[0]}°"
+    fB["rotationY"] = f"{rotations_fB[1]}°"
+    fB["rotationZ"] = f"{rotations_fB[2]}°"
 
-    scale = blenderdata.framing_box.dimensions
-    framing_box["dimensionX"] = f"{scale[0]} m"
-    framing_box["dimensionY"] = f"{scale[1]} m"
-    framing_box["dimensionZ"] = f"{scale[2]} m"
+    dimensions = blenderdata.framing_box.scale
+    fB["dimensionX"] = f"{dimensions[0]} m"
+    fB["dimensionY"] = f"{dimensions[1]} m"
+    fB["dimensionZ"] = f"{dimensions[2]} m"
 
-    # caracteristiques documentation
-    doc_info = result["caracteristiquesImage"]
-    doc_info["echelleDocumentation"] = blenderdata.documentation_scale_fraction
-    doc_info["resolutionImage"] = f"{blenderdata.resolution_of_image} ppi"
-    doc_info["resolutionSpatiale"] = f"1 px = {blenderdata.spatial_resolution} mm"
+    sS = result["sceneSettings"]
+    sS["documentationScale"] = varA = blenderdata.documentation_scale_fraction
+    sS["spatialResolution"] = varB = f"1 pixel covers {blenderdata.spatial_resolution} mm"
+    varC = round(varA/(varB/25.4))
+    sS["imageResolution"] = f"{varC} ppi"
 
-    # cameras
-    # select cameras in 'PETRA' collection
-    for obj in bpy.data.collections["PETRA"].all_objects:
-        if obj.type == "CAMERA":
-            file.write("\n" + obj.name + ":" "\n")
-            # file.write('    orthographicScale: f"{} x {} m''\n')
-            # file.write('    dimensions (cm): f"{} x {} m''\n')
-            # file.write('    dimensions (px): f"{} x {} m''\n')
-            file.write('    clippingStart: f"{bpy.data.cameras.clip_start} m' "\n")
-            file.write('    clippingEnd: f"{bpy.data.cameras.clip_End} m' "\n")
-            file.write('    shiftX: f"{bpy.data.cameras.shift_x} m' "\n")
-            file.write('    shiftY: f"{bpy.data.cameras.shift_y} m' "\n")
-            file.write("    relativeLocationX: " + str(obj.location.x) + " m" "\n")
-            file.write("    relativeLocationY: " + str(obj.location.y) + " m" "\n")
-            file.write("    relativeLocationZ: " + str(obj.location.z) + " m" "\n")
-            file.write("    relativeRotationX: " + str(obj.rotation.x) + " m" "\n")
-            file.write("    relativeRotationY: " + str(obj.rotation.y) + " m" "\n")
-            file.write("    relativeRotationZ: " + str(obj.rotation.z) + " m" "\n")
+# If we can create a loop for every camera in the scene (except for location and rotation), it would be awesome!
 
-    # end of yaml file
+    # select cam_01
+    cam = result["cameras"]
+    cam[0]["name"] = blenderdata.cam_01.name
+    cam[0]["imageSettings"]["orthographicScale"] = f"{blenderdata.orthoscale} m" # where can I get orthographic scale?
+    cam[0]["imageSettings"]["printedSize_cm"] = "_ x _ cm" # where can I get the printed size?
+    # cam[0]["imageSettings"]["printedSize_px"] = f"{blenderdata.render.resolution_x} x {blenderdata.render.resolution_y} pixels"
+    # AttributeError: 'BlenderData' object has no attribute 'render'
+
+    # cam[0]["cameraSettings"]["clippingStart"] = blenderdata.cameras.clip_start
+    # cam[0]["cameraSettings"]["clippingEnd"] = blenderdata.cameras.clip_end
+    # cam[0]["cameraSettings"]["shiftX"] = blenderdata.cameras.shift_x
+    # cam[0]["cameraSettings"]["shiftY"] = blenderdata.cameras.shift_y
+
+    # bpy.ops.view3d.snap_cursor_to_selected()      or: snap_cursor_to["cam_01"]
+    # cam[0]["cameraSettings"]["locationX"] = blenderdata.cursor.location[0] # bpy.data.scenes["Scene"].cursor.location[0]
+    # cam[0]["cameraSettings"]["locationY"] = blenderdata.cursor.location[1]
+    # cam[0]["cameraSettings"]["locationZ"] = blenderdata.cursor.location[2]
+    rotations_cam01 = blenderdata.cam_01.rotation_euler
+    cam[0]["cameraSettings"]["rotationX"] = f"{rotations_fB[0]+rotations_cam01[0]+90}°"
+    cam[0]["cameraSettings"]["rotationY"] = f"{rotations_fB[1]+rotations_cam01[2]}°"
+    cam[0]["cameraSettings"]["rotationZ"] = f"{rotations_fB[2]+rotations_cam01[2]}°"
+
+    ########################################################
 
     save_yaml(result, filepath)
