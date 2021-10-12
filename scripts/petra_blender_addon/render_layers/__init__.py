@@ -1,11 +1,11 @@
+from collections import deque
 import importlib
-import queue
 import sys
 
 import bpy
 
 
-render_queue = queue.Queue()
+render_queue = deque()
 
 
 def preview(identifier):
@@ -14,50 +14,85 @@ def preview(identifier):
     run_module(identifier)
 
 
-def render(identifier):
-    render_queue.put(identifier)
-    if render_queue.unfinished_tasks == 1:
-        bpy.app.handlers.render_complete.append(render_complete)
-        bpy.app.handlers.render_cancel.append(render_cancel)
-        render_next()
+def render(identifiers):
+    reset_render_queue()
+
+    render_queue.extend(identifiers)
+    print(f"[PETRA] Render: queued {len(render_queue)} layers to render.")
+
+    # add event listeners
+    bpy.app.handlers.render_complete.append(when_one_layer_completed)
+    bpy.app.handlers.render_cancel.append(when_one_layer_canceled)
+
+    render_next()
+
+
+# Events
+
+
+def when_all_layers_completed():
+    print("[PETRA] Render: all layers completed. ✅")
+    bpy.app.handlers.render_complete.remove(when_one_layer_completed)
+    bpy.app.handlers.render_cancel.remove(when_one_layer_canceled)
+
+
+def when_one_layer_completed(scene):
+    print("[PETRA] Render: one layer completed.")
+    render_next_after_delay()
+
+
+def when_one_layer_canceled(scene):
+    print("[PETRA] Render: canceled. ❌")
+    reset_render_queue()
 
 
 # Helper methods
 
 
 def render_next():
-
-    if not render_queue.unfinished_tasks:
-        print("[PETRA] Render completed.")
-        bpy.app.handlers.render_complete.remove(render_complete)
-        bpy.app.handlers.render_cancel.remove(render_cancel)
+    if not render_queue:
+        when_all_layers_completed()
         return
 
-    identifier = render_queue.get()
+    identifier = render_queue.popleft()
+    print(f"[PETRA] Render: {identifier}")
 
-    print(f"[PETRA] Render Layer: {identifier}")
-
-    run_module("initialisation")
-    run_module(identifier)
-    run_module("layer_render")
-
-
-def render_complete(scene):
-    task_done()
-
-
-def render_cancel(scene):
-    print("[PETRA] Render canceled.")
-    task_done()
+    try:
+        run_module("initialisation")
+        run_module(identifier)
+        run_module("layer_render")
+    except Exception as e:
+        render_next_after_delay()
+        raise e
 
 
-def task_done():
-    render_queue.task_done()
+def render_next_after_delay():
+    # We add a 3 second delay here since running it right away
+    # sometimes leads to issues. This might be revisited again
+    # at a later point.
 
     def in_3_seconds():
         render_next()
 
     bpy.app.timers.register(in_3_seconds, first_interval=3)
+
+
+def reset_render_queue():
+    """
+    Note: This function may be removed in the future. Adding it to
+    ensure we start with a clean state amidst errors.
+    """
+    # remove unfinished tasks from previous unfinished render
+    render_queue.clear()
+
+    # remove potential event listeners from previous unfinished renders
+    for func in bpy.app.handlers.render_complete:
+        if func.__name__ == "when_one_layer_completed":
+            bpy.app.handlers.render_complete.remove(func)
+
+    for func in bpy.app.handlers.render_cancel:
+        if func.__name__ == "when_one_layer_canceled":
+            bpy.app.handlers.render_cancel.remove(func)
 
 
 def run_module(identifier):

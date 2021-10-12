@@ -136,11 +136,10 @@ class PETRA_OT_produce_documentation(Operator):
     bl_description = "Produce the PETRA Documentation."
 
     def execute(self, context):
-        for layer in layers_iterator():
-            # skip layers which aren't selected
-            if not getattr(context.scene.petra, layer):
-                continue
-            render_layers.render(layer)
+        selected_layers = (
+            layer for layer in layers_iterator() if getattr(context.scene.petra, layer)
+        )
+        render_layers.render(selected_layers)
 
         return {"FINISHED"}
 
