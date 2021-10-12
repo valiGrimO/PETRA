@@ -1,91 +1,58 @@
-# List of tasks for the development of PETrA
+# List of tasks for the development of **PETrA**
 
 **Legend:**
 - [ ] task to do
 - [x] completed task
-- **M** task dedicated to Michael
-- **V** task dedicated to Valentin
 - :large_blue_circle: low priority
 - :yellow_circle: medium priority
 - :red_circle: high priority
 - :green_circle: validated task
 
 ## Camera Management
-- [x] **M** :green_circle: when previewing a camera, we should look through this camera and select this camera
-- [x] **M** :green_circle: Rename the editable value "resolution" into "spatial resolution"
-- [x] **M** :green_circle: show uneditable resolution (in ppi)
-- [x] **M** :green_circle: show in real time uneditable printed size of rendered pictures (in cm)
-- [x] **M** :green_circle: How to manage more than 6 cameras?
-- [x] **M** :green_circle: Fix the dimensions (H and V) of the camera. The resolution is wrong too... :confused: Results should be the same as what we get with `PETrA/roadmap/renderSize.ods`
-- [x] **M** :green_circle: Compute in real time H and V value of the camera, depending on the size of the "framing box", the scale of documentation, and the spatial resolution
-  - Would it be still possible to get the size in pixel later in the paradata file?
-- [ ] **M** :yellow_circle: Add a check box to each camera in order to select the ones to be rendered (sometimes, we don't need every layer of information for some point of view)
+- [ ] :yellow_circle: Add a check box to each camera in order to select the ones to be rendered (sometimes, we don't need every layer of information for some point of view)
 
 ## Layer of information in details
-### Initialisation
-- [x] **V** :green_circle: Need to manage slot creation and filling (see [issue 9](https://github.com/valiGrimO/PETrA/issues/9))
-
 ### C1, Color
-- [ ] :large_blue_circle: : Image decorrelation
+- [ ] :large_blue_circle: Image decorrelation
 
 ### L1, Ambient occlusion
-- [ ] **M+V** :yellow_circle: Integrate control of ambient occlusion
+- [ ] :yellow_circle: Integrate control of ambient occlusion
 
 ### R2, contour lines
-- [x] **M** :green_circle: **render script** : we have a weird effect if rotation is different of 0, and scale different of 1. We should warn the user to apply rotation and scale (`ctrl` + `A`) or propose to apply it for him. -> add a warning about orientation and scale
-- [x] **M** :green_circle: **render script** : how to affect the output name with the spacing value? The idea is to achieve an output file name like 'cam##_R2_CL-xmm'
-- [ ] **M+V** :yellow_circle: **user interaction** : integrate the control of spacing in the side bar
+- [ ] :red_circle: integrate sublayers in user interface
 
 ### R3, Deviation map
-- [x] **M** :green_circle: **external plugin** : in the DM plugin, how to name correctly output (for instance ,"DM1" instead of "DM", "DM2" instead of "DM.001")
-- [X] **V** :green_circle: clear the compositor nodes in order to have only one output
-- [X] **V** :green_circle: **render script** : Modify the output file name with the "Normalization Value" choosen. Output should be like "Cam-##_R3_DM-[normalization value]"
-- [ ] **M** :red_circle: **render script** if there is several `DM` vertex color, create a loop to render each one
-- [ ] **M** :yellow_circle: **external plugin** : integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We need to show only "normalization value", and to compute the distance
-- [ ] **M** :large_blue_circle: **render script** when rendering, if R3 is selected, check if one `DM` vertex color at least is present on the selected mesh
-- [ ] **M** :yellow_circle: **user interaction** : interact in the side panel with normalization value
-- [ ] **V** :large_blue_circle: **material** : add out of range value (blue colored vertices) in the mask layer
+- [ ] :red_circle: integrate sublayers in user interface
+- [ ] :red_circle: if there is several `DM` vertex color, create a loop to render each one
+- [ ] :yellow_circle: integrate the plugin "deviation map" to compute the distance between 2 meshes. It is already configured to meet the PETrA requirement. We need to show only "normalization value", and to compute the distance
+- [ ] :large_blue_circle: **render script** when rendering, if R3 is selected, check if one `DM` vertex color at least is present on the selected mesh
+- [ ] :large_blue_circle: how to find normalization value without CloudCompare?
 
 **_Open questions_**
-- **V:** user can produce several `DM` layer. How to document them? In a sense of which parameters were used to produce the comparison mesh, and for which purpose?
+- user can produce several `DM` layer. How to document them? In a sense of which parameters were used to produce the comparison mesh, and for which purpose?
 
 ### R4, Pointiness
-- [x] **M** :green_circle: Modify the output file name with the ratio choosen. Output should be like "Cam-##_R4_POI-[ratio]"
-- [ ] **V** :yellow_circle: Create a loop to apply decimate modifier to every selected meshes
-
-### R5, Aspect
-- [ ] **V** :green_circle: clear the compositor nodes in order to have only one output
+- [ ] :yellow_circle: Create a loop to apply decimate modifier to every selected meshes
 
 ## Scripts about previewing and rendering layers of information
-- [x] **M** :green_circle: **render script:** help to finish to write action's scripts
-  - [x] how to remove a link?
-  - [x] how to apply (and not rename) a matrial to a selected object, and a specific object?
-  - [x] how to hit "produce documentation"?
-  - [x] how to mute and unmute a node?
-- [x] **M** :green_circle: How to rename a node?
-- [ ] **V** :green_circle: Finish to write each layer
-  - [x] `init.py`
-  - [x] `layer_C1_PRT.py`
-  - [x] `layer_C1_PRV.py`
-  - [x] `layer_H1_Masks.py`
-  - [x] `layer_H2_OBN.py`
-  - [x] `layer_L1_AmbientOcclusion.py`
-  - [x] `layer_R1_Shading.py`
-  - [x] `layer_R2_ContourLines.py`
-  - [x] `layer_R3_DeviationMap.py`
-  - [x] `layer_R4_Pointiness.py`
-  - [x] `layer_R5_Aspect.py`
-  - [x] `layer_R6_Slope.py`
 - [ ] :red_circle: rendering an animation is not working, we need to hit the preview button to apply the render size
-- [x] **M** :green_circle: Integrate scripts in the user interface
+- **LAST MEETING** [`layer_render.py #L5`](https://github.com/valiGrimO/PETrA/blob/b1e7e841c446dcbdc4a2f887ffec58d6561a9e17/scripts/petra_blender_addon/render_layers/layer_render.py#L5) : `bpy.ops.petra.activate_and_preview_scene_camera()` doesn't seem to work
 
 ## User interface, general interactions
 - [ ] **M+V** :large_blue_circle: add "help button" in the panel, in relation with each layer and/or parameter, linking to a specific page of the documentation for R3 at least, but probably each layer
 - [ ] **V** :yellow_circle: rewrite the whole documentation, but in English this time
 - [ ] **M** or **V** :yellow_circle: How to remove the `modelling` tab present by default in Blender? In this tab, we enter directly in edit mode, and since we are working with huge meshes, it is time consumming to wait until everything is loaded as we don't need to interact...
 
-## Sandbox
-- Need feedback about paradata and automatic layout
+## Paradata
+- **LAST MEETING** [`paradata.py #L116`](https://github.com/valiGrimO/PETrA/blob/b1e7e841c446dcbdc4a2f887ffec58d6561a9e17/scripts/petra_blender_addon/paradata.py#L116) : don't succeed to compute `imageResolution`
+- **LAST MEETING** [`paradata.py #L123`](https://github.com/valiGrimO/PETrA/blob/b1e7e841c446dcbdc4a2f887ffec58d6561a9e17/scripts/petra_blender_addon/paradata.py#L123) : how could I get `orthographicScale` displayed in the user interface?
+- **LAST MEETING** [`paradata.py #L124`](https://github.com/valiGrimO/PETrA/blob/b1e7e841c446dcbdc4a2f887ffec58d6561a9e17/scripts/petra_blender_addon/paradata.py#L124) : how could I get the `printedSize` (in cm) displayed in the user interface?
+- **LAST MEETING** [`paradata.py #L`](https://github.com/valiGrimO/PETrA/blob/b1e7e841c446dcbdc4a2f887ffec58d6561a9e17/scripts/petra_blender_addon/paradata.py#L128) : how could I get `clippingStart`, `clippingEnd`, `shift_x` and `shift_y`?
+- **LAST MEETING** [`paradata.py #L133`](https://github.com/valiGrimO/PETrA/blob/b1e7e841c446dcbdc4a2f887ffec58d6561a9e17/scripts/petra_blender_addon/paradata.py#L133) : getting absolute location and rotation of cameras is more efficient than the relative position to framing box. With absolute values, we don't need the framing box to get the same point of view. To get those values, we can use the 3D cursor:
+- select the object we want to document
+- move 3d cursor to the selection `bpy.ops.view3d.snap_cursor_to_selected()`
+- get locations of 3d cursor `bpy.data.scenes["Scene"].cursor.location[0]`
+- rotations are defined by the framing box rotation and local rotation of cameras
 
-# Roadmap for the development of ICEO
+# Roadmap for the development of **ICEO**
 - Coming after PETrA will be completed!
