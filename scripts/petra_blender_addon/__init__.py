@@ -1,10 +1,10 @@
 bl_info = {
     "name": "PETRA",
     "author": "Valentin Grimaud",
-    "version": (0, 2, 4),
+    "version": (0, 3, 0),
     "blender": (2, 80, 0),
     "location": "View3D > Sidebar > New Tab",
-    "description": "Protocole d'Exploitation des représentations TRidimensionnelles en Archéologie.",
+    "description": "Protocole Employing TRee dimension models in Archaeology",
     "warning": "",
     "wiki_url": "https://github.com/valigrimo/PETrA",
     "tracker_url": "https://github.com/valigrimo/PETrA/issues",
@@ -136,10 +136,11 @@ class PETRA_OT_produce_documentation(Operator):
     bl_description = "Produce the PETRA Documentation."
 
     def execute(self, context):
-        selected_layers = (
-            layer for layer in layers_iterator() if getattr(context.scene.petra, layer)
-        )
-        render_layers.render(selected_layers)
+        for layer in layers_iterator():
+            # skip layers which aren't selected
+            if not getattr(context.scene.petra, layer):
+                continue
+            render_layers.render(layer)
 
         return {"FINISHED"}
 

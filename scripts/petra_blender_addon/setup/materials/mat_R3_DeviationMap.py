@@ -1,54 +1,13 @@
 import bpy
 
 # MATERIAL
-r3_deviation_map = bpy.data.materials.new(name='r3_deviation_map')
-r3_deviation_map.use_nodes = True
-node_tree0 = r3_deviation_map.node_tree
+r3_deviationmap = bpy.data.materials.new(name='r3_deviationmap')
+r3_deviationmap.use_nodes = True
+node_tree0 = r3_deviationmap.node_tree
 for node in node_tree0.nodes:
     node_tree0.nodes.remove(node)
 
 # NODES
-vertex_color_0 = node_tree0.nodes.new('ShaderNodeVertexColor')
-if hasattr(vertex_color_0, 'active_preview'):
-    vertex_color_0.active_preview = False
-if hasattr(vertex_color_0, 'color'):
-    vertex_color_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
-if hasattr(vertex_color_0, 'hide'):
-    vertex_color_0.hide = False
-if hasattr(vertex_color_0, 'location'):
-    vertex_color_0.location = (-220.0, 20.0)
-if hasattr(vertex_color_0, 'mute'):
-    vertex_color_0.mute = False
-if hasattr(vertex_color_0, 'name'):
-    vertex_color_0.name = 'Vertex Color'
-if hasattr(vertex_color_0, 'use_custom_color'):
-    vertex_color_0.use_custom_color = False
-if hasattr(vertex_color_0, 'width'):
-    vertex_color_0.width = 172.864990234375
-vertex_color_0.outputs[0].default_value = (0.0, 0.0, 0.0, 0.0)
-vertex_color_0.outputs[1].default_value = 0.0
-
-value_0 = node_tree0.nodes.new('ShaderNodeValue')
-if hasattr(value_0, 'active_preview'):
-    value_0.active_preview = False
-if hasattr(value_0, 'color'):
-    value_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
-if hasattr(value_0, 'hide'):
-    value_0.hide = False
-if hasattr(value_0, 'label'):
-    value_0.label = 'Extreme Value (in mm)'
-if hasattr(value_0, 'location'):
-    value_0.location = (-180.0, -120.0)
-if hasattr(value_0, 'mute'):
-    value_0.mute = False
-if hasattr(value_0, 'name'):
-    value_0.name = 'Value'
-if hasattr(value_0, 'use_custom_color'):
-    value_0.use_custom_color = False
-if hasattr(value_0, 'width'):
-    value_0.width = 140.0
-value_0.outputs[0].default_value = 6.0
-
 material_output_0 = node_tree0.nodes.new('ShaderNodeOutputMaterial')
 if hasattr(material_output_0, 'active_preview'):
     material_output_0.active_preview = False
@@ -76,31 +35,10 @@ node_tree1 = bpy.data.node_groups.get('DevMap')
 if not node_tree1:
     node_tree1 = bpy.data.node_groups.new('DevMap', 'ShaderNodeTree')
     # INPUTS
-    node_tree1.inputs.new('NodeSocketColor', 'Image')
-    node_tree1.inputs.new('NodeSocketFloat', 'Value')
+    node_tree1.inputs.new('NodeSocketColor', 'vertexColor')
     # OUTPUTS
     node_tree1.outputs.new('NodeSocketShader', 'Shader')
     # NODES
-    group_input_1 = node_tree1.nodes.new('NodeGroupInput')
-    if hasattr(group_input_1, 'active_preview'):
-        group_input_1.active_preview = False
-    if hasattr(group_input_1, 'color'):
-        group_input_1.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
-    if hasattr(group_input_1, 'hide'):
-        group_input_1.hide = False
-    if hasattr(group_input_1, 'location'):
-        group_input_1.location = (-980.0, -0.0)
-    if hasattr(group_input_1, 'mute'):
-        group_input_1.mute = False
-    if hasattr(group_input_1, 'name'):
-        group_input_1.name = 'Group Input'
-    if hasattr(group_input_1, 'use_custom_color'):
-        group_input_1.use_custom_color = False
-    if hasattr(group_input_1, 'width'):
-        group_input_1.width = 140.0
-    group_input_1.outputs[0].default_value = (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0)
-    group_input_1.outputs[1].default_value = 0.5
-
     separate_rgb_1 = node_tree1.nodes.new('ShaderNodeSeparateRGB')
     if hasattr(separate_rgb_1, 'active_preview'):
         separate_rgb_1.active_preview = False
@@ -109,7 +47,7 @@ if not node_tree1:
     if hasattr(separate_rgb_1, 'hide'):
         separate_rgb_1.hide = False
     if hasattr(separate_rgb_1, 'location'):
-        separate_rgb_1.location = (-780.0, -10.0)
+        separate_rgb_1.location = (-800.0, -20.0)
     if hasattr(separate_rgb_1, 'mute'):
         separate_rgb_1.mute = False
     if hasattr(separate_rgb_1, 'name'):
@@ -131,7 +69,7 @@ if not node_tree1:
     if hasattr(math_1, 'hide'):
         math_1.hide = False
     if hasattr(math_1, 'location'):
-        math_1.location = (-580.0, 110.0)
+        math_1.location = (-620.0, 100.0)
     if hasattr(math_1, 'mute'):
         math_1.mute = False
     if hasattr(math_1, 'name'):
@@ -157,7 +95,7 @@ if not node_tree1:
     if hasattr(math_001_1, 'hide'):
         math_001_1.hide = False
     if hasattr(math_001_1, 'location'):
-        math_001_1.location = (-400.0, 70.0)
+        math_001_1.location = (-440.0, 60.0)
     if hasattr(math_001_1, 'mute'):
         math_001_1.mute = False
     if hasattr(math_001_1, 'name'):
@@ -183,7 +121,7 @@ if not node_tree1:
     if hasattr(math_002_1, 'hide'):
         math_002_1.hide = False
     if hasattr(math_002_1, 'location'):
-        math_002_1.location = (-220.0, 70.0)
+        math_002_1.location = (-260.0, 60.0)
     if hasattr(math_002_1, 'mute'):
         math_002_1.mute = False
     if hasattr(math_002_1, 'name'):
@@ -209,7 +147,7 @@ if not node_tree1:
     if hasattr(math_003_1, 'hide'):
         math_003_1.hide = False
     if hasattr(math_003_1, 'location'):
-        math_003_1.location = (-40.0, 70.0)
+        math_003_1.location = (-80.0, 60.0)
     if hasattr(math_003_1, 'mute'):
         math_003_1.mute = False
     if hasattr(math_003_1, 'name'):
@@ -226,113 +164,6 @@ if not node_tree1:
     math_003_1.inputs[1].default_value = 0.5
     math_003_1.inputs[2].default_value = 0.0
     math_003_1.outputs[0].default_value = 0.0
-
-    math_004_1 = node_tree1.nodes.new('ShaderNodeMath')
-    if hasattr(math_004_1, 'active_preview'):
-        math_004_1.active_preview = False
-    if hasattr(math_004_1, 'color'):
-        math_004_1.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
-    if hasattr(math_004_1, 'hide'):
-        math_004_1.hide = False
-    if hasattr(math_004_1, 'location'):
-        math_004_1.location = (-40.0, -250.0)
-    if hasattr(math_004_1, 'mute'):
-        math_004_1.mute = False
-    if hasattr(math_004_1, 'name'):
-        math_004_1.name = 'Math.004'
-    if hasattr(math_004_1, 'operation'):
-        math_004_1.operation = 'ADD'
-    if hasattr(math_004_1, 'use_clamp'):
-        math_004_1.use_clamp = False
-    if hasattr(math_004_1, 'use_custom_color'):
-        math_004_1.use_custom_color = False
-    if hasattr(math_004_1, 'width'):
-        math_004_1.width = 140.0
-    math_004_1.inputs[0].default_value = 0.5
-    math_004_1.inputs[1].default_value = 0.5
-    math_004_1.inputs[2].default_value = 0.0
-    math_004_1.outputs[0].default_value = 0.0
-
-    math_006_1 = node_tree1.nodes.new('ShaderNodeMath')
-    if hasattr(math_006_1, 'active_preview'):
-        math_006_1.active_preview = False
-    if hasattr(math_006_1, 'color'):
-        math_006_1.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
-    if hasattr(math_006_1, 'hide'):
-        math_006_1.hide = False
-    if hasattr(math_006_1, 'location'):
-        math_006_1.location = (-240.0, -230.0)
-    if hasattr(math_006_1, 'mute'):
-        math_006_1.mute = False
-    if hasattr(math_006_1, 'name'):
-        math_006_1.name = 'Math.006'
-    if hasattr(math_006_1, 'operation'):
-        math_006_1.operation = 'DIVIDE'
-    if hasattr(math_006_1, 'use_clamp'):
-        math_006_1.use_clamp = False
-    if hasattr(math_006_1, 'use_custom_color'):
-        math_006_1.use_custom_color = False
-    if hasattr(math_006_1, 'width'):
-        math_006_1.width = 140.0
-    math_006_1.inputs[0].default_value = 0.5
-    math_006_1.inputs[1].default_value = 100.0
-    math_006_1.inputs[2].default_value = 0.0
-    math_006_1.outputs[0].default_value = 0.0
-
-    math_005_1 = node_tree1.nodes.new('ShaderNodeMath')
-    if hasattr(math_005_1, 'active_preview'):
-        math_005_1.active_preview = False
-    if hasattr(math_005_1, 'color'):
-        math_005_1.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
-    if hasattr(math_005_1, 'hide'):
-        math_005_1.hide = False
-    if hasattr(math_005_1, 'location'):
-        math_005_1.location = (-40.0, -90.0)
-    if hasattr(math_005_1, 'mute'):
-        math_005_1.mute = False
-    if hasattr(math_005_1, 'name'):
-        math_005_1.name = 'Math.005'
-    if hasattr(math_005_1, 'operation'):
-        math_005_1.operation = 'SUBTRACT'
-    if hasattr(math_005_1, 'use_clamp'):
-        math_005_1.use_clamp = False
-    if hasattr(math_005_1, 'use_custom_color'):
-        math_005_1.use_custom_color = False
-    if hasattr(math_005_1, 'width'):
-        math_005_1.width = 140.0
-    math_005_1.inputs[0].default_value = 0.5
-    math_005_1.inputs[1].default_value = 0.5
-    math_005_1.inputs[2].default_value = 0.0
-    math_005_1.outputs[0].default_value = 0.0
-
-    map_range_1 = node_tree1.nodes.new('ShaderNodeMapRange')
-    if hasattr(map_range_1, 'active_preview'):
-        map_range_1.active_preview = False
-    if hasattr(map_range_1, 'clamp'):
-        map_range_1.clamp = False
-    if hasattr(map_range_1, 'color'):
-        map_range_1.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
-    if hasattr(map_range_1, 'hide'):
-        map_range_1.hide = False
-    if hasattr(map_range_1, 'interpolation_type'):
-        map_range_1.interpolation_type = 'LINEAR'
-    if hasattr(map_range_1, 'location'):
-        map_range_1.location = (140.0, 10.0)
-    if hasattr(map_range_1, 'mute'):
-        map_range_1.mute = False
-    if hasattr(map_range_1, 'name'):
-        map_range_1.name = 'Map Range'
-    if hasattr(map_range_1, 'use_custom_color'):
-        map_range_1.use_custom_color = False
-    if hasattr(map_range_1, 'width'):
-        map_range_1.width = 140.0
-    map_range_1.inputs[0].default_value = 1.0
-    map_range_1.inputs[1].default_value = 0.4000000059604645
-    map_range_1.inputs[2].default_value = 0.6000000238418579
-    map_range_1.inputs[3].default_value = 0.0
-    map_range_1.inputs[4].default_value = 1.0
-    map_range_1.inputs[5].default_value = 4.0
-    map_range_1.outputs[0].default_value = 0.0
 
     colorramp_1 = node_tree1.nodes.new('ShaderNodeValToRGB')
     if hasattr(colorramp_1, 'active_preview'):
@@ -382,7 +213,7 @@ if not node_tree1:
     if hasattr(colorramp_1, 'hide'):
         colorramp_1.hide = False
     if hasattr(colorramp_1, 'location'):
-        colorramp_1.location = (320.0, 10.0)
+        colorramp_1.location = (100.0, 60.0)
     if hasattr(colorramp_1, 'mute'):
         colorramp_1.mute = False
     if hasattr(colorramp_1, 'name'):
@@ -395,33 +226,6 @@ if not node_tree1:
     colorramp_1.outputs[0].default_value = (0.0, 0.0, 0.0, 0.0)
     colorramp_1.outputs[1].default_value = 0.0
 
-    geometry_1 = node_tree1.nodes.new('ShaderNodeNewGeometry')
-    if hasattr(geometry_1, 'active_preview'):
-        geometry_1.active_preview = False
-    if hasattr(geometry_1, 'color'):
-        geometry_1.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
-    if hasattr(geometry_1, 'hide'):
-        geometry_1.hide = False
-    if hasattr(geometry_1, 'location'):
-        geometry_1.location = (600.0, 250.0)
-    if hasattr(geometry_1, 'mute'):
-        geometry_1.mute = False
-    if hasattr(geometry_1, 'name'):
-        geometry_1.name = 'Geometry'
-    if hasattr(geometry_1, 'use_custom_color'):
-        geometry_1.use_custom_color = False
-    if hasattr(geometry_1, 'width'):
-        geometry_1.width = 140.0
-    geometry_1.outputs[0].default_value = (0.0, 0.0, 0.0)
-    geometry_1.outputs[1].default_value = (0.0, 0.0, 0.0)
-    geometry_1.outputs[2].default_value = (0.0, 0.0, 0.0)
-    geometry_1.outputs[3].default_value = (0.0, 0.0, 0.0)
-    geometry_1.outputs[4].default_value = (0.0, 0.0, 0.0)
-    geometry_1.outputs[5].default_value = (0.0, 0.0, 0.0)
-    geometry_1.outputs[6].default_value = 0.0
-    geometry_1.outputs[7].default_value = 0.0
-    geometry_1.outputs[8].default_value = 0.0
-
     emission_1 = node_tree1.nodes.new('ShaderNodeEmission')
     if hasattr(emission_1, 'active_preview'):
         emission_1.active_preview = False
@@ -430,7 +234,7 @@ if not node_tree1:
     if hasattr(emission_1, 'hide'):
         emission_1.hide = False
     if hasattr(emission_1, 'location'):
-        emission_1.location = (600.0, 10.0)
+        emission_1.location = (380.0, 60.0)
     if hasattr(emission_1, 'mute'):
         emission_1.mute = False
     if hasattr(emission_1, 'name'):
@@ -450,7 +254,7 @@ if not node_tree1:
     if hasattr(emission_001_1, 'hide'):
         emission_001_1.hide = False
     if hasattr(emission_001_1, 'location'):
-        emission_001_1.location = (600.0, -110.0)
+        emission_001_1.location = (380.0, -60.0)
     if hasattr(emission_001_1, 'mute'):
         emission_001_1.mute = False
     if hasattr(emission_001_1, 'name'):
@@ -462,6 +266,33 @@ if not node_tree1:
     emission_001_1.inputs[0].default_value = (1.0, 1.0, 1.0, 1.0)
     emission_001_1.inputs[1].default_value = 1.0
 
+    geometry_1 = node_tree1.nodes.new('ShaderNodeNewGeometry')
+    if hasattr(geometry_1, 'active_preview'):
+        geometry_1.active_preview = False
+    if hasattr(geometry_1, 'color'):
+        geometry_1.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
+    if hasattr(geometry_1, 'hide'):
+        geometry_1.hide = False
+    if hasattr(geometry_1, 'location'):
+        geometry_1.location = (380.0, 300.0)
+    if hasattr(geometry_1, 'mute'):
+        geometry_1.mute = False
+    if hasattr(geometry_1, 'name'):
+        geometry_1.name = 'Geometry'
+    if hasattr(geometry_1, 'use_custom_color'):
+        geometry_1.use_custom_color = False
+    if hasattr(geometry_1, 'width'):
+        geometry_1.width = 140.0
+    geometry_1.outputs[0].default_value = (0.0, 0.0, 0.0)
+    geometry_1.outputs[1].default_value = (0.0, 0.0, 0.0)
+    geometry_1.outputs[2].default_value = (0.0, 0.0, 0.0)
+    geometry_1.outputs[3].default_value = (0.0, 0.0, 0.0)
+    geometry_1.outputs[4].default_value = (0.0, 0.0, 0.0)
+    geometry_1.outputs[5].default_value = (0.0, 0.0, 0.0)
+    geometry_1.outputs[6].default_value = 0.0
+    geometry_1.outputs[7].default_value = 0.0
+    geometry_1.outputs[8].default_value = 0.0
+
     mix_shader_1 = node_tree1.nodes.new('ShaderNodeMixShader')
     if hasattr(mix_shader_1, 'active_preview'):
         mix_shader_1.active_preview = False
@@ -470,7 +301,7 @@ if not node_tree1:
     if hasattr(mix_shader_1, 'hide'):
         mix_shader_1.hide = False
     if hasattr(mix_shader_1, 'location'):
-        mix_shader_1.location = (780.0, 50.0)
+        mix_shader_1.location = (560.0, 60.0)
     if hasattr(mix_shader_1, 'mute'):
         mix_shader_1.mute = False
     if hasattr(mix_shader_1, 'name'):
@@ -491,7 +322,7 @@ if not node_tree1:
     if hasattr(group_output_1, 'is_active_output'):
         group_output_1.is_active_output = True
     if hasattr(group_output_1, 'location'):
-        group_output_1.location = (970.0, -0.0)
+        group_output_1.location = (740.0, 60.0)
     if hasattr(group_output_1, 'mute'):
         group_output_1.mute = False
     if hasattr(group_output_1, 'name'):
@@ -501,24 +332,37 @@ if not node_tree1:
     if hasattr(group_output_1, 'width'):
         group_output_1.width = 140.0
 
+    group_input_1 = node_tree1.nodes.new('NodeGroupInput')
+    if hasattr(group_input_1, 'active_preview'):
+        group_input_1.active_preview = False
+    if hasattr(group_input_1, 'color'):
+        group_input_1.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
+    if hasattr(group_input_1, 'hide'):
+        group_input_1.hide = False
+    if hasattr(group_input_1, 'location'):
+        group_input_1.location = (-980.0, -0.0)
+    if hasattr(group_input_1, 'mute'):
+        group_input_1.mute = False
+    if hasattr(group_input_1, 'name'):
+        group_input_1.name = 'Group Input'
+    if hasattr(group_input_1, 'use_custom_color'):
+        group_input_1.use_custom_color = False
+    if hasattr(group_input_1, 'width'):
+        group_input_1.width = 140.0
+    group_input_1.outputs[0].default_value = (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0)
+
     # LINKS
     node_tree1.links.new(group_input_1.outputs[0], separate_rgb_1.inputs[0])
     node_tree1.links.new(mix_shader_1.outputs[0], group_output_1.inputs[0])
-    node_tree1.links.new(group_input_1.outputs[1], math_006_1.inputs[0])
     node_tree1.links.new(emission_001_1.outputs[0], mix_shader_1.inputs[2])
     node_tree1.links.new(geometry_1.outputs[6], mix_shader_1.inputs[0])
     node_tree1.links.new(math_1.outputs[0], math_001_1.inputs[0])
     node_tree1.links.new(math_001_1.outputs[0], math_002_1.inputs[0])
     node_tree1.links.new(math_002_1.outputs[0], math_003_1.inputs[0])
-    node_tree1.links.new(math_003_1.outputs[0], map_range_1.inputs[0])
     node_tree1.links.new(emission_1.outputs[0], mix_shader_1.inputs[1])
     node_tree1.links.new(separate_rgb_1.outputs[0], math_1.inputs[1])
     node_tree1.links.new(separate_rgb_1.outputs[1], math_001_1.inputs[1])
-    node_tree1.links.new(map_range_1.outputs[0], colorramp_1.inputs[0])
-    node_tree1.links.new(math_006_1.outputs[0], math_005_1.inputs[1])
-    node_tree1.links.new(math_006_1.outputs[0], math_004_1.inputs[1])
-    node_tree1.links.new(math_004_1.outputs[0], map_range_1.inputs[2])
-    node_tree1.links.new(math_005_1.outputs[0], map_range_1.inputs[1])
+    node_tree1.links.new(math_003_1.outputs[0], colorramp_1.inputs[0])
     node_tree1.links.new(colorramp_1.outputs[0], emission_1.inputs[0])
 
 group_0 = node_tree0.nodes.new('ShaderNodeGroup')
@@ -531,7 +375,7 @@ if hasattr(group_0, 'color'):
 if hasattr(group_0, 'hide'):
     group_0.hide = False
 if hasattr(group_0, 'location'):
-    group_0.location = (0.0, 0.0)
+    group_0.location = (5.500427722930908, 0.0)
 if hasattr(group_0, 'mute'):
     group_0.mute = False
 if hasattr(group_0, 'name'):
@@ -541,18 +385,34 @@ if hasattr(group_0, 'use_custom_color'):
 if hasattr(group_0, 'width'):
     group_0.width = 140.0
 group_0.inputs[0].default_value = (0.800000011920929, 0.800000011920929, 0.800000011920929, 1.0)
-group_0.inputs[1].default_value = 0.5
+
+vertex_color_0 = node_tree0.nodes.new('ShaderNodeVertexColor')
+if hasattr(vertex_color_0, 'active_preview'):
+    vertex_color_0.active_preview = False
+if hasattr(vertex_color_0, 'color'):
+    vertex_color_0.color = (0.6079999804496765, 0.6079999804496765, 0.6079999804496765)
+if hasattr(vertex_color_0, 'hide'):
+    vertex_color_0.hide = False
+if hasattr(vertex_color_0, 'layer_name'):
+    vertex_color_0.layer_name = 'DM3_normVal-0.009m'
+if hasattr(vertex_color_0, 'location'):
+    vertex_color_0.location = (-200.0, 0.0)
+if hasattr(vertex_color_0, 'mute'):
+    vertex_color_0.mute = False
+if hasattr(vertex_color_0, 'name'):
+    vertex_color_0.name = 'Vertex Color'
+if hasattr(vertex_color_0, 'use_custom_color'):
+    vertex_color_0.use_custom_color = False
+if hasattr(vertex_color_0, 'width'):
+    vertex_color_0.width = 172.864990234375
+vertex_color_0.outputs[0].default_value = (0.0, 0.0, 0.0, 0.0)
+vertex_color_0.outputs[1].default_value = 0.0
 
 # LINKS
 node_tree0.links.new(vertex_color_0.outputs[0], group_0.inputs[0])
 node_tree0.links.new(group_0.outputs[0], material_output_0.inputs[0])
-node_tree0.links.new(value_0.outputs[0], group_0.inputs[1])
 
 # TO ACTIVE
 selected_objects = (obj for obj in bpy.data.objects if obj.select_get())
 for obj in selected_objects:
-    obj.active_material = r3_deviation_map
-
-
-# FAKE USER
-bpy.data.materials['r3_deviation_map'].use_fake_user = True
+    obj.active_material = r3_deviationmap

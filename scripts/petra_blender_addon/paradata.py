@@ -42,11 +42,6 @@ class BlenderData:
         # --------------------------------------------------
         self.framing_box = objects["Framing Box"]
         self.cam_01 = objects["Cam-01"]
-        self.cam_02 = objects["Cam-02"]
-        self.cam_03 = objects["Cam-03"]
-        self.cam_04 = objects["Cam-04"]
-        self.cam_05 = objects["Cam-05"]
-        self.cam_06 = objects["Cam-06"]
 
         self.documentation_scale = params.documentation_scale  # float
         # Experimental. Works well for 1/10 and 1/20.
@@ -99,45 +94,26 @@ def generate_yaml(context, filepath):
     fB["locationY"] = f"{locations[1]} m"
     fB["locationZ"] = f"{locations[2]} m"
 
-    rotations_fB = blenderdata.framing_box.rotation_euler
-    fB["rotationX"] = f"{rotations_fB[0]}°"
-    fB["rotationY"] = f"{rotations_fB[1]}°"
-    fB["rotationZ"] = f"{rotations_fB[2]}°"
+    rotations = blenderdata.framing_box.rotation_euler
+    fB["rotationX"] = f"{rotations[0]}°"
+    fB["rotationY"] = f"{rotations[1]}°"
+    fB["rotationZ"] = f"{rotations[2]}°"
 
     dimensions = blenderdata.framing_box.scale
     fB["dimensionX"] = f"{dimensions[0]} m"
     fB["dimensionY"] = f"{dimensions[1]} m"
     fB["dimensionZ"] = f"{dimensions[2]} m"
 
-    sS = result["sceneSettings"]
-    sS["documentationScale"] = varA = blenderdata.documentation_scale_fraction
-    sS["spatialResolution"] = varB = f"1 pixel covers {blenderdata.spatial_resolution} mm"
-    varC = round(varA/(varB/25.4))
-    sS["imageResolution"] = f"{varC} ppi"
+    pS = result["projectSetup"]
+    pS["echelleDocumentation"] = blenderdata.documentation_scale_fraction
+    pS["imageResolution"] = "_ ppi" #blenderdata.image_resolution
+    pS["spatialResolution"] = f"1 pixel covers {blenderdata.spatial_resolution} mm"
 
-# If we can create a loop for every camera in the scene (except for location and rotation), it would be awesome!
-
-    # select cam_01
     cam = result["cameras"]
     cam[0]["name"] = blenderdata.cam_01.name
-    cam[0]["imageSettings"]["orthographicScale"] = f"{blenderdata.orthoscale} m" # where can I get orthographic scale?
-    cam[0]["imageSettings"]["printedSize_cm"] = "_ x _ cm" # where can I get the printed size?
-    # cam[0]["imageSettings"]["printedSize_px"] = f"{blenderdata.render.resolution_x} x {blenderdata.render.resolution_y} pixels"
-    # AttributeError: 'BlenderData' object has no attribute 'render'
-
-    # cam[0]["cameraSettings"]["clippingStart"] = blenderdata.cameras.clip_start
-    # cam[0]["cameraSettings"]["clippingEnd"] = blenderdata.cameras.clip_end
-    # cam[0]["cameraSettings"]["shiftX"] = blenderdata.cameras.shift_x
-    # cam[0]["cameraSettings"]["shiftY"] = blenderdata.cameras.shift_y
-
-    # bpy.ops.view3d.snap_cursor_to_selected()      or: snap_cursor_to["cam_01"]
-    # cam[0]["cameraSettings"]["locationX"] = blenderdata.cursor.location[0] # bpy.data.scenes["Scene"].cursor.location[0]
-    # cam[0]["cameraSettings"]["locationY"] = blenderdata.cursor.location[1]
-    # cam[0]["cameraSettings"]["locationZ"] = blenderdata.cursor.location[2]
-    rotations_cam01 = blenderdata.cam_01.rotation_euler
-    cam[0]["cameraSettings"]["rotationX"] = f"{rotations_fB[0]+rotations_cam01[0]+90}°"
-    cam[0]["cameraSettings"]["rotationY"] = f"{rotations_fB[1]+rotations_cam01[2]}°"
-    cam[0]["cameraSettings"]["rotationZ"] = f"{rotations_fB[2]+rotations_cam01[2]}°"
+    cam[0]["parametresImage"]["orthographicScale"] = "_ x _ m"
+    cam[0]["parametresImage"]["dimensionsCm"] = "_ x _ cm"
+    cam[0]["parametresImage"]["dimensionsPixel"] = "_ x _ pixels"
 
     ########################################################
 

@@ -41,7 +41,7 @@ if len(obj.material_slots) > 0:
     for c, slot in enumerate(obj.material_slots):
         obj.material_slots[c].material = mat
 else:
-    # In case there is no material, append "C1_prv" material
+    # In case there is no material, append the Demo material
     obj.data.materials.append(mat)
 
 
