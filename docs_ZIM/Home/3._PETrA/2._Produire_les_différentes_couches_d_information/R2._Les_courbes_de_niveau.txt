@@ -1,0 +1,65 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-09-09T15:36:42+02:00
+
+====== R2. Les courbes de niveau ======
+
+===== Définition =====
+Les courbes de niveau permettent de quantifier la profondeur de la surface. Elles sont générées en suivant trois pas d’espacement, qui peuvent varier en fonction de l’échelle de représentation (1/5, 1/10 ou 1/20 pour les blocs ornés) et la granularité de la surface. Ainsi, les valeurs choisies sont généralement soit 1, 5 et 10 mm, soit 2, 10 et 20 mm pour les surfaces ornées.
+
+===== Mise en oeuvre =====
+**Note :** si le modèle 3D a subi une transformation (translation ou rotation différent de "0" ; mise à l'échelle différente de 1), alors il faut appliquer toutes les transformations. Sinon les zébrures ne seront pas orientées correctement. Pour appliquer les transformations : `**ctrl**`+`**A**`.
+
+1. **Onglet 1 :** Masquer la sphère témoin.
+2. **Onglet 2 :** Sélectionner le maillage, appliquer le matériau `R2_CDN`.
+3. **Onglet 2 :** Modifier l'espacement entre les courbes de niveau.
+4. **Premier passage :**
+	a. **Onglet 2 :** Sélectionner le noeud `Valeur initiale x1`.
+	b. **Onglet 3 :** Connecter `Ouput 1` avec `R2_CDN`. Casser toute autre liaison que celle-ci.
+	c. **Onglet 3 :** Renommer les sorties du noeud terminal en fonction de la valeur choisie à l'étape 3.
+	d. **Onglet 3 :** Vérifier que le noeud terminal soit connecter sur la première puce
+	e. **Onglet 3 :** Sélectionner le moteur de rendu EEVEE.
+	f. **Onglet 3 :** Render all cameras.
+
+{{../R2_CDN1.gif?href=..%2FR2_CDN1-HD.gif}}
+
+5. **Deuxième passage :**
+	a. **Onglet 2 :** Sélectionner le noeud `Valeur initiale x5`.
+	b. **Onglet 3 :** Connecter la deuxième puce du noeud terminal.
+	c. **Onglet 3 :** Render all cameras.
+
+{{../R2_CDN2.gif?href=..%2FR2_CDN2-HD.gif}}
+
+6. **Troisième passage :**
+	a. **Onglet 2 :** Sélectionner le noeud `Valeur initiale x10`.
+	b. **Onglet 3 :** Connecter la troisième puce du noeud terminal.
+	c. **Onglet 3 :** Render all cameras.
+
+	**Note :** //Il s'agit de la même procédure que pour le deuxième passage//
+
+Les images sont alors enregistrées dans le dossier à la racine du projet nommé `TEMP`.
+
+	**Note :** //Avec le développement des scripts envisagés, toutes ces étapes intermédiaires seront automatisées.//
+
+
+===== Liste des images produites et leurs caractéristiques =====
+**Structure du nom des fichiers générés :**
+	[Nom de la caméra]_[Catégorie d'information]_[Identifiant de l'information générée]-[Espacement entre deux zébrures].jpg
+
+**Liste des fichiers :**
+* Cam-##_R2_CDN-2mm.jpg : Courbes de niveau espacées de 2 mm
+* Cam-##_R2_CDN-10mm.jpg : Courbes de niveau espacées de 10 mm
+* Cam-##_R2_CDN-20mm.jpg : Courbes de niveau espacées de 20 mm
+
+
+===== Description du matériau (onglet 2) =====
+Configuration générale :
+{{../R2.png?width=490}}
+
+Détail du noeud vert `x1` :
+{{../R2x1.png?width=1131}}
+
+Pour les noeuds verts `x5` et `x10`, on a la même chose, sauf que la boîte `Divide` contient respectivement les valeurs `20` et `10`.
+
+===== Description du compositeur (onglet 3) =====
+Les noeuds sont facilement explorables à travers l'interface Blender.

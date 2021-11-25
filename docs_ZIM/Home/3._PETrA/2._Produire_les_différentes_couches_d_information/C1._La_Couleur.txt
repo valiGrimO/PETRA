@@ -1,0 +1,49 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-09-09T15:35:48+02:00
+
+====== C1. La Couleur ======
+
+===== Définition =====
+Carte photoréaliste issue d’un calcul de la texture sur le modèle 3D, ou de la couleur des sommets du maillage. Ces cartes. peuvent avoir – ou non – une correction colorimétrique pour restituer une couleur plus proche de la réalité. Elle permet de qualifier la couleur d'une surface
+
+===== Mise en oeuvre =====
+Si le modèle 3D importé est un **fichier `ply`** avec des //vertex color //:
+1. **Onglet 1 :** Masquer la sphère témoin.
+2. **Onglet 2 :** Sélectionner le maillage, appliquer le matériau `C1_PRV`.
+3. **Onglet 3 :** Connecter `Ouput 1` avec `C1_PR`. Casser toute autre liaison que celle-ci.
+4. **Onglet 3 :** Vérifier que le noeud terminal soit connecté sur `...C1_PRV`
+5. **Onglet 3 :** Sélectionner le moteur de rendu EEVEE.
+6. **Onglet 3 :** Render all cameras.
+
+Si le modèle 3D importé est un **fichier `obj`** avec une ou des textures :
+1. **Onglet 1 :** Masquer la sphère témoin.
+2. **Onglet 2 :** Dans chacun des slots (1 slot = 1 texture), 
+	1. Transformer le shader `Principled BSDF` en `emission`
+3. **Onglet 3 :** Connecter `Ouput 1` avec `C1_PR`. Casser toute autre liaison que celle-ci.
+4. **Onglet 3 :** Vérifier que le noeud terminal soit connecté sur `...C1_PRT`
+5. **Onglet 3 :** Sélectionner le moteur de rendu EEVEE.
+6. **Onglet 3 :** Render all cameras.
+
+Les images sont alors enregistrées dans le dossier à la racine du projet nommé `TEMP`.
+
+{{../C1_PRT.gif?href=..%2FC1_PRT-HD.gif}}
+
+	**Note :** //Avec le développement des scripts envisagés, toutes ces étapes intermédiaires seront automatisées.//
+
+
+===== Liste des images produites et leurs caractéristiques =====
+**Structure du nom des fichiers générés :**
+	[Nom de la caméra]_[Catégorie d'information]_[Identifiant de l'information générée].png
+
+**Liste des fichiers :**
+* Cam-##_C1_PRT.png : information couleur issue d'un modèle 3D possédant une texture
+* Cam-##_C1_PRV.png : information couleur issue d'un modèle 3D ayant des //vertex color//
+
+Si des corrections colorimétriques devaient être appliquées aux images, un suffixe `-c` est ajouté pour former `..._PRTc` ou `..._PRVc`.
+
+===== Description du matériau (onglet 2) =====
+{{../C1.png?width=608}}
+
+===== Description du compositeur (onglet 3) =====
+Les noeuds sont facilement explorables à travers l'interface Blender.

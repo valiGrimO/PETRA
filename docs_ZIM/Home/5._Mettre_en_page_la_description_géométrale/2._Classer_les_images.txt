@@ -1,0 +1,11 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2021-03-03T17:14:24+01:00
+
+====== 5.2. Classer les images ======
+
+Jusqu'à maintenant, toutes les images ont été enregistrées et traitées dans le dossier `//temp`.
+
+Avant de procéder à la mise en page dans Inkscape, il faut classer les images en les distribuant dans le répertoire `//5_descriptionGeometrale/[le dossier dupliquer au début du travail de documentation, au nom de l'objet documenté`.
+
+{{../Classement.png?href=..%2FClassement-HD.png}}

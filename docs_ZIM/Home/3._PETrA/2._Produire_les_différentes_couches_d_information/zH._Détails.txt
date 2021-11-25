@@ -1,0 +1,18 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.6
+Creation-Date: 2021-03-04T13:21:20+01:00
+
+====== zH. Détails ======
+
+===== Définition =====
+Le but de cette couche d'information est plutôt esthétique à l'instar de [[../zH._Esquisser_les_contours.html|zH. OBN]]. La différence réside dans la qualité des détails rendus :
+* zH. Détails permet de rendre compte de petits reliefs de surface, avec un aspect général plus grisé.
+* zH. OBN permet de rendre compte de ruptures franches.
+
+Le rendu optimal est — dans Inkscape — en mode "produit" sur une autre couche d'information.
+
+===== Mise en oeuvre =====
+Cf. [[../R1._Les_ombrages.html|R1. Les ombrages]]
+
+===== Description du compositeur (onglet 3) =====
+Les noeuds sont facilement explorables à travers l'interface Blender.

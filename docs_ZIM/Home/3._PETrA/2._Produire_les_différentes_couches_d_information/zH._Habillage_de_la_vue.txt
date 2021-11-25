@@ -1,0 +1,41 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2020-09-09T15:38:12+02:00
+
+====== zH. Habillage de la vue ======
+
+===== Définition =====
+Il s'agit d'une carte qui permet de caractériser les lacunes issues de l’enregistrement, de masquer l’arrière plan, définir les contours du blocs, et de griser les données lacunaires.
+
+===== Mise en oeuvre =====
+Elle peut être générée à partir du modèle 3D, mais elle peut aussi être dessinée directement dans Inkscape au moment de la mise en page.
+
+//Dans// //**Blender**,//
+1. **Onglet 1 :** Masquer la sphère témoin.
+2. **Onglet 2 :** Appliquer le matériau `zH_Habillage`.
+3. **Onglet 3 :** Connecter `Ouput 1` avec `zH_Habillage`. Casser toute autre liaison que celle-ci.
+4. **Onglet 3 :** Sélectionner le moteur de rendu EEVEE.
+5. **Onglet 3 :** Render all cameras.
+
+Les images sont alors enregistrées dans le dossier à la racine du projet nommé `TEMP`.
+
+{{../zH_LA.gif?href=..%2FzH_LA-HD.gif}}
+
+	**Note :** //Avec le développement des scripts envisagés, toutes ces étapes intermédiaires seront automatisées.//
+
+//Dans** Krita**,//
+* Ouvrir l'image `Cam-xx_zH_Habillage.png`.
+* Créer un nouveau calque.
+* Placer ce calque en bas de la pile.
+* Peindre les parties coupées en noir.
+* Enregistrer l'image avec le même nom, mais au format *.jpg.
+
+===== Liste des images produites et leurs caractéristiques =====
+* Cam-##_zH_Habillage.png
+	* Cam-##_zH_Habillage.jpg (après complétion dans Krita)
+
+===== Description du matériau (onglet 2) =====
+{{../zH_LA.png?width=456}}
+
+===== Description du compositeur (onglet 3) =====
+Les noeuds sont facilement explorables à travers l'interface Blender.

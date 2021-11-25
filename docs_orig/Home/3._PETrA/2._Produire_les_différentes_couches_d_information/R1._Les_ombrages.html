@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<!-- based on a Pen by Devilish Alchemist @ http://codepen.io/devilishalchemist/pen/LERvpM -->
+<head>
+  <meta charset="UTF-8">
+  <title>R1. Les ombrages</title>
+
+  <link rel="stylesheet" href="../../../_resources/css/normalize.min.css">
+  <link rel="stylesheet" href="../../../_resources/css/whhg.css">
+  <link rel="stylesheet" href="../../../_resources/css/fonts.css">
+  <link rel="stylesheet" href="../../../_resources/css/style.css">
+
+</head>
+
+<body>
+  <div class="page">
+
+    <span id="view-toc" class="tooltip">&laquo; view index</span>
+    <span id="view-content" class="tooltip">return to content &raquo;</span>
+    <span id="view-next" class="tooltip">next page &raquo;</span>
+    <span id="view-prev" class="tooltip">&laquo; previous page</span>
+
+    <span class="menu_toggle">
+      <i class="menu_open icon icon-th-list"></i>
+      <i class="menu_close icon icon-import"></i>
+    </span>
+
+    <div id="navigation">
+      <ul>
+<li><a href="../../../Home.html" title="Home" class="page">Home</a>
+<ul>
+<li><a href="../../1._Acquisition.html" title="1. Acquisition" class="page">1. Acquisition</a></li>
+<li><a href="../../2._Créer_les_modèles_3D.html" title="2. Créer les modèles 3D" class="page">2. Créer les modèles 3D</a></li>
+<li><a href="../../3._PETrA.html" title="3. PETrA" class="page">3. PETrA</a>
+<ul>
+<li><a href="../1._Configurer_le_fichier_Blender.html" title="1. Configurer le fichier Blender" class="page">1. Configurer le fichier Blender</a></li>
+<li><a href="../2._Produire_les_différentes_couches_d_information.html" title="2. Produire les différentes couches d information" class="page">2. Produire les différentes couches d information</a>
+<ul>
+<li><a href="./C1._La_Couleur.html" title="C1. La Couleur" class="page">C1. La Couleur</a></li>
+<li><a href="./L1._L_illumination_globale.html" title="L1. L illumination globale" class="page">L1. L illumination globale</a></li>
+<li><b>R1. Les ombrages</b></li>
+<li><a href="./R2._Les_courbes_de_niveau.html" title="R2. Les courbes de niveau" class="page">R2. Les courbes de niveau</a></li>
+<li><a href="./R3._Les_cartes_des_écarts.html" title="R3. Les cartes des écarts" class="page">R3. Les cartes des écarts</a></li>
+<li><a href="./R4._Pointosité.html" title="R4. Pointosité" class="page">R4. Pointosité</a></li>
+<li><a href="./zH._Détails.html" title="zH. Détails" class="page">zH. Détails</a></li>
+<li><a href="./zH._Esquisser_les_contours.html" title="zH. Esquisser les contours" class="page">zH. Esquisser les contours</a></li>
+<li><a href="./zH._Habillage_de_la_vue.html" title="zH. Habillage de la vue" class="page">zH. Habillage de la vue</a></li>
+</ul>
+</li>
+<li><a href="../3._Cas_particuliers.html" title="3. Cas particuliers" class="page">3. Cas particuliers</a></li>
+</ul>
+</li>
+<li><a href="../../4._ICEO.html" title="4. ICEO" class="page">4. ICEO</a></li>
+<li><a href="../../5._Mettre_en_page_la_description_géométrale.html" title="5. Mettre en page la description géométrale" class="page">5. Mettre en page la description géométrale</a></li>
+<li><a href="../../6._Logiciels.html" title="6. Logiciels" class="page">6. Logiciels</a></li>
+<li><a href="../../7._Gestion_de_la_documentation.html" title="7. Gestion de la documentation" class="page">7. Gestion de la documentation</a></li>
+</ul></li>
+</ul>
+
+      <span class="zimversion">
+        <small>built with</small><br><strong>Zim 0.72.0</strong>
+        <br>
+        --
+        <br>
+        <a href="https://github.com/scar45/ResponsivePivot">template<br> on Github<br><i class="icon icon-github"></i></a>
+      </span>
+    </div>
+
+    <main class="content">
+      <div class="content_inner">
+        <article>
+          <header>
+            <a id="navPrev" href='./L1._L_illumination_globale.html'><span><i class="icon icon-chevron-left"></i></span></a>
+
+            <a id="navHome" href='../../../Home.html'><span><i class="icon icon-homealt"></i></span></a>
+
+            <a id="navNext" href='./R2._Les_courbes_de_niveau.html'><span><i class="icon icon-chevron-right"></i></span></a>
+          </header>
+
+          <section>
+            <div class="page-title">
+              <h1><i class="icon icon-bookmarkalt"></i> R1. Les ombrages <a name='Home:3. PETrA:2. Produire les différentes couches d information:R1. Les ombrages'></a></h1>
+            </div>
+            <div class="fade fade-top"></div>
+            <div class="page-body">
+              <h2>Définition</h2>
+
+<p>
+Les cartes relief transcrivent les variations d’orientation xyz d’un vecteur normal à la surface étudiée par rapport à un référentiel que l’utilisateur peut définir : le point de vue de la caméra (mode orthogonal au point de vue), une autre surface de référence moins détaillée (mode tangent), ou les axes xyz de la scène 3D (mode univers).
+</p>
+
+<p>
+Code utilisé en fonction du type de carte relief :<br>
+<ul>
+<li>mode orthogonal au point de vue : NMC (Normal Map Camera)</li>
+<li>mode tangent : NMT (Normal Map Tangent)</li>
+<li>mode univers : NMW (Normal Map World)</li>
+</ul>
+</p>
+
+<p>
+Cette couche d'information permet de qualifier une surface
+</p>
+
+<h2>Mise en oeuvre</h2>
+
+<p>
+<ol type="1" start="1">
+<li><b>Onglet 1 :</b> Afficher la sphère témoin.</li>
+<li><b>Onglet 2 :</b> Sélectionner le maillage, clic-gauche et `Shade Smooth`.</li>
+<li><b>Onglet 2 :</b> Appliquer le matériau `R1_NMC`.</li>
+<li><b>Onglet 3 :</b> Connecter `Ouput 1` avec `R1_NMC`. Casser toute autre liaison que celle-ci.</li>
+<li><b>Onglet 3 :</b> Sélectionner le moteur de rendu EEVEE.</li>
+<li><b>Onglet 3 :</b> Render all cameras.</li>
+</ol>
+</p>
+
+<p>
+Les images sont alors enregistrées dans le dossier à la racine du projet nommé `TEMP`.
+</p>
+
+<p>
+<a href="./R1_Ombrages-HD.gif"><img src="./R1_Ombrages.gif"></a>
+</p>
+
+<p>
+<div style='padding-left: 30pt'>
+<b>Note :</b> <i>Avec le développement des scripts envisagés, toutes ces étapes intermédiaires seront automatisées.</i>
+</div>
+</p>
+
+<p>
+Il est possible de créer des ombrages personnalisés dans <b>Krita</b>,<br>
+<ul>
+<li>Ouvrir `Cam-##_R1_NMC.png` dans Krita</li>
+<li>Créer un calque de filtrage : Carte (Map) / Matriçage de surface de Phong (Phong Bumpmap)</li>
+<li>Dans l'onglet `General Settings`, cocher `utiliser une normal map` (`use normal map`)</li>
+<li>Jouer avec les différents curseurs dans l'onglet `General Settings``et `Light Sources` jusqu'à obtenir l'effet souhaité
+<ul>
+<li>Libre à vous d'adopter le nom le plus pertinent!</li>
+</ul></li>
+</ul>
+</p>
+
+<h2>Liste des images produites et leurs caractéristiques</h2>
+
+<p>
+<b>Structure du nom des fichiers générés :</b><br>
+<div style='padding-left: 30pt'>
+[Nom de la caméra]_[Catégorie d'information]_[Identifiant de l'information générée].png<br>
+[Nom complet du fichier décliné]_[Identifiant de l'information générée].jpg
+</div>
+</p>
+
+<p>
+<b>Liste des fichiers :</b><br>
+<ul>
+<li>Cam-##_R1_NMC.png</li>
+<li>Cam-##_R1_NMC_B1.jpg : canal Bleu de l'espace RGB</li>
+<li>Cam-##_R1_NMC_B2.jpg : canal Bleu de l'espace RGB (négatif)</li>
+<li>Cam-##_R1_NMC_Cb1.jpg : canal Chrominance Bleu de l'espace YCbCr</li>
+<li>Cam-##_R1_NMC_Cb2.jpg : canal Chrominance Bleu de l'espace YCbCr (négatif)</li>
+<li>Cam-##_R1_NMC_Cr1.jpg : canal Chrominance Rouge de l'espace YCbCr</li>
+<li>Cam-##_R1_NMC_Cr2.jpg : canal Chrominance Rouge de l'espace YCbCr (négatif)</li>
+<li>Cam-##_R1_NMC_G1.jpg : canal Vert de l'espace RGB</li>
+<li>Cam-##_R1_NMC_G2.jpg : canal Vert de l'espace RGB (négatif)</li>
+<li>Cam-##_R1_NMC_R1.jpg : canal Rouge de l'espace RGB</li>
+<li>Cam-##_R1_NMC_R2.jpg : canal Rouge de l'espace RGB (négatif)</li>
+<li>Cam-##_R1_NMC_S1.jpg : canal Saturation de l'espace HSV</li>
+<li>Cam-##_R1_NMC_S2.jpg : canal Saturation de l'espace HSV (négatif)</li>
+<li>Cam-##_R1_NMC_U1.jpg : canal Chrominance Bleu de l'espace YUV</li>
+<li>Cam-##_R1_NMC_U2.jpg : canal Chrominance Bleu de l'espace YUV (négatif)</li>
+<li>Cam-##_R1_NMC_V1.jpg : canal Valeur de l'espace HSV</li>
+<li>Cam-##_R1_NMC_V2.jpg : canal Valeur de l'espace HSV (négatif)</li>
+<li>Cam-##_R1_NMC_Y1.jpg : canal Luminosité de l'espace YCbCr</li>
+<li>Cam-##_R1_NMC_Y2.jpg : canal Luminosité de l'espace YCbCr (négatif)</li>
+</ul>
+</p>
+
+<p>
+<b>Note :</b> Les images `Cb` et `U` sont toutes les deux qualifiées de Chrominance Bleu, mais respectivement des espaces de couleur YCbCr et YUV. L'aspect final n'est donc pas exactement identique bien que très similaire.
+</p>
+
+<p>
+Les différents rendus générés automatiquement (sur une sphère) :<br>
+<img src="./ombrages.png" width="600">
+</p>
+
+<p>
+A l'issue de cette manipulation, une autre couche d'habillage est également produite :<br>
+<ul>
+<li>Cam-##_zH_Details.jpg : Cf. <a href="./zH._Détails.html" title="zH. Détails" class="file">zH. Détails</a></li>
+</ul>
+</p>
+
+<h2>Description du matériau (onglet 2)</h2>
+
+<p>
+Configuration générale :<br>
+<img src="./R1.png" width="776">
+</p>
+
+<p>
+Détail du noeud vert `Rouge`:<br>
+<img src="./R1R.png" width="827">
+</p>
+
+<p>
+Détail du noeud vert `Vert`:<br>
+<img src="./R1G.png" width="1097">
+</p>
+
+<p>
+Détail du noeud vert `Bleu`:<br>
+<img src="./R1B.png" width="827">
+</p>
+
+<h2>Description du compositeur (onglet 3)</h2>
+
+<p>
+Les noeuds sont facilement explorables à travers l'interface Blender.
+</p>
+
+<h2>Ressources</h2>
+
+<p>
+La création des ombrages s'appuie sur la séparation des différents canaux d'une image principale. Les liens suivants sont une introduction à ces canaux.<br>
+<ul>
+<li>Concernant <a href="https://fr.wikipedia.org/wiki/Chrominance" title="la chrominance" class="https">la chrominance</a></li>
+<li>Concernant <a href="https://fr.wikipedia.org/wiki/Luminance" title="la luminance" class="https">la luminance</a></li>
+<li>Concernant <a href="https://fr.wikipedia.org/wiki/Luminosit%C3%A9_(colorim%C3%A9trie)" title="la luminosité en colorimétrie" class="https">la luminosité en colorimétrie</a></li>
+<li>Concernant <a href="https://fr.wikipedia.org/wiki/Rouge_vert_bleu" title="l'espace de couleur RGB" class="https">l'espace de couleur RGB</a></li>
+<li>Concernant <a href="https://fr.wikipedia.org/wiki/YCbCr" title="l'espace de couleur YCbCr" class="https">l'espace de couleur YCbCr</a></li>
+<li>Concernant <a href="https://fr.wikipedia.org/wiki/YUV" title="l'espace de couleur YUV" class="https">l'espace de couleur YUV</a></li>
+</ul>
+</p>
+
+            </div>
+            <div class="fade fade-bottom"></div>
+          </section>
+
+          <footer>
+              <a href="#" class="scrollToTop" title="Back to top"><i class="icon icon-uploadalt"></i></a>
+          </footer>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../../_resources/js/jquery.v2.1.3.min.js"></script>
+  <script src="../../../_resources/js/index.js"></script>
+
+</body>
+</html>

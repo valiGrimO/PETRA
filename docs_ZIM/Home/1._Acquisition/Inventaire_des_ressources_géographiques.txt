@@ -1,0 +1,33 @@
+Content-Type: text/x-zim-wiki
+Wiki-Format: zim 0.4
+Creation-Date: 2021-03-08T09:43:07+01:00
+
+====== 1.2. Inventaire des ressources géographiques ======
+
+Liste non exhaustive de données mobilisables.
+Pour ajouter une donnée non-recensée, écrire à __...__
+
+===== Monde =====
+* [[https://opentopography.org/|Opentopography]]
+
+===== Europe =====
+
+==== Cartes anciennes ====
+* [[https://mapire.eu/en/|Données du programme Mapire]]
+* [[https://www.oldmapsonline.org|Old Maps Online]]
+
+==== Relief ====
+* [[https://land.copernicus.eu/imagery-in-situ/eu-dem/eu-dem-v1.1|EU-DEM v1.1]]
+	* Résolution horizontale : 25 m
+	* Précision verticale : +/- 7 m
+
+===== France =====
+
+==== Relief ====
+* [[https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#rge-alti-1m|RGE Alti 1m]]
+* [[https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#rge-alti-5m|RGE Alti 5m]]
+* [[https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#bd-alti-25m|RGE Alti 25m]]
+* [[https://geoservices.ign.fr/documentation/diffusion/telechargement-donnees-libres.html#bd-alti-75m|RGE Alti 75m]]
+
+==== Façades maritimes (France) ====
+* [[https://diffusion.shom.fr/pro/ressources/bathymetrie.html|Données bathymétriques diffusées par le SHOM]]
