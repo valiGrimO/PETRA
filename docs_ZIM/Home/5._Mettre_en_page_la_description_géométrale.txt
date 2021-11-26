@@ -1,7 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2021-03-02T11:26:52+01:00
-
-====== 5. Mettre en page la description géométrale ======
-
-Avant de poursuivre vers la mise en page des images déjà produites, il peut être intéressant de [[../../4._ICEO/Produire_les_eclairages_virtuels.html|produire les éclairages virtuels]] en vue de documenter les motifs en reliefs.

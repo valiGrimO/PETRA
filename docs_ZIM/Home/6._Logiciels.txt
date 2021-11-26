@@ -1,9 +1,0 @@
-Content-Type: text/x-zim-wiki
-Wiki-Format: zim 0.4
-Creation-Date: 2021-03-02T14:40:10+01:00
-
-====== 6. Logiciels ======
-
-L'application de PETRA et ICEO reposent sur des logiciels //open source// listés dans les sous-chapitres suivants.
-
-Les logiciels effectivement utilisés sont dissociés de ceux qui attirent l'attention mais qui ne sont pas encore intégrés à la chaîne opératoire.
