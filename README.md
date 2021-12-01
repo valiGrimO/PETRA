@@ -8,5 +8,5 @@ The approach we adopt is to extract the information one by one in the form of a 
 **Plugin:** [PETRA V 0.2.4](https://uncloud.univ-nantes.fr/index.php/s/3LQZwRJ7zLLLmqk) </br>
 **Documentation:** [latest version of the wiki](https://uncloud.univ-nantes.fr/index.php/s/sB6SMLy3YTK5cmD) </br> Due to some technical problems, the documentation is not accessible _online_. You should download en extract the content. The first page is `0_Home.html`. The current version is in French ; an English version is coming soon.
 
-_**Note:** [here are some instructions about how to install addons on Blender](https://youtu.be/LzdoUTvAgXk)_
+_**PS:** [here are some instructions about how to install addons on Blender](https://youtu.be/LzdoUTvAgXk)_ </br>
 _Everything about how to use it is explained in the documentation._
