@@ -10,7 +10,7 @@ def build():
     is_first_import = "initial" not in globals_dict
 
     for module in modules:
-        if is_first_import:
+        if is_first_import or not module in globals_dict:
             importlib.import_module("." + module, __name__)
         else:
             importlib.reload(globals_dict[module])
