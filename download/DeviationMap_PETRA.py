@@ -173,7 +173,8 @@ class OBJECT_OT_distanceMap_operator(bpy.types.Operator):
         #include target object, raycast mode and maximum value in map name
         # mapID = 'DM' + targetObject.name + '_' + bpy.context.scene.raycastMode + '_max:' + str(round(maxDistance,2)) + '_ID=' + str(seed)
         number_of_vertex_colors = len(baseObject.data.vertex_colors)
-        mapID = f'DM{number_of_vertex_colors + 1}' + '_normVal-' + str(round(normValue,4)) + 'm'
+        nVm = round(normValue * 1000,1)
+        mapID = f'DM{number_of_vertex_colors + 1}' + '-' + str(nVm) + 'mm'
 
         #add lookup table to custom properties of object
         lookupTableCustomProp = copy.deepcopy(lookupTable)
