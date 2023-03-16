@@ -1,117 +1,113 @@
-documentedObject: 
+Blender_version:
+PETRA_version:
+documentationDate:
+
+documentedObject:
+  name:
+  location:
+  rotation:
+  scale:
+
 framingBox:
-  locationX: 
-  locationY: 
-  locationZ: 
-  rotationX: 
-  rotationY: 
-  rotationZ: 
-  dimensionX: 
-  dimensionY: 
-  dimensionZ: 
-projectSetup:
-  echelleDocumentation: 
-  resolutionImage: 
-  resolutionSpatiale: 
+  location:
+  rotation:
+  dimension:
+
+documentationSettings:
+  documentationScale:
+  imageResolution:
+  spatialResolution:
+
+layerOfInformation:
+  R2_contourlines:
+    R2_CL1:
+    R2_CL2:
+    R2_CL3:
+  R3_DM1:
+  R3_DM2:
+
 cameras:
 - name: Cam-01
-  parametresImage:
-    orthographicScale: 
-    dimensionsCm: 
-    dimensionsPixel: 
-  parametresCamera:
-    clippingStart: 
-    clippingEnd: 
-    shiftX: 
-    shiftY:
-    relativeLocationX: 
-    relativeLocationY: 
-    relativeLocationZ: 
-    relativeRotationX: 
-    relativeRotationY: 
-    relativeRotationZ: 
-- nomDeLaVue: Cam-02
-  commentaire: 
-  parametresImage:
-    orthographicScale: 
-    dimensionsCm: 
-    dimensionsPixel: 
-  parametresCamera:
-    clippingStart: 
-    clippingEnd: 
-    shiftX: 
-    shiftY:
-    relativeLocationX: 
-    relativeLocationY: 
-    relativeLocationZ: 
-    relativeRotationX: 
-    relativeRotationY: 
-    relativeRotationZ: 
-- nomDeLaVue: Cam-03
-  commentaire: 
-  parametresImage:
-    orthographicScale: 
-    dimensionsCm: 
-    dimensionsPixel: 
-  parametresCamera:
-    clippingStart: 
-    clippingEnd: 
-    shiftX: 
-    shiftY:
-    relativeLocationX: 
-    relativeLocationY: 
-    relativeLocationZ: 
-    relativeRotationX: 
-    relativeRotationY: 
-    relativeRotationZ: 
-- nomDeLaVue: Cam-04
-  commentaire: 
-  parametresImage:
-    orthographicScale: 
-    dimensionsCm: 
-    dimensionsPixel: 
-  parametresCamera:
-    clippingStart: 
-    clippingEnd: 
-    shiftX: 
-    shiftY:
-    relativeLocationX: 
-    relativeLocationY: 
-    relativeLocationZ: 
-    relativeRotationX: 
-    relativeRotationY: 
-    relativeRotationZ: 
-- nomDeLaVue: Cam-05
-  commentaire: 
-  parametresImage:
-    orthographicScale: 
-    dimensionsCm: 
-    dimensionsPixel: 
-  parametresCamera:
-    clippingStart: 
-    clippingEnd: 
-    shiftX: 
-    shiftY:
-    relativeLocationX: 
-    relativeLocationY: 
-    relativeLocationZ: 
-    relativeRotationX: 
-    relativeRotationY: 
-    relativeRotationZ: 
-- nomDeLaVue: Cam-06
-  commentaire: 
-  parametresImage:
-    orthographicScale: 
-    dimensionsCm: 
-    dimensionsPixel: 
-  parametresCamera:
-    clippingStart: 
-    clippingEnd: 
-    shiftX: 
-    shiftY:
-    relativeLocationX: 
-    relativeLocationY: 
-    relativeLocationZ: 
-    relativeRotationX: 
-    relativeRotationY: 
-    relativeRotationZ: 
+  note:
+  cameraSettings:
+    absoluteLocation:
+    absoluteRotation:
+    relativeLocation:
+    relativeRotation:
+    clippingStart:
+    clippingEnd:
+    shift:
+  imageSettings:
+    orthographicScale:
+    printedSize:
+    digitalSize:
+- name: Cam-02
+  note:
+  cameraSettings:
+    absoluteLocation:
+    absoluteRotation:
+    relativeLocation:
+    relativeRotation:
+    clippingStart:
+    clippingEnd:
+    shift:
+  imageSettings:
+    orthographicScale:
+    printedSize:
+    digitalSize:
+- name: Cam-03
+  note:
+  cameraSettings:
+    absoluteLocation:
+    absoluteRotation:
+    relativeLocation:
+    relativeRotation:
+    clippingStart:
+    clippingEnd:
+    shift:
+  imageSettings:
+    orthographicScale:
+    printedSize:
+    digitalSize:
+- name: Cam-04
+  note:
+  cameraSettings:
+    absoluteLocation:
+    absoluteRotation:
+    relativeLocation:
+    relativeRotation:
+    clippingStart:
+    clippingEnd:
+    shift:
+  imageSettings:
+    orthographicScale:
+    printedSize:
+    digitalSize:
+- name: Cam-05
+  note:
+  cameraSettings:
+    absoluteLocation:
+    absoluteRotation:
+    relativeLocation:
+    relativeRotation:
+    clippingStart:
+    clippingEnd:
+    shift:
+  imageSettings:
+    orthographicScale:
+    printedSize:
+    digitalSize:
+- name: Cam-06
+  note:
+  cameraSettings:
+    absoluteLocation:
+    absoluteRotation:
+    relativeLocation:
+    relativeRotation:
+    clippingStart:
+    clippingEnd:
+    shift:
+  imageSettings:
+    orthographicScale:
+    printedSize:
+    digitalSize:
