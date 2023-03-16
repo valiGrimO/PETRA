@@ -13,7 +13,7 @@ node_PETrA = S.node_tree.nodes["PETrA"]
 C.scene.render.engine = "BLENDER_EEVEE"
 
 # Apply material
-material = D.materials["r5_aspect"]
+material = D.materials["R5_ASP"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
