@@ -10,7 +10,7 @@ from .paradata import BlenderData
 
 MODULE_PATH = Path(__file__).parent
 
-RENDERED_IMAGES_FOLDER = "tmp"
+RENDERED_IMAGES_FOLDER = "tmp" # "tmp/H1_decorations" + "tmp/R1_shading"
 SVG_TEMPLATE_FILEPATH = MODULE_PATH / "templates" / "layout_information.svg"
 LAYERS_TO_INCLUDE_FILEPATH = MODULE_PATH / "templates" / "layers_to_include.txt"
 
