@@ -22,7 +22,7 @@ C.scene.eevee.gtao_distance = 5
 C.scene.eevee.gtao_quality = 1
 
 # Apply material to selected objects
-material = D.materials["l1_ao"]
+material = D.materials["L1_AO"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
