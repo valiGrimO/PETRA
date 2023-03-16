@@ -17,24 +17,24 @@ node_R4 = node_PETrA.node_tree.nodes["R4_pointiness"]
 C.scene.render.engine = "CYCLES"
 
 # Apply material to selected objects
-material = D.materials["r4_pointiness"]
+material = D.materials["R4_POI"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
 # Apply material to every selected object
 bpy.ops.object.make_links_data(type='MATERIAL')
 
-# Decimate Selected mesh
-modifier = selected_object.modifiers.new(name="Decimate", type="DECIMATE")
-modifier.ratio = 1.0  # value definied by users
-ratio_as_percent = round(modifier.ratio * 100)
+# Render GeoNode modifyer
+selected_object.modifiers["GeometryNodes"].show_render = True
 
 # Apply modifier to every selected object
 bpy.ops.object.make_links_data(type='MODIFIERS')
 
 # Adjust Output filenames (end with -[ratio])
 node_R4_Output = node_R4.node_tree.nodes["File Output"]
-pattern = f"Cam-##_R4_POI-{ratio_as_percent}"
+resolution = selected_object.modifiers["GeometryNodes"]["Input_2"]
+resolution_mm = round(resolution*1000, 6)
+pattern = f"Cam-##_R4_POI-{resolution_mm}mm"
 node_R4_Output.file_slots[0].path = pattern
 
 # Create link
