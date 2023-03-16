@@ -4,6 +4,7 @@
 ################################################################
 
 import bpy
+import os
 from petra_blender_addon.blendertools import remove_link
 
 
@@ -29,8 +30,9 @@ D.objects["Framing Box"].hide_render = True
 # Deactivate Ambient Occlusion
 C.scene.eevee.use_gtao = False
 
-# Remove "Decimate" modifier
-bpy.ops.object.modifier_remove(modifier="Decimate")
+# Hide GeoNode modifier
+selected_object = C.selected_objects[0]
+selected_object.modifiers["GeometryNodes"].show_render = False
 
 # Slot management
 mat = bpy.data.materials.get("c1_prv")
@@ -68,4 +70,3 @@ for i in range(10):  # loops through "i = 0 ... 9".
 remove_link(node_PETrA_Input.outputs[0], node_C1.inputs[0])
 remove_link(node_PETrA_Input.outputs[0], node_C1.inputs[1])
 
-# Render Display Type: Keep User Interface
