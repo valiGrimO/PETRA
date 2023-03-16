@@ -13,7 +13,7 @@ node_PETrA = S.node_tree.nodes["PETrA"]
 C.scene.render.engine = "BLENDER_EEVEE"
 
 # Apply material to selected objects
-material = D.materials["h1_masks"]
+material = D.materials["H1_Masks"]
 selected_object = C.selected_objects[0]
 selected_object.material_slots[0].material = material
 
