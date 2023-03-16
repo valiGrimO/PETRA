@@ -1,10 +1,83 @@
 import bpy
+import addon_utils
+import copy
 
 
 print("[PETRA] Setup: Initial")
 
 C = bpy.context
 D = bpy.data
+
+
+#######################################
+# GEOMETRY NODES ON DOCUMENTED OBJECT #
+#######################################
+
+documentedObject = C.selected_objects[0]
+
+
+# Add GeometryNodes modifier
+bpy.ops.object.modifier_add(type='NODES')
+bpy.ops.node.new_geometry_node_group_assign()
+
+# Rename Node Group
+gn = D.node_groups["Geometry Nodes"]
+gn.name = "mergeByDistance"
+    # pour la console:
+    # gn = D.node_groups["mergeByDistance"]
+
+# Configure group input
+begin = gn.nodes["Group Input"]
+begin.label = "input"
+begin.name = "input"
+begin.location = (0, 0)
+
+# Add Math1
+math1 = gn.nodes.new("ShaderNodeMath")
+math1.name = "Math1"
+math1.label = "Math1"
+math1.location = (200, -60)
+math1.operation = "MULTIPLY"
+math1.inputs[1].default_value = 2
+math1.mute = True
+
+# Add Math2
+math2 = gn.nodes.new("ShaderNodeMath")
+math2.name = "Math2"
+math2.label = "Math2"
+math2.location = (400, -60)
+math2.operation = "MULTIPLY"
+math2.inputs[1].default_value = 3
+math2.mute = True
+
+# Add Merge by distance
+merge = gn.nodes.new("GeometryNodeMergeByDistance")
+merge.name = "Merge by Distance"
+merge.label = "Merge by Distance"
+merge.location = (600 ,60)
+
+# Configure group output
+out = gn.nodes["Group Output"]
+out.name = "output"
+out.label = "output"
+out.location = (800, 60)
+
+#LINKS
+gn.links.new(begin.outputs[0], merge.inputs[0])
+gn.links.new(begin.outputs[1], math1.inputs[0])
+gn.links.new(math1.outputs[0], math2.inputs[0])
+gn.links.new(math2.outputs[0], merge.inputs[2])
+gn.links.new(merge.outputs[0], out.inputs[0])
+
+# Rename Begin outputs[1]
+gn.inputs[1].name = "Resolution"
+
+# Don't use Merge By Distance
+bpy.context.object.modifiers["GeometryNodes"].show_render = False
+
+# Fake user
+gn.use_fake_user = True
+
 
 #####################
 # RENDER PROPERTIES #
@@ -25,6 +98,23 @@ Asset_collection = D.collections.new("PETRA")
 C.scene.collection.children.link(Asset_collection)
 
 C.view_layer.active_layer_collection = C.view_layer.layer_collection.children["PETRA"]
+
+
+##########################################################################
+# SET 3D CURSOR TO THE CENTER OF THE BOUNDING BOX OF THE SELECTED OBJECT #
+##########################################################################
+
+documentedObject = C.selected_objects[0]
+locationCursor = D.scenes["Scene"].cursor.location
+locationCursor[0] = documentedObject.location[0]
+locationCursor[1] = documentedObject.location[1]
+locationCursor[2] = documentedObject.location[2]
+locationStart = copy.deepcopy(documentedObject.location)
+bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY', center='BOUNDS')
+locationBB = copy.deepcopy(documentedObject.location)
+bpy.ops.object.origin_set(type='ORIGIN_CURSOR', center='MEDIAN')
+D.scenes["Scene"].cursor.location = locationBB
+
 
 ###############
 # FRAMING BOX #
@@ -52,6 +142,7 @@ bpy.ops.object.modifier_apply(modifier="Skin", report=True)
 C.object.scale = 0.487805, 0.487805, 0.487805
 bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
 
+
 ####################
 # Reference Sphere #
 ####################
@@ -70,6 +161,7 @@ C.object.modifiers["Subdivision"].levels = 2
 bpy.ops.object.shade_smooth()
 bpy.ops.object.modifier_apply(modifier="Subdivision", report=True)
 
+
 ###########
 # Cameras #
 ###########
@@ -84,35 +176,30 @@ C.object.data.clip_start = 0.001
 bpy.ops.object.camera_add(location=(0.5, 0, 0), rotation=(1.5708, 0.00, 1.5708))
 so = C.selected_objects[0]
 so.name = "Cam-02"
-C.object.hide_set(True)
 C.object.data.clip_start = 0.001
 
 ## Cam-03
 bpy.ops.object.camera_add(location=(0, 0.5, 0), rotation=(1.5708, 0.00, 3.14159))
 so = C.selected_objects[0]
 so.name = "Cam-03"
-C.object.hide_set(True)
 C.object.data.clip_start = 0.001
 
 ## Cam-04
 bpy.ops.object.camera_add(location=(-0.5, 0, 0), rotation=(1.5708, 0, -1.5708))
 so = C.selected_objects[0]
 so.name = "Cam-04"
-C.object.hide_set(True)
 C.object.data.clip_start = 0.001
 
 ## Cam-05
 bpy.ops.object.camera_add(location=(0, 0, 0.5), rotation=(0, 0, 0))
 so = C.selected_objects[0]
 so.name = "Cam-05"
-C.object.hide_set(True)
 C.object.data.clip_start = 0.001
 
 ## Cam-06
 bpy.ops.object.camera_add(location=(0, 0, -0.5), rotation=(0, 3.14159, 3.14159))
 so = C.selected_objects[0]
 so.name = "Cam-06"
-C.object.hide_set(True)
 C.object.data.clip_start = 0.001
 
 ## Set Camera Ortho
@@ -252,6 +339,7 @@ for name, m_data in markers.items():
 D.scenes[0].frame_start = 1
 D.scenes[0].frame_end = 6
 
+
 ####################
 # MOVE TO 3DCURSOR #
 ####################
@@ -268,6 +356,7 @@ def snap_active_to_cursor(obj: bpy.types.Object, copy_rotation=False):
 
 obj = C.scene.objects["Framing Box"]
 snap_active_to_cursor(obj)
+
 
 ####################################
 # MAKE SOME OBJECTS NOT RENDERABLE #
@@ -293,3 +382,35 @@ bpy.ops.object.select_all(action="DESELECT")
 
 ## Select Framing Box (to ease resizing)
 D.objects["Framing Box"].select_set(True)
+
+
+####################################
+# PRINT METADATA ON RENDERED IMAGE #
+####################################
+
+metadata = bpy.context.scene.render
+
+metadata.use_stamp_date = False
+metadata.use_stamp_time = False
+metadata.use_stamp_render_time = False
+metadata.use_stamp_frame = False
+metadata.use_stamp_frame_range = False
+metadata.use_stamp_memory = False
+metadata.use_stamp_hostname = False
+metadata.use_stamp_camera = False
+metadata.use_stamp_lens = False
+metadata.use_stamp_scene = False
+metadata.use_stamp_marker = False
+metadata.use_stamp_filename = False
+metadata.use_stamp_sequencer_strip = False
+
+metadata.use_stamp_note = True
+metadata.use_stamp = True
+
+for mod in addon_utils.modules():
+    if mod.bl_info['name'] == 'PETRA':
+        name = str(mod.bl_info.get('name'))
+        version = str(mod.bl_info.get('version'))
+        petraVersion = name + " " + version
+        
+D.scenes["Scene"].render.stamp_note_text = "Rendered with " + petraVersion
