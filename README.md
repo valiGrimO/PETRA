@@ -26,6 +26,25 @@ This tool was developed in the framework of the "Corpus des Signes gravés Néol
 
 The development of PETRA was made possible by funding from the [Consortium 3D SHS](https://shs3d.hypotheses.org) and [LARA, Nantes Université](https://histoire.univ-nantes.fr/recherche/umr-c-6566-centre-de-recherches-en-archeologie-archeosciences-histoire).
 
+## License
+This tool is delivered under the GNU-GPL License
+
+    PETRA, Protocol Employing Three dimensional Representations in Archaeology
+    Copyright (C) 2023, Valentin Grimaud
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see [GNU.org(]https://www.gnu.org/licenses/).
+
 ## Contact
 If you are lost, have some suggestion, or want to contribute to this project, please contact me:
 + Mail: [valentin.grimaud@proton.me](valentin.grimaud@proton.me)
