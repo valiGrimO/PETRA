@@ -30,3 +30,7 @@ The development of PETRA was made possible by funding from the [Consortium 3D SH
 If you are lost, have some suggestion, or want to contribute to this project, please contact me:
 + Mail: [valentin.grimaud@proton.me](valentin.grimaud@proton.me)
 + Telegram: [t.me/Vali_Gr](t.me/Vali_Gr)
+
+## How to cite?
+If you use this tool in your work, please caite as follow:
++ Grimaud, Valentin. (2022). PETRA version 0.3. *Zenodo*. https://doi.org/10.5281/zenodo.7746129 </br> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7746129.svg)](https://doi.org/10.5281/zenodo.7746129)
