@@ -32,8 +32,9 @@ If you are lost, have some suggestion, or want to contribute to this project, pl
 + Telegram: [t.me/Vali_Gr](t.me/Vali_Gr)
 
 ## How to cite?
-If you use this tool in your work, please caite as follow:
+If you use this tool in your work, please cite as follow:
 + Grimaud, Valentin. (2022). PETRA version 0.3. *Zenodo*. https://doi.org/10.5281/zenodo.7746129 </br> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7746129.svg)](https://doi.org/10.5281/zenodo.7746129)
-+ Grimaud, Valentin. (2023). PETRA (0.4). Zenodo. https://doi.org/10.5281/zenodo.7746168 </br> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7746168.svg)](https://doi.org/10.5281/zenodo.7746168)
++ Grimaud, Valentin. (2023). PETRA version 0.4. *Zenodo*. https://doi.org/10.5281/zenodo.7746168 </br> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7746168.svg)](https://doi.org/10.5281/zenodo.7746168)
 
 ## Publication
++ Grimaud V., Cassen S., 2019. Implementing a protocol for employing three-dimensional representations in archaeology (PETRA) for the documentation of neolithic funeral architecture in Western France, *Digital Applications in Archaeology and Cultural Heritage*, https://doi.org/10.1016/j.daach.2019.e00096 </br> [![DOI](https://zenodo.org/badge/DOI/10.1016/j.daach.2019.e00096.svg)](https://doi.org/10.1016/j.daach.2019.e00096)
