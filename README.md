@@ -34,3 +34,6 @@ If you are lost, have some suggestion, or want to contribute to this project, pl
 ## How to cite?
 If you use this tool in your work, please caite as follow:
 + Grimaud, Valentin. (2022). PETRA version 0.3. *Zenodo*. https://doi.org/10.5281/zenodo.7746129 </br> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7746129.svg)](https://doi.org/10.5281/zenodo.7746129)
++ Grimaud, Valentin. (2023). PETRA (0.4). Zenodo. https://doi.org/10.5281/zenodo.7746168 </br> [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7746168.svg)](https://doi.org/10.5281/zenodo.7746168)
+
+## Publication
