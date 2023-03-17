@@ -1,4 +1,4 @@
-# PETRA - Protocole Employing Three dimensional Representations in Archaeology
+# PETRA </br> *Protocol Employing Three dimensional Representations in Archaeology*
 
 ## Introduction
 Three-dimensional models are nowadays widely used to document the existing heritage or the heritage being excavated. Very often, we find that it is difficult to process the information contained in 3D models: it is all there, in front of us, but it is extremely difficult to analyse it easily.
