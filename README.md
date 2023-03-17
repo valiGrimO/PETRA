@@ -38,3 +38,4 @@ If you use this tool in your work, please cite as follow:
 
 ## Publication
 + Grimaud V., Cassen S., 2019. Implementing a protocol for employing three-dimensional representations in archaeology (PETRA) for the documentation of neolithic funeral architecture in Western France, *Digital Applications in Archaeology and Cultural Heritage*, https://doi.org/10.1016/j.daach.2019.e00096 </br> [![DOI](https://zenodo.org/badge/DOI/10.1016/j.daach.2019.e00096.svg)](https://doi.org/10.1016/j.daach.2019.e00096)
++ Grimaud V., 2021. PETrA automatisé! Protocole d'Exploitation des représentations TRidimensionnelles en Archéologie. *Les Journées du Consortium 3D SHS*, Dec 2021, Bordeaux, France. [⟨hal-04035058⟩](https://hal.science/hal-04035058)
