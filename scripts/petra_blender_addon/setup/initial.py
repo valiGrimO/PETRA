@@ -32,6 +32,13 @@ begin.label = "input"
 begin.name = "input"
 begin.location = (0, 0)
 
+# input resolution
+resolution = gn.nodes.new("ShaderNodeValue")
+resolution.label = "resolution"
+resolution.name = "resolution"
+resolution.location = (0, -140)
+resolution.outputs[0].default_value = 0.01
+
 # Add Math1
 math1 = gn.nodes.new("ShaderNodeMath")
 math1.name = "Math1"
@@ -64,13 +71,13 @@ out.location = (800, 60)
 
 #LINKS
 gn.links.new(begin.outputs[0], merge.inputs[0])
-gn.links.new(begin.outputs[1], math1.inputs[0])
+gn.links.new(resolution.outputs[0], math1.inputs[0])
 gn.links.new(math1.outputs[0], math2.inputs[0])
 gn.links.new(math2.outputs[0], merge.inputs[2])
 gn.links.new(merge.outputs[0], out.inputs[0])
 
 # Rename Begin outputs[1]
-gn.inputs[1].name = "Resolution"
+# gn.inputs[1].name = "Resolution"
 
 # Don't use Merge By Distance
 bpy.context.object.modifiers["GeometryNodes"].show_render = False
