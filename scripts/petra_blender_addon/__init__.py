@@ -1,8 +1,8 @@
 bl_info = {
     "name": "PETRA",
     "author": "Valentin Grimaud",
-    "version": (0, 4, 0),
-    "blender": (3, 1, 2),
+    "version": (0, 4, 1),
+    "blender": (3, 5, 0),
     "location": "View3D > Sidebar > New Tab",
     "description": "Protocole Employing TRee dimension models in Archaeology",
     "warning": "",
