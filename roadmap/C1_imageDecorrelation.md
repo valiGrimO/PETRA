@@ -159,3 +159,79 @@ processed = decorrstretch(A, tol, weights=(1.0, 0.5, 0.5))
 ```
 
 De cette manière, il est possible de pondérer différemment les canaux de l'espace de couleur YUV, ce qui est similaire à ce que fait DStretch avec son interface utilisateur pour créer les couches `YUV`, `YDS`, `YBK`, `YDT`, `YBG`, `YBL`, `YWE`, `YYE`, `YRD`, `YRE` et `YBR` (Cf. le tableau en haut de page).
+
+## Synthèse
+voici un code synthétisé qui inclut les modifications nécessaires pour permettre une pondération différente des canaux Y, U et V dans l'espace de couleur YUV dans Blender.
+
+```
+import numpy as np
+from functools import reduce
+from PIL import Image
+import cv2  # Pour la conversion en espace de couleur YUV
+
+def decorrstretch(A, tol=None, weights=(1.0, 1.0, 1.0)):
+    """
+    Apply decorrelation stretch to an image with channel weights.
+
+    Arguments:
+    A       -- original image as numpy.array.
+    tol     -- specify a linear contrast stretch, e.g., 0.01.
+    weights -- weights for the Y, U, and V channels (default: [1.0, 1.0, 1.0]).
+    """
+
+    # Save the original shape
+    orig_shape = A.shape
+
+    # Convert the image to YUV color space
+    A_yuv = cv2.cvtColor(A, cv2.COLOR_RGB2YUV)
+
+    # Reshape the image
+    A = A_yuv.reshape((-1, 3)).astype(np.float)
+
+    # Apply channel weights
+    A[:, 0] *= weights[0]  # Y channel
+    A[:, 1] *= weights[1]  # U channel
+    A[:, 2] *= weights[2]  # V channel
+
+    # The rest of your code for decorrelation stretch...
+
+    # Convert the result back to RGB color space
+    B_yuv = A.reshape(orig_shape).astype(np.uint8)
+    B_rgb = cv2.cvtColor(B_yuv, cv2.COLOR_YUV2RGB)
+
+    # Return the stretched image
+    return B_rgb
+
+# Get user input for file paths and channel weights
+infile = input("Enter file to process: ")
+outfile = input("Enter output file: ")
+tol_val = input("Enter tol value (optional): ")
+
+# If a value is given, convert it to float.
+if tol_val:
+    tol = float(tol_val)
+else:
+    tol = None
+
+# Get user input for channel weights (default to [1.0, 1.0, 1.0])
+weight_Y = float(input("Enter Y channel weight (default: 1.0): ") or 1.0)
+weight_U = float(input("Enter U channel weight (default: 1.0): ") or 1.0)
+weight_V = float(input("Enter V channel weight (default: 1.0): ") or 1.0)
+channel_weights = (weight_Y, weight_U, weight_V)
+
+print("Processing ...")
+
+# Load input file using PIL
+img = Image.open(infile)
+
+# Convert image to numpy array
+A = np.array(img)
+
+# Process image with decorrelation stretch and channel weights
+processed = decorrstretch(A, tol, channel_weights)
+
+# Save processed image to output file
+Image.fromarray(processed).save(outfile)
+
+print("Done")
+```
