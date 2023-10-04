@@ -7,7 +7,7 @@ The approach we adopt is to extract the information one by one in the form of a 
 
 ## Download
 In order to run the tool, you will need:
-+ [Blender 3.4 or higher](https://www.blender.org)
++ [Blender 3.5.1](https://www.blender.org), more recent versions do not support PETRA. To install several versions of Blender, you can use [Blender Launcher](https://dotbow.github.io/Blender-Launcher/)
 + The latest version of PETRA, which consists of two modules (they should be installed in this order):
   1. [PETRA, version 0.4.1](https://github.com/valiGrimO/PETRA/raw/main/download/petra_blender_addon_v0-4-1.zip) (don't unzip it)
   2. [PETRA_extended, version 0.4.1](https://github.com/valiGrimO/PETRA/raw/main/download/petra_extended_v0-4-1.zip) (don't unzip it)
