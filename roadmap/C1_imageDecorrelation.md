@@ -1,14 +1,11 @@
-# Image decorrelation
+# C1, Décorrélation d'image
 
-## Infos about Image Decorrelation
+## Informations sur la décorrélation d'image
 - [Image Decorrelation with DStrecth, for archaeologists](http://www.dstretch.com/)
 - [Image Decorrelation with Python](https://github.com/Dan-in-CA/decorrstretch)
 - [Image Decorrelation explanations](https://dhanushkadangampola.blogspot.com/2015/02/decorrelation-stretching.html)
 
-## Default settings in DStretch:
-
-We have no info about how to produce `CRGB`
-
+## Paramètres par défaut dans DStretch
 |  | L | A | B |
 |---|---|---|---|
 | `LAB`	| 0,5 | 1,0	| 1,0 |
@@ -33,3 +30,27 @@ We have no info about how to produce `CRGB`
 | `YRD` | 2,0 | 1,0 | 0,4 |
 | `YRE` | 8,0 | 1,0 | 0,4 |
 | `YBR` | 1,0 | 0,8 | 0,4 |
+
+**Note:** Il n'y a pas d'information pour produire l'image `CRGB`.
+
+## Pistes de réflexion pour intégrer la décorrélation d'image dans PETRA (Blender)
+*En se basant sur [Image Decorrelation with Python](https://github.com/Dan-in-CA/decorrstretch)*
+
+### Les bibliothèques
+Deux bibliothèques sont nécessaires: PIL (pillow) et NumPy
+
+**NumPy**
+Cette bibliothèque est installée par défaut. Il suffit simplement de l'appeler
+```
+import numpy
+```
+
+**PIL**
+Cette bibliothèque n'est pas installée dans l'environnement Python de Blender. Mais il ne faut l'installer qu'une seule fois, au risque de mettre la pagaille dans l'installation de Blender...
+Pour l'installer:
+```
+import sys
+!{sys.exec_prefix}/bin/python -m pip install pillow numpy
+```
+Il faudra donc vérifier l'installation de Pillow avant d'exécuter cette ligne.
+
