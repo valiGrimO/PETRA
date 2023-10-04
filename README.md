@@ -12,10 +12,10 @@ In order to run the tool, you will need:
   1. [PETRA, version 0.4.1](https://github.com/valiGrimO/PETRA/raw/main/download/petra_blender_addon_v0-4-1.zip) (don't unzip it)
   2. [PETRA_extended, version 0.4.1](https://github.com/valiGrimO/PETRA/raw/main/download/petra_extended_v0-4-1.zip) (don't unzip it)
 + And these two others plugins
-  + Render Button [Original repository](https://github.com/MajorBarnulf/my-big-button/blob/da32ee100944f18a7e41488e75677971109d6e8b/render_button.py), or for more convenience, [here (unzip the file before installing it)](https://github.com/valiGrimO/PETrA/raw/main/download/render_button.zip)
-  + [DeviationMap_Petra ((unzip the file before installing it))](https://github.com/valiGrimO/PETrA/raw/main/download/DeviationMap_PETRA.zip) 
+  + Render Button ([original repository](https://github.com/MajorBarnulf/my-big-button/blob/da32ee100944f18a7e41488e75677971109d6e8b/render_button.py)), or for more convenience, [here (unzip the file before installing it)](https://github.com/valiGrimO/PETrA/raw/main/download/render_button.zip)
+  + [DeviationMap_Petra (unzip the file before installing it)](https://github.com/valiGrimO/PETrA/raw/main/download/DeviationMap_PETRA.zip) 
 
-**Warning:** The tool PETRA is published "as is". The author is not responsible for the damage the tool may produce - even if your computer shloud not explose
+**Warning:** The tool PETRA is published "as is". The author is not responsible for the damage the tool may produce - even if your computer shloud not explose. The software is freely available, without any warranty about the relevance of the results produced.
 
 ## How to use it?
 You may download a [tutorial explaining click by click](https://drive.proton.me/urls/RHHSRBETSC#6ANHKpxykubY) how to use PETRA (in French - 40Mb)
