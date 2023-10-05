@@ -161,77 +161,90 @@ processed = decorrstretch(A, tol, weights=(1.0, 0.5, 0.5))
 De cette manière, il est possible de pondérer différemment les canaux de l'espace de couleur YUV, ce qui est similaire à ce que fait DStretch avec son interface utilisateur pour créer les couches `YUV`, `YDS`, `YBK`, `YDT`, `YBG`, `YBL`, `YWE`, `YYE`, `YRD`, `YRE` et `YBR` (Cf. le tableau en haut de page).
 
 ## Synthèse
-voici un code synthétisé qui inclut les modifications nécessaires pour permettre une pondération différente des canaux Y, U et V dans l'espace de couleur YUV dans Blender.
+Voici un code synthétisé qui inclut les modifications nécessaires pour permettre une pondération différente des canaux 
++ de l'espace de couleur LAB pour générer une image LWE.
++ de l'espace de couleur YUV pour générer une image YBK.
+Il suffit d'adapter le code pour intégrer toutes les déclinaisons possibles (Cf. le tableau au début du document)
 
 ```
 import numpy as np
 from functools import reduce
 from PIL import Image
-import cv2  # Pour la conversion en espace de couleur YUV
+import cv2  # Pour les conversions d'espaces de couleur
 
-def decorrstretch(A, tol=None, weights=(1.0, 1.0, 1.0)):
+def decorrstretch(A, tol=None, color_space='RGB', weights=(1.0, 1.0, 1.0)):
     """
     Apply decorrelation stretch to an image with channel weights.
 
     Arguments:
-    A       -- original image as numpy.array.
-    tol     -- specify a linear contrast stretch, e.g., 0.01.
-    weights -- weights for the Y, U, and V channels (default: [1.0, 1.0, 1.0]).
+    A           -- original image as numpy.array.
+    tol         -- specify a linear contrast stretch, e.g., 0.01.
+    color_space -- color space to use (default: 'RGB', other options: 'YUV', 'LAB').
+    weights     -- weights for the channels (default: [1.0, 1.0, 1.0]).
+
+    Returns:
+    B           -- decorrelated and stretched image.
     """
 
     # Save the original shape
     orig_shape = A.shape
 
-    # Convert the image to YUV color space
-    A_yuv = cv2.cvtColor(A, cv2.COLOR_RGB2YUV)
+    # Convert the image to the specified color space
+    if color_space == 'RGB':
+        # Already in RGB
+        A_color = A
+    elif color_space == 'YUV':
+        A_color = cv2.cvtColor(A, cv2.COLOR_RGB2YUV)
+    elif color_space == 'LAB':
+        A_color = cv2.cvtColor(A, cv2.COLOR_RGB2LAB)
+    else:
+        raise ValueError("Unsupported color space")
 
     # Reshape the image
-    A = A_yuv.reshape((-1, 3)).astype(np.float)
+    A = A_color.reshape((-1, 3)).astype(np.float)
 
     # Apply channel weights
-    A[:, 0] *= weights[0]  # Y channel
-    A[:, 1] *= weights[1]  # U channel
-    A[:, 2] *= weights[2]  # V channel
+    A[:, 0] *= weights[0]  # Channel 0 (Y or L)
+    A[:, 1] *= weights[1]  # Channel 1 (U or A)
+    A[:, 2] *= weights[2]  # Channel 2 (V or B)
 
     # The rest of your code for decorrelation stretch...
 
     # Convert the result back to RGB color space
-    B_yuv = A.reshape(orig_shape).astype(np.uint8)
-    B_rgb = cv2.cvtColor(B_yuv, cv2.COLOR_YUV2RGB)
+    if color_space == 'RGB':
+        B_color = A.reshape(orig_shape).astype(np.uint8)
+    elif color_space == 'YUV':
+        B_yuv = A.reshape(orig_shape).astype(np.uint8)
+        B_color = cv2.cvtColor(B_yuv, cv2.COLOR_YUV2RGB)
+    elif color_space == 'LAB':
+        B_lab = A.reshape(orig_shape).astype(np.uint8)
+        B_color = cv2.cvtColor(B_lab, cv2.COLOR_LAB2RGB)
 
-    # Return the stretched image
-    return B_rgb
+    return B_color
 
-# Get user input for file paths and channel weights
+def process_and_save_image(infile, outfile, color_space, tol, channel_weights):
+    # Load input file using PIL
+    img = Image.open(infile)
+
+    # Convert image to numpy array
+    A = np.array(img)
+
+    # Process image with decorrelation stretch in the specified color space and channel weights
+    processed = decorrstretch(A, tol, color_space, channel_weights)
+
+    # Save processed image to output file
+    Image.fromarray(processed).save(outfile)
+
+# Get user input for file paths, color space, and channel weights
 infile = input("Enter file to process: ")
-outfile = input("Enter output file: ")
-tol_val = input("Enter tol value (optional): ")
 
-# If a value is given, convert it to float.
-if tol_val:
-    tol = float(tol_val)
-else:
-    tol = None
+# Process and save LWE image (L=0.5, A=1.0, B=1.4) in LAB color space
+process_and_save_image(infile, "LWE_output.png", 'LAB', 1.0, (0.5, 1.0, 1.4))
 
-# Get user input for channel weights (default to [1.0, 1.0, 1.0])
-weight_Y = float(input("Enter Y channel weight (default: 1.0): ") or 1.0)
-weight_U = float(input("Enter U channel weight (default: 1.0): ") or 1.0)
-weight_V = float(input("Enter V channel weight (default: 1.0): ") or 1.0)
-channel_weights = (weight_Y, weight_U, weight_V)
-
-print("Processing ...")
-
-# Load input file using PIL
-img = Image.open(infile)
-
-# Convert image to numpy array
-A = np.array(img)
-
-# Process image with decorrelation stretch and channel weights
-processed = decorrstretch(A, tol, channel_weights)
-
-# Save processed image to output file
-Image.fromarray(processed).save(outfile)
+# Process and save YBK image (Y=1.5, U=0.2, V=1.6) in YUV color space
+process_and_save_image(infile, "YBK_output.png", 'YUV', 1.0, (1.5, 0.2, 1.6))
 
 print("Done")
+
 ```
+**Note:** *la réflexion et le code a été généré à partir du dépôt [Image Decorrelation with Python](https://github.com/Dan-in-CA/decorrstretch) et de ChatGPT.*
