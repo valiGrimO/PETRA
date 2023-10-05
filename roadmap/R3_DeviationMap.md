@@ -14,7 +14,13 @@ Plusieurs étapes sont nécessaires:
 2. Calculer la distance entre deux maillages
 
 ## 1. Créer le maillage de comparaison
+Il est possible de décimer et lisser un maillage très simplement avec Geometry node en suivant cette configuration:
+![img](https://github.com/valiGrimO/PETRA/blob/b0ccffb5e3f556b3224f09c5ff249b9f4f196aef/roadmap/R3a_smoothMeshes.png)
 
-
+Pour l'exécution du script, il faudra simplement veiller à :
++ dupliquer le maillage
++ créer le Geometry Node
++ trouver les bonnes valeurs
++ vérifier si le Geometry Node est effectif au moment du calcul de la distance entre deux maillages, afin de ne pas appliquer le modificateur.
 
 ## 2. Calculer la distance entre deux maillages
