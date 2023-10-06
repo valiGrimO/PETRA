@@ -24,3 +24,9 @@ Pour l'exécution du script, il faudra simplement veiller à :
 + vérifier si le Geometry Node est effectif au moment du calcul de la distance entre deux maillages, afin de ne pas appliquer le modificateur.
 
 ## 2. Calculer la distance entre deux maillages
+### Obtenir la distance entre deux maillages
+La manière la plus simple pour calculer la distance dans Blender est d'utiliser un noeud "Geometry Proximity". Le problème est que les distances retournées sont toutes des valeurs positives.
+
+La question est posée sur [Blender Stack Exchange](https://blender.stackexchange.com/questions/302338/blender-geometry-node-proximity-with-negative-values), affaire à suivre.
+
+### Contrôler le minimum et le maximum
