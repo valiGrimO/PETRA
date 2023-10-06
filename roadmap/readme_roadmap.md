@@ -10,3 +10,4 @@ Ici, nous listerons plusieurs pistes de réflexions pour ajouter de nouvelles fo
 ## Ergonomie de travail
 + Visualiser en temps réel toutes les couches d'informations
 + Ajouter un module "ICEO" (ou "RTI", pour manipuler une lumière directement sur le modèle 3D) au sein de PETRA.
++ Intégrer les fonctionnalités de Render Button dans Petra
