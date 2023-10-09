@@ -1,9 +1,12 @@
 # C1, Décorrélation d'image
 
 ## Informations sur la décorrélation d'image
-- [Image Decorrelation with DStrecth, for archaeologists](http://www.dstretch.com/)
+- [Image Decorrelation with DStrecth, for archaeologists](http://www.dstretch.com/) - Outil obsolète depuis qu'ImageJ n'est plus maintenu.
+- [Image Decorrelation with ERA, for archaeologists](https://gitlab.huma-num.fr/fmonna/era-extraction-from-rock-art) - Outil évoluant dans un environnement logiciel à jour. Très simple d'utilisation et plus rapide que DStretch. Ne fonctionne que sous Windows. Pour le télécharger, aller dans la [branche Windows du Git](https://gitlab.huma-num.fr/fmonna/era-extraction-from-rock-art/-/tree/Windows_EXE?ref_type=heads)
 - [Image Decorrelation with Python](https://github.com/Dan-in-CA/decorrstretch)
 - [Image Decorrelation explanations](https://dhanushkadangampola.blogspot.com/2015/02/decorrelation-stretching.html)
+
+L'idéal serait d'intégrer la décorrelation d'image directement au sein de l'interface du plugin PETRA, dans Blender.
 
 ## Paramètres par défaut dans DStretch
 |  | L | A | B |
